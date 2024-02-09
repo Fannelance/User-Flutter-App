@@ -1,0 +1,62 @@
+{
+  "Cleaners": [
+      {
+        "workerName": "Mhmd Salam",
+        "workerPhoto": "https://www.shutterstock.com/shutterstock/photos/1918179122/display_1500/stock-photo-middle-age-bald-man-wearing-cleaner-apron-holding-cleaning-products-looking-positive-and-happy-1918179122.jpg",
+        "workerLocation": "Cairo",
+        "workerHourlyRate": "50",
+        "workerRating": "4.8"
+      },
+      {
+        "workerName": "Hassan Idris",
+        "workerPhoto": "https://as2.ftcdn.net/v2/jpg/02/71/38/99/1000_F_271389908_TeU2XysWbT1Lxlbum9IeLf9U4sH6Pz5j.jpg",
+        "workerLocation": "Alex",
+        "workerHourlyRate": "70",
+        "workerRating": "4.5"
+      },
+      {
+        "workerName": "Mhmd Salam",
+        "workerPhoto": "https://st.depositphotos.com/1570716/2291/i/950/depositphotos_22910290-stock-photo-male-cleaning-service.jpg",
+        "workerLocation": "Cairo",
+        "workerHourlyRate": "50",
+        "workerRating": "4.8"
+      },
+      {
+        "workerName": "Hassan Idris",
+        "workerPhoto": "https://st.depositphotos.com/1951613/4193/i/600/depositphotos_41932995-stock-photo-janitorial-cleaning-service.jpg",
+        "workerLocation": "Alex",
+        "workerHourlyRate": "70",
+        "workerRating": "4.5"
+      },
+      {
+        "workerName": "Mhmd Salam",
+        "workerPhoto": "https://www.shutterstock.com/shutterstock/photos/1918179122/display_1500/stock-photo-middle-age-bald-man-wearing-cleaner-apron-holding-cleaning-products-looking-positive-and-happy-1918179122.jpg",
+        "workerLocation": "Cairo",
+        "workerHourlyRate": "50",
+        "workerRating": "4.8"
+      },
+      {
+        "workerName": "Hassan Idris",
+        "workerPhoto": "https://as2.ftcdn.net/v2/jpg/02/71/38/99/1000_F_271389908_TeU2XysWbT1Lxlbum9IeLf9U4sH6Pz5j.jpg",
+        "workerLocation": "Alex",
+        "workerHourlyRate": "70",
+        "workerRating": "4.5"
+      },
+      {
+        "workerName": "Mhmd Salam",
+        "workerPhoto": "https://st.depositphotos.com/1570716/2291/i/950/depositphotos_22910290-stock-photo-male-cleaning-service.jpg",
+        "workerLocation": "Cairo",
+        "workerHourlyRate": "50",
+        "workerRating": "4.8"
+      },
+      {
+        "workerName": "Hassan Idris",
+        "workerPhoto": "https://st.depositphotos.com/1951613/4193/i/600/depositphotos_41932995-stock-photo-janitorial-cleaning-service.jpg",
+        "workerLocation": "Alex",
+        "workerHourlyRate": "70",
+        "workerRating": "4.5"
+      }
+      
+      
+    ]
+}

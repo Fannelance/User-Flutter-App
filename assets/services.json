@@ -1,0 +1,37 @@
+{
+  "Services": [
+    {
+      "serviceIcon": "assets/icons/carpentry.png",
+      "serviceName": "Carpentry",
+      "serviceOnTap": "lib/views/workers_view.dart"
+    },
+    {
+      "serviceIcon": "assets/icons/cleaning.png",
+      "serviceName": "Cleaning"
+    },
+    {
+      "serviceIcon": "assets/icons/painting.png",
+      "serviceName": "Painting"
+    },
+    {
+      "serviceIcon": "assets/icons/plumping.png",
+      "serviceName": "Plumping"
+    },
+    {
+      "serviceIcon": "assets/icons/electricity.png",
+      "serviceName": "Electricity"
+    },
+    {
+      "serviceIcon": "assets/icons/mechanic.png",
+      "serviceName": "Mechanic"
+    },
+    {
+      "serviceIcon": "assets/icons/gardening.png",
+      "serviceName": "Gardening"
+    },
+    {
+      "serviceIcon": "assets/icons/appliances.png",
+      "serviceName": "Home Appliances"
+    }
+  ]
+}

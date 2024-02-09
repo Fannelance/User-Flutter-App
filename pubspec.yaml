@@ -1,0 +1,48 @@
+name: fannelance
+description: "User Mobile App."
+
+publish_to: 'none' 
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  iconsax: ^0.0.8
+  # flutter_svg: ^2.0.9
+  fluttericon: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/icons/
+    - assets/
+
+  fonts:
+    - family: Gilroy-SemiBold
+      fonts:
+        - asset: assets/fonts/Gilroy-SemiBold.ttf
+   
+    - family: Gilroy-Bold
+      fonts:
+        - asset: assets/fonts/Gilroy-Bold.ttf
+
+    
+    - family: CustomIcons
+      fonts:
+        - asset: assets/fonts/CustomIcons.ttf
+ 
