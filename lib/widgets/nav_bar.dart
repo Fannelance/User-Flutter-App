@@ -1,4 +1,4 @@
-import 'package:fannelance/extras/colors.dart';
+import 'package:fannelance/extras/extras.dart';
 import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:fannelance/views/activity_view.dart';
 import 'package:fannelance/views/home_view.dart';
@@ -61,16 +61,18 @@ class NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: _viewslist.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-          elevation: 16,
+          elevation: 20,
           type: BottomNavigationBarType.fixed,
-          iconSize: 25,
-          unselectedFontSize: 15,
-          selectedFontSize: 15,
+          iconSize: screenWidth/16,
+          unselectedFontSize: screenWidth/28,
+          selectedFontSize: screenWidth/28,
           selectedItemColor: AppColors.black,
-          unselectedItemColor: AppColors.gray7,
+          unselectedItemColor: AppColors.grey7,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: navBarItems),

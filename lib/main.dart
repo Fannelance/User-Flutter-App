@@ -6,7 +6,7 @@ void main() {
 }
 
 class Fannelance extends StatelessWidget {
-   const Fannelance({super.key});
+  const Fannelance({super.key});
 
   @override
   Widget build(BuildContext context) {
