@@ -1,12 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
 import 'package:fannelance/views/workers_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fannelance/extras/extras.dart';
-import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:fannelance/models/services_model.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:searchfield/searchfield.dart';
 
 class SearchWidget extends StatefulWidget {
@@ -15,12 +10,11 @@ class SearchWidget extends StatefulWidget {
   const SearchWidget({Key? key, required this.servicesList}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _SearchWidgetState createState() => _SearchWidgetState();
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  List<ServicesModel> _searchResults = [];
-  TextEditingController _searchController = TextEditingController();
   final focus = FocusNode();
 
   @override
@@ -31,7 +25,7 @@ class _SearchWidgetState extends State<SearchWidget> {
 
     Widget getContainer(e) {
       return Container(
-        padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
           children: [
             SizedBox(
@@ -51,17 +45,17 @@ class _SearchWidgetState extends State<SearchWidget> {
                 ),
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 16),
             Text(
               e.serviceName,
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
           ],
         ),
       );
     }
 
-    final double screenWidth = MediaQuery.of(context).size.width;
+   
 
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25),
@@ -81,18 +75,18 @@ class _SearchWidgetState extends State<SearchWidget> {
         key: const Key('searchfield'),
         hint: 'Search Services...',
         itemHeight: 60,
-        suggestionItemDecoration: BoxDecoration(
-            color: Colors.white24, borderRadius: BorderRadius.circular(24)),
+        suggestionItemDecoration: const BoxDecoration(
+          color: Colors.white24, ),
         scrollbarDecoration: ScrollbarDecoration(),
         onTapOutside: (x) {
           focus.unfocus();
         },
         suggestionStyle: const TextStyle(
             fontSize: 20, color: Colors.black, fontFamily: 'Gilroy-Meduim'),
-        searchStyle: TextStyle(
+        searchStyle: const TextStyle(
             fontSize: 18, color: Colors.black, fontFamily: 'Gilroy-Meduim'),
         searchInputDecoration: InputDecoration(
-          hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
+          hintStyle: const TextStyle(fontSize: 18, color: Colors.grey),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(
@@ -112,12 +106,12 @@ class _SearchWidgetState extends State<SearchWidget> {
           fillColor: Colors.white,
           filled: true,
           contentPadding: const EdgeInsets.fromLTRB(12, 8, 12, 8) ,
-          prefixIcon: Icon(Icons.search),
+          prefixIcon: const Icon(Icons.search),
         ),
         suggestionsDecoration: SuggestionDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
+          borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(10),bottomRight: Radius.circular(10)),
         ),
          suggestions: services().map((e) {
            return SearchFieldListItem<ServicesModel>(
