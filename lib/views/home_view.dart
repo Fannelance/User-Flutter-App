@@ -2,6 +2,7 @@ import 'package:fannelance/extras/extras.dart';
 import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/widgets/home_widget.dart';
+import 'package:fannelance/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -48,24 +49,9 @@ class HomeViewState extends State<HomeView> {
           //search frame
           SizedBox(
             height: screenWidth/7,
-            child: Card(
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              color: AppColors.greyE8,
-              margin:const EdgeInsets.symmetric(horizontal: 20),
-              shadowColor:AppColors.black9,
-              elevation: 0.5,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 12,top: 2),
-                child: TextField(
-                  style: TextStyle(fontSize: screenWidth/20),
-                  decoration: InputDecoration(
-                    hintText: 'Search services',
-                    prefixIcon: Icon(CustomIcons.search, color: AppColors.black,size: screenWidth/16,),
-                    border: InputBorder.none,
-                  ),
-                ),
-              ),
-            ),
+           child:  SearchWidget(servicesList: servicesList),
+           
+          
           ),
 
           const SizedBox(height: 50),
