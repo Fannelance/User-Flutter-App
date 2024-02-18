@@ -1,4 +1,4 @@
-import 'package:fannelance/extras/extras.dart';
+import 'package:fannelance/core/styles.dart';
 import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:fannelance/models/worker_model.dart';
 import 'package:fannelance/widgets/worker_widget.dart';
@@ -33,19 +33,16 @@ class _WorkersViewState extends State<WorkersView> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => Navigator.of(context).pop(),
+            icon: Icon(
+              CustomIcons.backarrow,
+              size: screenWidth / 15,
+              color: AppColors.black,
+            )),
+      ),
       body: Column(children: [
-        Row(
-          children: [
-            IconButton(
-              padding: const EdgeInsets.only(left: 18, top: 50),
-              onPressed: () => Navigator.of(context).pop(),
-              icon: Icon(
-                CustomIcons.backarrow,
-                size: screenWidth/15,
-                color: AppColors.black,
-              )),
-          ],
-        ),
         const SizedBox(
           height: 15,
         ),
@@ -63,7 +60,8 @@ class _WorkersViewState extends State<WorkersView> {
           children: [
             IconButton(
               padding: const EdgeInsets.only(right: 35),
-              onPressed: () {},
+              onPressed: () {
+              },
               icon: Icon(
                 Iconsax.setting_4,
                 size: screenWidth/16,
@@ -89,7 +87,8 @@ class _WorkersViewState extends State<WorkersView> {
               );
             }
           ),
-        )
+        ),
+
       ]),
     );
   }
