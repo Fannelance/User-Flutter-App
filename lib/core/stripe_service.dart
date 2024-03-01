@@ -35,6 +35,7 @@ abstract class StripeService {
         customerId: customerId,
         customerEphemeralKeySecret: ephemeralKeySecret,
         merchantDisplayName: "Fannelance",
+        style: ThemeMode.light,
         appearance: const PaymentSheetAppearance(
           primaryButton: PaymentSheetPrimaryButtonAppearance(
             colors: PaymentSheetPrimaryButtonTheme(
