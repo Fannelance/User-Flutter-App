@@ -1,4 +1,5 @@
 import 'package:fannelance/models/services_model.dart';
+import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/service_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -27,16 +28,8 @@ class ServicesViewState extends State<ServicesView> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Services',
-          style: TextStyle(fontFamily: 'Gilroy-Bold', fontSize: screenWidth/9.7),
-        ),
-      ),
+      appBar: const AppbarWidget(title: 'Services'),
       body: ListView.builder(
         padding: const EdgeInsets.only(top: 5,bottom: 15),
         itemCount: servicesList.length,
