@@ -1,4 +1,3 @@
-import 'package:fannelance/extras/extras.dart';
 import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:fannelance/views/activity_view.dart';
 import 'package:fannelance/views/home_view.dart';
@@ -6,8 +5,8 @@ import 'package:fannelance/views/services_view.dart';
 import 'package:fannelance/views/user_view.dart';
 import 'package:flutter/material.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({
+class NavBarWidget extends StatefulWidget {
+  const NavBarWidget({
     Key? key,
   }) : super(key: key);
 
@@ -15,7 +14,7 @@ class NavBar extends StatefulWidget {
   NavBarState createState() => NavBarState();
 }
 
-class NavBarState extends State<NavBar> {
+class NavBarState extends State<NavBarWidget> {
   int _selectedIndex = 0;
   late List<Widget> _viewslist;
 
@@ -30,7 +29,7 @@ class NavBarState extends State<NavBar> {
       ),
       const ServicesView(),
       const ActivityView(),
-      const UserView()
+      const UserView(),
     ];
   }
 
@@ -68,11 +67,11 @@ class NavBarState extends State<NavBar> {
       bottomNavigationBar: BottomNavigationBar(
           elevation: 20,
           type: BottomNavigationBarType.fixed,
-          iconSize: screenWidth/16,
-          unselectedFontSize: screenWidth/28,
-          selectedFontSize: screenWidth/28,
-          selectedItemColor: AppColors.black,
-          unselectedItemColor: AppColors.grey7,
+          iconSize: screenWidth / 16,
+          unselectedFontSize: screenWidth / 28,
+          selectedFontSize: screenWidth / 28,
+          selectedItemColor: const Color(0xff000000),
+          unselectedItemColor: const Color(0xff777777),
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           items: navBarItems),
