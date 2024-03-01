@@ -6,11 +6,16 @@ class ServicesModel {
   final String serviceIcon;
   final String serviceName;
 
-  ServicesModel({ required this.serviceIcon, required this.serviceName});
+  ServicesModel({
+    required this.serviceIcon,
+    required this.serviceName,
+  });
 
   static Future<List<ServicesModel>> loadAndParseJson() async {
     try {
-      final String response = await rootBundle.loadString('assets/services.json');
+      final String response = await rootBundle.loadString(
+        'assets/services.json',
+      );
       final content = json.decode(response);
 
       if (content.isNotEmpty && content['Services'] is List) {

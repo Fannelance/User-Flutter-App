@@ -39,3 +39,38 @@ class AppStyles {
     );
   }
 }
+
+/*------------ CardServiceWidget ------------*/
+
+class CardServiceWidget {
+  final double height;
+  final double width;
+  final double padding;
+  final double border;
+  final String image;
+  late final SizedBox cardWidget;
+
+  CardServiceWidget(
+      {required this.height,
+      required this.width,
+      required this.border,
+      required this.image,
+      required this.padding}) {
+    cardWidget = SizedBox(
+      height: height,
+      width: width,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(border),
+        ),
+        color: const Color(0xffE8E8E8),
+        shadowColor: const Color(0xff999999),
+        elevation: 0.5,
+        child: Padding(
+          padding: EdgeInsets.all(padding),
+          child: Image.asset(image),
+        ),
+      ),
+    );
+  }
+}
