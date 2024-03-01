@@ -1,5 +1,5 @@
 import 'package:fannelance/core/stripe_service.dart';
-import 'package:fannelance/core/styles.dart';
+import 'package:fannelance/core/utils.dart';
 import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:fannelance/models/payment_intent_input_model.dart';
 import 'package:fannelance/models/worker_model.dart';
@@ -18,19 +18,19 @@ class WorkerWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        PaymentIntentInputModel paymentIntentInputModel =
-            PaymentIntentInputModel(amount: 40, currency: 'EGP');
-        StripeService.makePayment(paymentIntentInputModel);
+        PaymentIntentInputModel paymentInputModel =
+            PaymentIntentInputModel(amount: 40, currency: 'EGP',customerId: 'cus_PbfjLHEmbwUdrx',);
+        StripeService.makePayment(paymentIntentInputModel: paymentInputModel);
       },
       child: Container(
         height: screenWidth / 3,
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-            color: AppColors.white,
+            color: const Color(0xffFFFFFF),
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
-                color: AppColors.greyC8,
+                color: Color(0xffC8C8C8),
                 blurRadius: 1,
               )
             ]),
@@ -38,7 +38,9 @@ class WorkerWidget extends StatelessWidget {
           children: [
             //image
             ProfilePicture(
-                imagePath: obj.workerPhoto, defaultIcon: Icons.account_circle),
+              imagePath: obj.workerPhoto,
+              defaultIcon: Icons.account_circle,
+            ),
             const Spacer(
               flex: 1,
             ),
@@ -47,7 +49,7 @@ class WorkerWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               obj.workerName,
               maxLines: 2,
-              style: TextStyle(fontSize: screenWidth / 19, height: 1),
+              style: AppStyles(fontSize: screenWidth / 19).styleWorker,
             ),
             const Spacer(
               flex: 1,
@@ -61,18 +63,18 @@ class WorkerWidget extends StatelessWidget {
                   rating: 3.5,
                   itemBuilder: (context, index) => const Icon(
                     Icons.star,
-                    color: Colors.black,
+                    color: Color(0xff000000),
                   ),
                   itemCount: 5,
                   itemSize: screenWidth / 20,
-                  unratedColor: Colors.black.withAlpha(50),
+                  unratedColor: const Color(0xff000000).withAlpha(50),
                   direction: Axis.horizontal,
                 ),
               ],
             ),
-            Divider(
+            const Divider(
               thickness: 1,
-              color: AppColors.greyC8,
+              color: Color(0xffC8C8C8),
               height: 25,
             ),
 
@@ -80,27 +82,31 @@ class WorkerWidget extends StatelessWidget {
             Row(
               children: [
                 //price
-                Icon(FontAwesome.pound,
-                    size: screenWidth / 28, color: AppColors.grey5),
+                Icon(
+                  FontAwesome.pound,
+                  size: screenWidth / 28,
+                  color: const Color(0xff555555),
+                ),
                 Text(
                   obj.workerHourlyRate.toString(),
-                  style: TextStyle(
-                      color: AppColors.grey5, fontSize: screenWidth / 25),
+                  style: AppStyles(fontSize: screenWidth / 25).styleGrey5,
                 ),
                 Text(
                   "/hour",
-                  style: TextStyle(
-                      color: AppColors.grey5, fontSize: screenWidth / 25),
+                  style: AppStyles(fontSize: screenWidth / 25).styleGrey5,
                 ),
                 const Spacer(),
+
                 //location
-                Icon(CustomIcons.location,
-                    size: screenWidth / 28, color: AppColors.grey5),
+                Icon(
+                  CustomIcons.location,
+                  size: screenWidth / 28,
+                  color: const Color(0xff555555),
+                ),
                 const SizedBox(width: 2),
                 Text(
                   obj.workerLocation,
-                  style: TextStyle(
-                      color: AppColors.grey5, fontSize: screenWidth / 25),
+                  style: AppStyles(fontSize: screenWidth / 25).styleGrey5,
                 ),
               ],
             ),
