@@ -1,4 +1,4 @@
-import 'package:fannelance/extras/extras.dart';
+import 'package:fannelance/core/utils.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/views/workers_view.dart';
 import 'package:flutter/material.dart';
@@ -19,27 +19,16 @@ class HomeWidget extends StatelessWidget {
       },
       child: Column(
         children: [
-          SizedBox(
-            height: screenWidth/4.4,
-            width: screenWidth/4.4,
-            child: Card(
-              shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-              color: AppColors.greyE8,
-              shadowColor:AppColors.black9,
-              elevation: 0.5,
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Image.asset(
-                  obj.serviceIcon,
-                ),
-              ),
-            ),
-          ),
-
-         
+          CardServiceWidget(
+            border: 20,
+            height: screenWidth / 4.4,
+            width: screenWidth / 4.4,
+            image: obj.serviceIcon,
+            padding: 20)
+              .cardWidget,
           Text(
             obj.serviceName,
-            style: TextStyle(fontSize: screenWidth/26),
+            style: TextStyle(fontSize: screenWidth / 26),
           )
         ],
       ),

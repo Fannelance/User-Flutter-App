@@ -5,54 +5,94 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 abstract class StripeService {
-  //method =>> create payment intent on the server
-  static Future createPaymentIntent(PaymentIntentInputModel paymentIntentInputModel) async {
-    await dotenv.load(fileName: '.env');
+  //create payment intent
+  static Future createPaymentIntent({
+    required PaymentIntentInputModel paymentIntentInputModel,
+  }) async {
     Dio dio = Dio();
-    var response = await dio.post('https://api.stripe.com/v1/payment_intents',
-        options: Options(
-          headers: {
-            'Authorization': 'Bearer ${ dotenv.env['secretKey']}',
-            'Content-Type': Headers.formUrlEncodedContentType
-          },
-        ),
-        data: paymentIntentInputModel.toJson());
-
+    var response = await dio.post(
+      'https://api.stripe.com/v1/payment_intents',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer ${dotenv.env['secretKey']}',
+          'Content-Type': Headers.formUrlEncodedContentType
+        },
+      ),
+      data: paymentIntentInputModel.toJson(),
+    );
     return response.data;
   }
 
-  //method =>>  initialize the payment sheet
-  static Future<void> initializePaymentSheet(paymentObject) async {
+  //initialize the payment sheet
+  static Future<void> initializePaymentSheet({
+    required String clientSecret,
+    required String customerId,
+    required String ephemeralKeySecret,
+  }) async {
     await Stripe.instance.initPaymentSheet(
       paymentSheetParameters: SetupPaymentSheetParameters(
-          paymentIntentClientSecret: paymentObject['client_secret'],
-          merchantDisplayName: "Amira",
-          appearance: const PaymentSheetAppearance(
-              primaryButton: PaymentSheetPrimaryButtonAppearance(
-                  colors: PaymentSheetPrimaryButtonTheme(
-                      light: PaymentSheetPrimaryButtonThemeColors(
-                          background: Colors.black))))
-          // customerId: customerId
+        paymentIntentClientSecret: clientSecret,
+        customerId: customerId,
+        customerEphemeralKeySecret: ephemeralKeySecret,
+        merchantDisplayName: "Fannelance",
+        appearance: const PaymentSheetAppearance(
+          primaryButton: PaymentSheetPrimaryButtonAppearance(
+            colors: PaymentSheetPrimaryButtonTheme(
+              light: PaymentSheetPrimaryButtonThemeColors(
+                background: Color(0xff000000),
+              ),
+            ),
           ),
+        ),
+      ),
     );
   }
 
-  //method =>> present payment sheet
+  //present payment sheet
   static Future presentPaymentSheet() async {
     await Stripe.instance.presentPaymentSheet();
   }
 
-  //method to call the main 3 methods
+  //create Ephemeral Key
+  static Future createEphemeralKey({
+    required String customer,
+  }) async {
+    Dio dio = Dio();
+    var response = await dio.post(
+      'https://api.stripe.com/v1/ephemeral_keys',
+      data: {'customer': customer},
+      options: Options(
+        headers: {
+          'Authorization': "Bearer ${dotenv.env['secretKey']}",
+          'Stripe-Version': '2023-10-16',
+          'Content-Type': Headers.formUrlEncodedContentType,
+        },
+      ),
+    );
+    return response.data;
+  }
 
-  static Future<void> makePayment(
-      PaymentIntentInputModel paymentIntentInputModel) async {
+  //call the 4 methods
+  static Future<void> makePayment({
+    required PaymentIntentInputModel paymentIntentInputModel,
+  }) async {
     try {
-      // var paymentIntent = await createPaymentIntent((amount*100),currency);
-      var paymentIntent = await createPaymentIntent(paymentIntentInputModel);
-      await initializePaymentSheet(paymentIntent);
+      var paymentIntent = await createPaymentIntent(
+        paymentIntentInputModel: paymentIntentInputModel,
+      );
+      var ephemeralKey = await createEphemeralKey(
+        customer: paymentIntentInputModel.customerId,
+      );
+      await initializePaymentSheet(
+        clientSecret: paymentIntent['client_secret'],
+        customerId: paymentIntentInputModel.customerId,
+        ephemeralKeySecret: ephemeralKey['secret'],
+      );
       await presentPaymentSheet();
     } catch (error) {
-      throw Exception(error.toString());
+      throw Exception(
+        error.toString(),
+      );
     }
   }
 }

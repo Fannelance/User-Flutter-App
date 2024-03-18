@@ -1,4 +1,3 @@
-import 'package:fannelance/extras/extras.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/views/workers_view.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +23,11 @@ class ServicesWidget extends StatelessWidget {
         width: double.infinity,
         height: screenWidth/5.5,
         decoration: BoxDecoration(
-          color: AppColors.white,
+          color: const Color(0xffFFFFFF),
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
-              color: AppColors.greyC8,
+              color: Color(0xff888888),
               blurRadius: 1,
             ),
           ]),
@@ -43,8 +42,7 @@ class ServicesWidget extends StatelessWidget {
               padding: const EdgeInsets.only(top: 4, left: 15),
               child: Text(
                 obj.serviceName,
-                style: TextStyle(
-                    fontFamily: 'Gilroy-SemiBold', fontSize: screenWidth/18),
+                style: TextStyle( fontSize: screenWidth/18),
               ),
             ),
             const Spacer(

@@ -1,14 +1,18 @@
-import 'package:fannelance/extras/extras.dart';
-import 'package:fannelance/models/custom_icons_icons.dart';
+import 'package:fannelance/core/utils.dart';
 import 'package:fannelance/models/services_model.dart';
+import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/home_widget.dart';
 import 'package:fannelance/widgets/search_widget.dart';
+// import 'package:fannelance/widgets/searchhh.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
   final Function(int) onLinkPressed;
 
-  const HomeView({Key? key, required this.onLinkPressed}) : super(key: key);
+  const HomeView({
+    Key? key,
+    required this.onLinkPressed,
+  }) : super(key: key);
 
   @override
   HomeViewState createState() => HomeViewState();
@@ -34,39 +38,34 @@ class HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    
+
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Fannelance',
-          style: TextStyle(fontFamily: 'Gilroy-Bold', fontSize: screenWidth/9.7),
-        ),
+      appBar: const AppbarWidget(
+        title: 'Fannelance',
       ),
       body: Column(
         children: [
           const SizedBox(height: 40),
-          //search frame
-          SizedBox(
-            height: screenWidth/7,
-           child:  SearchWidget(servicesList: servicesList),
-           
-          
-          ),
 
-          const SizedBox(height: 50),
+          //search frame
+          SearchWidget(servicesList: servicesList),
+
+          const SizedBox(height: 70),
+
           //suggestions frame
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 28),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //suggestions
                 Text(
                   'Suggestions',
                   style: TextStyle(
-                    fontSize: screenWidth/15,
+                    fontSize: screenWidth / 15,
                   ),
                 ),
+                //see all
                 GestureDetector(
                   onTap: () {
                     widget.onLinkPressed(1);
@@ -75,13 +74,8 @@ class HomeViewState extends State<HomeView> {
                     padding: const EdgeInsets.only(top: 4),
                     child: Text(
                       'See All',
-                      style: TextStyle(
-                        shadows: const [Shadow(offset: Offset(0, -2))],
-                        color: Colors.transparent,
-                        decoration: TextDecoration.underline,
-                        decorationThickness: 1.5,
-                        fontSize: screenWidth/23,
-                      ),
+                      style:
+                          AppStyles(fontSize: screenWidth / 23).styleUnderline,
                     ),
                   ),
                 ),

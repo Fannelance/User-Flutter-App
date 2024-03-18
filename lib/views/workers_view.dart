@@ -1,4 +1,4 @@
-import 'package:fannelance/core/styles.dart';
+import 'package:fannelance/core/utils.dart';
 import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:fannelance/models/worker_model.dart';
 import 'package:fannelance/widgets/worker_widget.dart';
@@ -39,56 +39,56 @@ class _WorkersViewState extends State<WorkersView> {
             icon: Icon(
               CustomIcons.backarrow,
               size: screenWidth / 15,
-              color: AppColors.black,
+              color: const Color(0xff000000),
             )),
       ),
       body: Column(children: [
         const SizedBox(
           height: 15,
         ),
-        
-          Padding(
-            padding: const EdgeInsets.only(left: 16),
-            child: Text(
-              "Best cleaners in your hands",
-               style: TextStyle(fontFamily: 'Gilroy-Bold', fontSize: screenWidth/13, height: 1.2),
-            ),
+        Padding(
+          padding: const EdgeInsets.only(left: 16),
+          child: Text(
+            "Best cleaners in your hands",
+            style: AppStyles(fontSize: screenWidth / 13).styleTitle2,
           ),
-        
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             IconButton(
               padding: const EdgeInsets.only(right: 35),
-              onPressed: () {
-              },
+              onPressed: () {},
               icon: Icon(
                 Iconsax.setting_4,
-                size: screenWidth/16,
-                color: AppColors.black,
-              )),
+                size: screenWidth / 16,
+                color: const Color(0xff000000),
+              ),
+            ),
           ],
         ),
-        
         Expanded(
           child: GridView.builder(
-            padding:const EdgeInsets.only(left: 10,right: 10,bottom: 15,top: 1),
-            itemCount: workersList.length,
-            shrinkWrap: true,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 0.75,
-              crossAxisCount: 2,
-              mainAxisSpacing: 15,
-              crossAxisSpacing: 10,
-            ),
-            itemBuilder: (context, index) {
-              return WorkerWidget(
-                obj: workersList[index],
-              );
-            }
-          ),
+              padding: const EdgeInsets.only(
+                left: 10,
+                right: 10,
+                bottom: 15,
+                top: 1,
+              ),
+              itemCount: workersList.length,
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                childAspectRatio: 0.75,
+                crossAxisCount: 2,
+                mainAxisSpacing: 15,
+                crossAxisSpacing: 10,
+              ),
+              itemBuilder: (context, index) {
+                return WorkerWidget(
+                  obj: workersList[index],
+                );
+              }),
         ),
-
       ]),
     );
   }
