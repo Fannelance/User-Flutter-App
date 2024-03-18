@@ -110,7 +110,7 @@ class SearchWidgetState extends State<SearchWidget> {
         child: SearchField(
           //suggestions list
           suggestions: _getSearchHistoryList(),
-          itemHeight: screenWidth / 6.5,
+          itemHeight: screenWidth / 5.5,
           maxSuggestionsInViewPort: 4,
           suggestionsDecoration: SuggestionDecoration(
             border: Border.all(color: const Color(0xff999999), width: 0.8),

@@ -1,8 +1,8 @@
 import 'package:fannelance/models/custom_icons_icons.dart';
-import 'package:fannelance/views/activity_view.dart';
+// import 'package:fannelance/views/activity_view.dart';
 import 'package:fannelance/views/home_view.dart';
 import 'package:fannelance/views/services_view.dart';
-import 'package:fannelance/views/user_view.dart';
+// import 'package:fannelance/views/user_view.dart';
 import 'package:flutter/material.dart';
 
 class NavBarWidget extends StatefulWidget {
@@ -28,8 +28,8 @@ class NavBarState extends State<NavBarWidget> {
         },
       ),
       const ServicesView(),
-      const ActivityView(),
-      const UserView(),
+      // const ActivityView(),
+      // const UserView(),
     ];
   }
 
