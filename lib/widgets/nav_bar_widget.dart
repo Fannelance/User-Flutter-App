@@ -1,3 +1,4 @@
+import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/custom_icons_icons.dart';
 // import 'package:fannelance/views/activity_view.dart';
 import 'package:fannelance/views/home_view.dart';
@@ -65,16 +66,17 @@ class NavBarState extends State<NavBarWidget> {
     return Scaffold(
       body: _viewslist.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
-          elevation: 20,
-          type: BottomNavigationBarType.fixed,
-          iconSize: screenWidth / 16,
-          unselectedFontSize: screenWidth / 28,
-          selectedFontSize: screenWidth / 28,
-          selectedItemColor: const Color(0xff000000),
-          unselectedItemColor: const Color(0xff777777),
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          items: navBarItems),
+        elevation: 20,
+        type: BottomNavigationBarType.fixed,
+        iconSize: screenWidth / 16,
+        unselectedFontSize: screenWidth / 28,
+        selectedFontSize: screenWidth / 28,
+        selectedItemColor: black,
+        unselectedItemColor: grey7,
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        items: navBarItems,
+      ),
     );
   }
 }

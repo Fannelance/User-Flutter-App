@@ -1,3 +1,4 @@
+import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/widgets/service_search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fannelance/models/services_model.dart';
@@ -113,7 +114,7 @@ class SearchWidgetState extends State<SearchWidget> {
           itemHeight: screenWidth / 5.5,
           maxSuggestionsInViewPort: 4,
           suggestionsDecoration: SuggestionDecoration(
-            border: Border.all(color: const Color(0xff999999), width: 0.8),
+            border: Border.all(color: grey9, width: 0.8),
             borderRadius: const BorderRadius.vertical(
               bottom: Radius.circular(10),
             ),
@@ -126,9 +127,9 @@ class SearchWidgetState extends State<SearchWidget> {
           searchInputDecoration: InputDecoration(
             hintStyle: TextStyle(
               fontSize: screenWidth / 22,
-              color: const Color(0xff999999),
+              color: grey9,
             ),
-            fillColor: const Color(0xffE8E8E8),
+            fillColor: greyE8,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,
@@ -138,14 +139,14 @@ class SearchWidgetState extends State<SearchWidget> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(
-                color: Color(0xff999999),
+                color: grey9,
                 width: 0.2,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(
-                color: Color(0xff999999),
+                color: grey9,
                 width: 0.2,
               ),
             ),

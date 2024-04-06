@@ -1,3 +1,4 @@
+import 'package:fannelance/core/constants.dart';
 import 'package:flutter/material.dart';
 
 class AppStyles {
@@ -18,7 +19,7 @@ class AppStyles {
     );
 
     styleGrey5 = TextStyle(
-      color: const Color(0xff555555),
+      color: grey5,
       fontSize: fontSize,
     );
 
@@ -63,8 +64,8 @@ class CardServiceWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(border),
         ),
-        color: const Color(0xffE8E8E8),
-        shadowColor: const Color(0xff999999),
+        color: greyE8,
+        shadowColor: grey9,
         elevation: 0.5,
         child: Padding(
           padding: EdgeInsets.all(padding),

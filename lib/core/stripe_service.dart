@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/payment_intent_input_model.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
@@ -39,7 +39,7 @@ abstract class StripeService {
           primaryButton: PaymentSheetPrimaryButtonAppearance(
             colors: PaymentSheetPrimaryButtonTheme(
               light: PaymentSheetPrimaryButtonThemeColors(
-                background: Color(0xff000000),
+                background: black,
               ),
             ),
           ),
