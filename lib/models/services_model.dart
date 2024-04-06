@@ -1,6 +1,5 @@
-import 'dart:convert';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ServicesModel {
   final String serviceIcon;
@@ -13,28 +12,34 @@ class ServicesModel {
 
   static Future<List<ServicesModel>> loadAndParseJson() async {
     try {
-      final String response = await rootBundle.loadString(
-        'assets/services.json',
-      );
-      final content = json.decode(response);
+      await dotenv.load(fileName: '.env');
+      final String serverURL = dotenv.env['serverURL']!;
 
-      if (content.isNotEmpty && content['Services'] is List) {
-        List<ServicesModel> servicesList = (content['Services'] as List)
-            .map((servicesList) => ServicesModel.fromJson(servicesList))
-            .toList();
+      Dio dio = Dio();
+      final String url = '$serverURL/services-list';
+      final Response response = await dio.get(url);
 
-        return servicesList;
-      } else {
-        if (kDebugMode) {
-          print("JSON file is empty or does not contain 'Services' key");
+      if (response.statusCode == 200) {
+        final dynamic responseData = response.data;
+
+        if (responseData is Map<String, dynamic> &&
+            responseData.containsKey('services')) {
+          final List<dynamic> services = responseData['services'];
+          List<ServicesModel> servicesList = services
+              .map((serviceJson) => ServicesModel.fromJson(serviceJson))
+              .toList();
+          print("Loaded ${servicesList.length} services from server");
+          return servicesList;
+        } else {
+          print("No data field found in the response or data is not an array");
+          return [];
         }
+      } else {
+        print("Failed to load data from server: ${response.statusCode}");
         return [];
       }
     } catch (e) {
-      if (kDebugMode) {
-        print("Error reading/parsing JSON file: $e");
-      }
-
+      print("Error reading/parsing JSON response from server: $e");
       return [];
     }
   }
