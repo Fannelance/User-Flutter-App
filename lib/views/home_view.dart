@@ -3,7 +3,6 @@ import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/home_widget.dart';
 import 'package:fannelance/widgets/search_widget.dart';
-// import 'package:fannelance/widgets/searchhh.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -74,8 +73,9 @@ class HomeViewState extends State<HomeView> {
                     padding: const EdgeInsets.only(top: 4),
                     child: Text(
                       'See All',
-                      style:
-                          AppStyles(fontSize: screenWidth / 23).styleUnderline,
+                      style: AppStyles(
+                        fontSize: screenWidth / 23,
+                      ).styleUnderline,
                     ),
                   ),
                 ),
