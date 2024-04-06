@@ -1,4 +1,4 @@
-import 'package:fannelance/views/workers_view.dart';
+import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/widgets/service_search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fannelance/models/services_model.dart';
@@ -19,28 +19,85 @@ class SearchWidget extends StatefulWidget {
 class SearchWidgetState extends State<SearchWidget> {
   final focus = FocusNode();
 
+  // History method
   final List<String> emptyList = [''];
-  
-  List<String> _getEmptyList() {
-    return emptyList;
+
+  List<ServicesModel> searchHistoryList = [];
+
+  void _addToSearchHistoryList(ServicesModel e) {
+    setState(() {
+      if (!searchHistoryList.contains(e)) {
+        searchHistoryList.insert(0, e);
+      }
+    });
   }
 
+  void _removeFromSearchHistoryList(ServicesModel e) {
+    setState(() {
+      searchHistoryList.remove(e);
+    });
+  }
+
+  List<SearchFieldListItem<ServicesModel>> _getSearchHistoryList() {
+    if (searchHistoryList.isEmpty) {
+      return emptyList
+          .map((e) => SearchFieldListItem<ServicesModel>(
+                '',
+                child: const EmptySearchWidget(),
+              ))
+          .toList();
+    } else {
+      return searchHistoryList
+          .map((e) => SearchFieldListItem<ServicesModel>(
+                '',
+                item: e,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ServiceSearchWidget(
+                        obj: e,
+                        addToSearchHistoryList: _addToSearchHistoryList,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        _removeFromSearchHistoryList(e);
+                      },
+                      icon: const Icon(
+                        Icons.clear,
+                      ),
+                    ),
+                  ],
+                ),
+              ))
+          .toList();
+    }
+  }
+
+  //search method
   List<ServicesModel> _getServicesList() {
     return widget.servicesList;
   }
 
-  //search method
   List<SearchFieldListItem<ServicesModel>> _onSearchTextChanged(String query) {
     final filter = _getServicesList()
         .where((element) =>
             element.serviceName.toLowerCase().contains(query.toLowerCase()))
         .toList();
-    return filter
-        .map((e) => SearchFieldListItem<ServicesModel>(
-              e.serviceName,
-              child: ServiceSearchWidget(obj: e),
-            ))
-        .toList();
+    if (query.isNotEmpty) {
+      return filter
+          .map((e) => SearchFieldListItem<ServicesModel>(
+                '',
+                item: e,
+                child: ServiceSearchWidget(
+                  obj: e,
+                  addToSearchHistoryList: _addToSearchHistoryList,
+                ),
+              ))
+          .toList();
+    } else {
+      return _getSearchHistoryList();
+    }
   }
 
   @override
@@ -53,19 +110,11 @@ class SearchWidgetState extends State<SearchWidget> {
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: SearchField(
           //suggestions list
-          suggestions: _getEmptyList()
-              .map((e) => SearchFieldListItem<ServicesModel>(''))
-              .toList(),
-          onSuggestionTap: (SearchFieldListItem<ServicesModel> item) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const WorkersView()),
-            );
-          },
-          itemHeight: screenWidth / 6.5,
+          suggestions: _getSearchHistoryList(),
+          itemHeight: screenWidth / 5.5,
           maxSuggestionsInViewPort: 4,
           suggestionsDecoration: SuggestionDecoration(
-            border: Border.all(color: const Color(0xff999999), width: 0.5),
+            border: Border.all(color: grey9, width: 0.8),
             borderRadius: const BorderRadius.vertical(
               bottom: Radius.circular(10),
             ),
@@ -78,9 +127,9 @@ class SearchWidgetState extends State<SearchWidget> {
           searchInputDecoration: InputDecoration(
             hintStyle: TextStyle(
               fontSize: screenWidth / 22,
-              color: const Color(0xff999999),
+              color: grey9,
             ),
-            fillColor: const Color(0xffE8E8E8),
+            fillColor: greyE8,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,
@@ -90,14 +139,14 @@ class SearchWidgetState extends State<SearchWidget> {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(
-                color: Color(0xff999999),
+                color: grey9,
                 width: 0.2,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(16),
               borderSide: const BorderSide(
-                color: Color(0xff999999),
+                color: grey9,
                 width: 0.2,
               ),
             ),
@@ -107,7 +156,6 @@ class SearchWidgetState extends State<SearchWidget> {
           onTapOutside: (pointer) {
             focus.unfocus();
           },
-          // key: const Key('searchfield'),
         ),
       ),
     );
