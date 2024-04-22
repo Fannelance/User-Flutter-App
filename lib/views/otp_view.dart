@@ -22,7 +22,6 @@ class OTPView extends StatefulWidget {
 
 class OTPViewState extends State<OTPView> {
   final focusNode = FocusNode();
-  // final formKey = GlobalKey<FormState>();
   String pinController = '';
 
   @override

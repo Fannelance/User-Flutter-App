@@ -1,6 +1,6 @@
-import 'package:fannelance/core/utils.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/views/workers_view.dart';
+import 'package:fannelance/widgets/service_search_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -24,8 +24,8 @@ class HomeWidget extends StatelessWidget {
             height: screenWidth / 4.4,
             width: screenWidth / 4.4,
             image: obj.serviceIcon,
-            padding: 20)
-              .cardWidget,
+            padding: 20,
+          ),
           Text(
             obj.serviceName,
             style: TextStyle(fontSize: screenWidth / 26),
