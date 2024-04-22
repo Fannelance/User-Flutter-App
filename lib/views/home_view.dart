@@ -1,4 +1,4 @@
-import 'package:fannelance/core/utils.dart';
+import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/home_widget.dart';
@@ -44,12 +44,14 @@ class HomeViewState extends State<HomeView> {
       ),
       body: Column(
         children: [
-          const SizedBox(height: 40),
+          box_40,
 
           //search frame
-          SearchWidget(servicesList: servicesList),
+          SearchWidget(
+            servicesList: servicesList,
+          ),
 
-          const SizedBox(height: 70),
+          box_70,
 
           //suggestions frame
           Padding(
@@ -70,12 +72,14 @@ class HomeViewState extends State<HomeView> {
                     widget.onLinkPressed(1);
                   },
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 4),
+                    padding: const EdgeInsets.only(
+                      top: 4,
+                    ),
                     child: Text(
                       'See All',
-                      style: AppStyles(
+                      style: underlineStyle.copyWith(
                         fontSize: screenWidth / 23,
-                      ).styleUnderline,
+                      ),
                     ),
                   ),
                 ),
@@ -83,7 +87,9 @@ class HomeViewState extends State<HomeView> {
             ),
           ),
 
-          const SizedBox(height: 18),
+          const SizedBox(
+            height: 18,
+          ),
 
           //services frame
           Expanded(

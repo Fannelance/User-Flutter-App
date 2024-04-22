@@ -136,10 +136,9 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
               children: [
                 Expanded(
                   child: ClipRRect(
-                    clipBehavior: Clip.hardEdge,
                     borderRadius: BorderRadius.circular(80),
                     child: Image.asset(
-                      'assets/icons/Frame.png',
+                      'assets/icons/electrician.png',
                     ),
                   ),
                 ),

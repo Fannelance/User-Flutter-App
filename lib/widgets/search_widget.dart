@@ -44,7 +44,7 @@ class SearchWidgetState extends State<SearchWidget> {
           .map((e) => SearchFieldListItem<ServicesModel>(
                 '',
                 child: const EmptySearchWidget(),
-              ))
+              ),)
           .toList();
     } else {
       return searchHistoryList
@@ -115,9 +115,7 @@ class SearchWidgetState extends State<SearchWidget> {
           maxSuggestionsInViewPort: 4,
           suggestionsDecoration: SuggestionDecoration(
             border: Border.all(color: grey9, width: 0.8),
-            borderRadius: const BorderRadius.vertical(
-              bottom: Radius.circular(10),
-            ),
+            borderRadius: border10,
           ),
 
           //search field
@@ -136,20 +134,8 @@ class SearchWidgetState extends State<SearchWidget> {
               vertical: 8,
             ),
             prefixIcon: const Icon(Icons.search),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: grey9,
-                width: 0.2,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(16),
-              borderSide: const BorderSide(
-                color: grey9,
-                width: 0.2,
-              ),
-            ),
+            focusedBorder: searchFieldBorder,
+            enabledBorder: searchFieldBorder,
           ),
 
           focusNode: focus,

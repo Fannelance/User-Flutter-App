@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ServicesModel {
   final String serviceIcon;
@@ -15,9 +16,24 @@ class ServicesModel {
       await dotenv.load(fileName: '.env');
       final String serverURL = dotenv.env['serverURL']!;
 
+      const secureStorage = FlutterSecureStorage();
+      String? token = await secureStorage.read(key: 'token');
+      
       Dio dio = Dio();
       final String url = '$serverURL/services-list';
-      final Response response = await dio.get(url);
+
+      final Response response = await dio.get(
+        url,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          validateStatus: (status) {
+            return true;
+          },
+        ),
+      );
 
       if (response.statusCode == 200) {
         final dynamic responseData = response.data;

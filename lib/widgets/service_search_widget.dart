@@ -1,4 +1,4 @@
-import 'package:fannelance/core/utils.dart';
+import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/views/workers_view.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +35,7 @@ class ServiceSearchWidget extends StatelessWidget {
               width: screenWidth / 7.5,
               image: obj.serviceIcon,
               padding: screenWidth / 60,
-            ).cardWidget,
+            ),
             const SizedBox(
               width: 15,
             ),
@@ -52,7 +52,7 @@ class ServiceSearchWidget extends StatelessWidget {
   }
 }
 
-/* Empty Search Widget */
+/*------------ EmptySearchWidget ------------*/
 
 class EmptySearchWidget extends StatelessWidget {
   const EmptySearchWidget({
@@ -63,12 +63,56 @@ class EmptySearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Center(
-      child: Text(
-        'No recent searches',
-        style: TextStyle(
-          fontSize: screenWidth / 20,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Text(
+          'No recent searches',
+          style: TextStyle(
+            fontSize: screenWidth / 20,
+          ),
         ),
       ),
     );
   }
 }
+
+
+/*------------ CardServiceWidget ------------*/
+
+class CardServiceWidget extends StatelessWidget {
+  final double height;
+  final double width;
+  final double padding;
+  final double border;
+  final String image;
+
+  const CardServiceWidget({
+    super.key,
+    required this.height,
+    required this.width,
+    required this.padding,
+    required this.border,
+    required this.image,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: height,
+      width: width,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(border),
+        ),
+        color: greyE8,
+        shadowColor: grey9,
+        elevation: 0.5,
+        child: Padding(
+          padding: EdgeInsets.all(padding),
+          child: Image.asset(image),
+        ),
+      ),
+    );
+  }
+}
+

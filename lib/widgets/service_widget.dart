@@ -23,10 +23,10 @@ class ServicesWidget extends StatelessWidget {
         margin: const EdgeInsets.only(left: 25, right: 25, top: 13),
         width: double.infinity,
         height: screenWidth/5.5,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: const [
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
             BoxShadow(
               color: grey8,
               blurRadius: 1,
