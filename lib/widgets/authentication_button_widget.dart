@@ -1,0 +1,52 @@
+import 'package:fannelance/core/constants.dart';
+import 'package:flutter/material.dart';
+
+class AuthenticationButtonWidget extends StatelessWidget {
+  final String buttonText;
+  final Future<void> Function()? buttonOnPressed;
+  final Color? textColor;
+  final Color? buttonColor;
+  final Color? borderColor;
+
+  const AuthenticationButtonWidget({
+    super.key,
+    required this.buttonText,
+    this.buttonOnPressed,
+    this.textColor = white,
+    this.buttonColor = black,
+    this.borderColor = black,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+
+    return ElevatedButton(
+      onPressed: buttonOnPressed,
+      style: ButtonStyle(
+        fixedSize: MaterialStateProperty.all(
+          Size(
+            screenWidth-50,
+            screenWidth/7.3,
+          ),
+        ),
+        backgroundColor: MaterialStateProperty.all(buttonColor),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: border16,
+            side: BorderSide(color: borderColor!),
+          ),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          buttonText,
+          style: TextStyle(
+            color: textColor,
+            fontSize: screenWidth / 19,
+          ),
+        ),
+      ),
+    );
+  }
+}
