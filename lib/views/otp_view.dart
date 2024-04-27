@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/views/signup_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
-import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -51,9 +49,9 @@ class OTPViewState extends State<OTPView> {
       border: Border.all(color: focusedBorderColor),
     );
 
-    final errorPinTheme = defaultPinTheme.copyBorderWith(
-      border: Border.all(color: redAccent),
-    );
+    // final errorPinTheme = defaultPinTheme.copyBorderWith(
+    //   border: Border.all(color: redAccent),
+    // );
 
     Future<void> otpRequest() async {
       try {
@@ -108,25 +106,31 @@ class OTPViewState extends State<OTPView> {
           children: [
             box_20,
             //title
-            Text(
-              'Enter OTP code',
-              style: TextStyle(
-                fontSize: screenWidth / 18,
-                fontWeight: FontWeight.bold,
+            SizedBox(
+              width: screenWidth/1.6,
+              child: Text(
+                'Verify your phone number',
+                style: TextStyle(
+                  fontSize: screenWidth / 11,
+                  // fontWeight: FontWeight.bold,
+                  height: 1.1,
+                  fontFamily: bold,
+                ),
               ),
             ),
-            box_10,
+            box_15,
             //note
             Row(
               children: [
                 Flexible(
                   child: Text(
-                    'Code has been sent to +${PhoneNumberViewState.countryDialCode + PhoneNumberViewState.phoneNumberController.text}',
+                    // 'We sent an SMS with a 5-digit code to XXX XXXX X${PhoneNumberViewState.phoneNumberController.text.substring(7)}',
+                    'We sent an SMS with a 5-digit code to XXX XXXX X${'1025042013'.substring(7)}',
                     maxLines: 3,
                     style: TextStyle(
-                      color: grey5,
-                      height: 1.2,
-                      fontSize: screenWidth / 24,
+                      color: grey7,
+                      height: 1.4,
+                      fontSize: screenWidth / 21,
                     ),
                   ),
                 ),
@@ -154,6 +158,7 @@ class OTPViewState extends State<OTPView> {
                     hapticFeedbackType: HapticFeedbackType.lightImpact,
                     onCompleted: (pin) {
                       setState(() => pinController = pin);
+                      otpRequest();
                     },
                     cursor: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -171,18 +176,10 @@ class OTPViewState extends State<OTPView> {
                     defaultPinTheme: defaultPinTheme,
                     focusedPinTheme: focusedPinTheme,
                     submittedPinTheme: focusedPinTheme,
-                    errorPinTheme: errorPinTheme,
+                    // errorPinTheme: errorPinTheme,
                   ),
                 ),
               ],
-            ),
-
-            box_30,
-
-            //button
-            AuthenticationButtonWidget(
-              buttonText: 'Continue',
-              buttonOnPressed: () => otpRequest(),
             ),
 
             box_30,
@@ -192,17 +189,18 @@ class OTPViewState extends State<OTPView> {
               children: [
                 Text(
                   "Didn't recieve a code? ",
-                  style: underlineStyle.copyWith(
-                    decoration: TextDecoration.none,
-                    fontSize: screenWidth / 24,
+                  style: TextStyle(
+                    color: grey5,
+                    fontSize: screenWidth / 22,
                   ),
                 ),
                 GestureDetector(
                   onTap: () {},
                   child: Text(
                     'Resend',
-                    style: underlineStyle.copyWith(
-                      fontSize: screenWidth / 24,
+                    style: TextStyle(
+                      fontSize: screenWidth / 22,
+                      color:focusedBorderColor
                     ),
                   ),
                 ),

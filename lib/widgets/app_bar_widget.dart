@@ -1,5 +1,4 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/models/custom_icons_icons.dart';
 import 'package:flutter/material.dart';
 
 class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -46,7 +45,7 @@ class SubAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         ),
         child: IconButton(
           icon: const Icon(
-            CustomIcons.backarrow,
+            Icons.arrow_back,
           ),
           iconSize: screenWidth / 15,
           onPressed: () {

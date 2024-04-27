@@ -1,5 +1,5 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/models/custom_icons_icons.dart';
+import 'package:fannelance/models/custom_icons.dart';
 import 'package:fannelance/views/account_view.dart';
 import 'package:fannelance/views/activity_view.dart';
 import 'package:fannelance/views/home_view.dart';

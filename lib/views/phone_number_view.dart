@@ -7,6 +7,7 @@ import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -21,7 +22,6 @@ class PhoneNumberView extends StatefulWidget {
 
 class PhoneNumberViewState extends State<PhoneNumberView> {
   static TextEditingController phoneNumberController = TextEditingController();
-
   static String countryDialCode = "";
 
   @override
@@ -43,7 +43,8 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
 
         Future<Response> phoneRequest(String url) async {
           Map<String, dynamic> data = {
-            'phone': '+$countryDialCode${phoneNumberController.text}',
+            'phone':
+                '+$countryDialCode${phoneNumberController.text.substring(1)}',
           };
           String jsonData = jsonEncode(data);
           Response response = await dio.post(
@@ -87,7 +88,6 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
         Response response = await phoneRequest('$serverURL/user/check-phone');
         print(response);
         void phoneIsVerified() async {
-          
           if (context.mounted) {
             Navigator.push(
               context,
@@ -129,9 +129,7 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 95,
-            ),
+            box_95,
             Row(
               children: [
                 Expanded(
@@ -148,10 +146,29 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
             box_25,
 
             IntlPhoneField(
+              countries: const <Country>[
+                Country(
+                  name: "Egypt",
+                  nameTranslations: {
+                    "en": "Egypt",
+                    "ar": "مصر",
+                  },
+                  flag: "🇪🇬",
+                  code: "EG",
+                  dialCode: "20",
+                  minLength: 11,
+                  maxLength: 11,
+                ),
+              ],
+              disableLengthCheck: true,
               onCountryChanged: (value) {
                 setState(() => countryDialCode = value.dialCode);
               },
+              onSubmitted: (value) {
+                sendPhoneNumber();
+              },
               controller: phoneNumberController,
+              textInputAction: TextInputAction.next,
               invalidNumberMessage: null,
               initialCountryCode: 'EG',
               flagsButtonMargin: const EdgeInsets.only(left: 20),
@@ -185,9 +202,6 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
             AuthenticationButtonWidget(
               buttonText: 'Continue',
               buttonOnPressed: sendPhoneNumber,
-              // buttonOnTap: () {
-              //   print(phoneNumberController.text);
-              // },
             ),
           ],
         ),

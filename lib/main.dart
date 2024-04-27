@@ -6,7 +6,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-
 void main() async {
   await dotenv.load(fileName: '.env');
   const secureStorage = FlutterSecureStorage();
@@ -24,12 +23,14 @@ class Fannelance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isAuthorized = JwtDecoder.decode(token!)['isVerified'];
+    bool isAuthorized = false;
+    if (token != "")
+      {isAuthorized = JwtDecoder.decode(token!)['isAuth'] ?? false;}
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: (token == "" || JwtDecoder.isExpired(token!) || !isAuthorized)
-          ? const PhoneNumberView()    
-          : const NavBarWidget(),       
+          ? const PhoneNumberView()
+          : const NavBarWidget(),
       theme: ThemeData(
         scaffoldBackgroundColor: white,
         canvasColor: white,
