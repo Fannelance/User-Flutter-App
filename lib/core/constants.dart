@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+const grey3 = Color(0xff333333);
 const grey5 = Color(0xff555555);
 const grey7 = Color(0xff777777);
 const grey9 = Color(0xff999999);
@@ -9,8 +10,11 @@ const grey8 = Color(0xff888888);
 const greyE8 = Color(0xffE8E8E8);
 const greyC8 = Color(0xffC8C8C8);
 const green = Colors.green;
+const blue = Colors.blue;
+const pink = Colors.pink;
 const focusedBorderColor = Color(0xff17AB90);
 const redAccent = Color(0xffFF5252);
+const redEc = Color(0xffEC2632);
 
 //borders
 const accountBorder = UnderlineInputBorder(
@@ -49,6 +53,9 @@ const border16 = BorderRadius.all(
 const border8 = BorderRadius.all(
   Radius.circular(8),
 );
+const border12 = BorderRadius.all(
+  Radius.circular(12),
+);
 
 //fonts
 const String bold = 'Gilroy-Bold';
@@ -68,6 +75,9 @@ const box_5 = SizedBox(
 );
 const box_10 = SizedBox(
   height: 10,
+);
+const box_15 = SizedBox(
+  height: 15,
 );
 const box_20 = SizedBox(
   height: 20,
@@ -98,4 +108,7 @@ const box_70 = SizedBox(
 );
 const box_60 = SizedBox(
   height: 60,
+);
+const box_95 = SizedBox(
+  height: 95,
 );

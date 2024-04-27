@@ -72,17 +72,17 @@ class SignupViewState extends State<SignupView> {
     return Scaffold(
       appBar: const SubAppBarWidget(),
       body: AuthenticationBodyWidget(
-        //title
+        // Title
         title: 'Create Account',
         userNameTextField: Column(
           children: [
-            //first name
+            // First name
             AuthenticationTextFieldWidget(
               hint: 'First Name',
               input: firstNameController,
             ),
             box_20,
-            //last name
+            // Last name
             AuthenticationTextFieldWidget(
               hint: 'Last Name',
               input: lastNameController,
@@ -90,7 +90,7 @@ class SignupViewState extends State<SignupView> {
             box_20,
           ],
         ),
-        //note
+        // Note
         noteText: Column(
           children: [
             box_10,
@@ -113,6 +113,7 @@ class SignupViewState extends State<SignupView> {
         ),
         buttonText: 'Sign up',
         buttonOnPressed: registerRequest,
+        helperText: 'Go ahead and sign up',
       ),
     );
   }

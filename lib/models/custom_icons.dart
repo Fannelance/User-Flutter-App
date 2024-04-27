@@ -26,9 +26,6 @@ class CustomIcons {
   static const IconData home = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData account = IconData(0xe803, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData search = IconData(0xe806, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData seen = IconData(0xe807, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData worker = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData star = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData backarrow = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData location = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

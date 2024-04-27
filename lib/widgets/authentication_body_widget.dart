@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 class AuthenticationBodyWidget extends StatefulWidget {
   final Widget? userNameTextField;
   final Widget? noteText;
+  final Widget? helperTextWidget;
   final Widget? suggestionText;
   final String title;
+  final String helperText;
   final String buttonText;
   final Future<void> Function() buttonOnPressed;
 
@@ -19,6 +21,8 @@ class AuthenticationBodyWidget extends StatefulWidget {
     required this.title,
     required this.buttonOnPressed,
     this.userNameTextField,
+    required this.helperText,
+    this.helperTextWidget,
   });
 
   @override
@@ -47,24 +51,44 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           box_20,
-          //title
+          // Title
           Text(
             widget.title,
             style: TextStyle(
-                fontSize: screenWidth / 18, fontWeight: FontWeight.bold),
+              fontSize: screenWidth / 11,
+              fontFamily: bold,
+            ),
+          ),
+
+          // Helper text
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              box_15,
+              Text(widget.helperText,
+                  maxLines: 3,
+                  style: TextStyle(
+                    color: grey7,
+                    height: 1.4,
+                    fontSize: screenWidth / 21,
+                  )),
+              if (widget.helperTextWidget != null) widget.helperTextWidget!,
+            ],
           ),
           box_30,
 
-          //user name
+          // Username
           if (widget.userNameTextField != null) widget.userNameTextField!,
 
-          //password
+          // Password
           AuthenticationTextFieldWidget(
             hint: 'Password',
             obscureText: obscureText,
             autocorrect: false,
             visibilityIcon: IconButton(
-              padding: const EdgeInsets.only(right: 20),
+              padding: const EdgeInsets.only(
+                right: 20,
+              ),
               icon: Icon(
                 color: grey7,
                 obscureText ? Icons.visibility_off : Icons.visibility,
@@ -78,17 +102,17 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
             input: passwordController,
           ),
 
-          //note
+          // Note
           if (widget.noteText != null) widget.noteText!,
           box_20,
 
-          //button
+          // Button
           AuthenticationButtonWidget(
             buttonText: widget.buttonText,
             buttonOnPressed: widget.buttonOnPressed,
           ),
 
-          //suggestion
+          // Suggestion
           if (widget.suggestionText != null) widget.suggestionText!
         ],
       ),

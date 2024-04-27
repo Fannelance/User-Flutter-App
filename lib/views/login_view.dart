@@ -7,6 +7,7 @@ import 'package:fannelance/widgets/nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
@@ -35,7 +36,7 @@ class LoginView extends StatelessWidget {
           options: Options(
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token', 
+              'Authorization': 'Bearer $token',
             },
             validateStatus: (status) {
               return true;
@@ -43,7 +44,6 @@ class LoginView extends StatelessWidget {
           ),
         );
         print(response);
-
 
         if (response.statusCode == 200) {
           print('Success!');
@@ -67,10 +67,21 @@ class LoginView extends StatelessWidget {
       }
     }
 
+    final helperTextStyle = TextStyle(
+      color: grey7,
+      height: 1.4,
+      fontSize: screenWidth / 21,
+    );
     return Scaffold(
       appBar: const SubAppBarWidget(),
       body: AuthenticationBodyWidget(
-        title: 'Log to your account',
+        title: 'Log in',
+        helperTextWidget: Text(
+          // '+${PhoneNumberViewState.countryDialCode + PhoneNumberViewState.phoneNumberController.text}',
+          '+20102502013',
+          maxLines: 3,
+          style: helperTextStyle.copyWith(color: grey3, letterSpacing: 1.2),
+        ),
         suggestionText: Column(
           children: [
             box_20,
@@ -79,12 +90,11 @@ class LoginView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Text(
-                    'Forgot password?',
-                    style: underlineStyle.copyWith(
-                      fontSize: screenWidth / 24,
-                    ),
-                  ),
+                  Text('Forgot Password?',
+                      style: helperTextStyle.copyWith(
+                        color: grey5,
+                        fontSize: screenWidth / 22,
+                      )),
                 ],
               ),
             ),
@@ -92,6 +102,7 @@ class LoginView extends StatelessWidget {
         ),
         buttonText: 'Log in',
         buttonOnPressed: loginRequest,
+        helperText: 'Login to your account ',
       ),
     );
   }
