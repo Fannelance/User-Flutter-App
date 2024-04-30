@@ -23,8 +23,8 @@ class ButtonAccountWidget extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: () {
-        onPressed;
-        Navigator.of(context).pop();
+        onPressed!();
+        Navigator.pop(context);
       },
       style: ButtonStyle(
         surfaceTintColor: const MaterialStatePropertyAll(white),

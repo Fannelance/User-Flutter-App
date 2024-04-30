@@ -65,7 +65,7 @@ class _AccountViewState extends State<AccountView> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: black,),
             );
           } else {
             final userData = snapshot.data?['data'];
@@ -106,7 +106,7 @@ class _AccountViewState extends State<AccountView> {
                   ),
                   ListTileAccountWidget(
                     title: 'Email',
-                    subTitle: userData!['firstname'],
+                    subTitle: userData!['email'],
                     icon: Icons.mail,
                   ),
                   ListTileAccountWidget(
@@ -116,7 +116,7 @@ class _AccountViewState extends State<AccountView> {
                   ),
                   ListTileAccountWidget(
                     title: 'Location',
-                    subTitle: userData!['firstname'],
+                    subTitle: userData!['location'],
                     icon: CustomIcons.location,
                   ),
                 ],
