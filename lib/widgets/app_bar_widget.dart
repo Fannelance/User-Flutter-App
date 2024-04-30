@@ -39,19 +39,14 @@ class SubAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       backgroundColor: white,
-      leading: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
+      leading: IconButton(
+        icon: const Icon(
+          Icons.arrow_back,
         ),
-        child: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-          ),
-          iconSize: screenWidth / 15,
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        iconSize: screenWidth / 15,
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

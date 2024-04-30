@@ -63,6 +63,7 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
             key: 'token',
             value: response.data['token'],
           );
+          phoneNumberController.clear();
           return response;
         }
 

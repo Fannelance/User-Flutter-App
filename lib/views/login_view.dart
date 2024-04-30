@@ -52,7 +52,8 @@ class LoginView extends StatelessWidget {
             value: response.data['token'],
           );
           if (context.mounted) {
-            Navigator.push(
+            Navigator.of(context).pop();
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) {
                 return const NavBarWidget();
@@ -101,7 +102,10 @@ class LoginView extends StatelessWidget {
           ],
         ),
         buttonText: 'Log in',
-        buttonOnPressed: loginRequest,
+        buttonOnPressed: () async {
+          await loginRequest();
+          AuthenticationBodyWidgetState.passwordController.text = "";
+        },
         helperText: 'Login to your account ',
       ),
     );

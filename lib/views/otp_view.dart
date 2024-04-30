@@ -82,7 +82,7 @@ class OTPViewState extends State<OTPView> {
 
         if (response.statusCode == 200) {
           if (context.mounted) {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) {
                 return const SignupView();
@@ -159,6 +159,7 @@ class OTPViewState extends State<OTPView> {
                     onCompleted: (pin) {
                       setState(() => pinController = pin);
                       otpRequest();
+
                     },
                     cursor: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
