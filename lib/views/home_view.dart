@@ -26,12 +26,10 @@ class HomeViewState extends State<HomeView> {
     getServicesList();
   }
 
-  void getServicesList() async {
+  Future getServicesList() async {
     List<ServicesModel>? loadedServices =
         await ServicesModel.loadAndParseJson();
-    setState(() {
-      servicesList = loadedServices;
-    });
+    return loadedServices;
   }
 
   @override
@@ -42,70 +40,84 @@ class HomeViewState extends State<HomeView> {
       appBar: const AppbarWidget(
         title: 'Fannelance',
       ),
-      body: Column(
-        children: [
-          box_40,
-
-          //search frame
-          SearchWidget(
-            servicesList: servicesList,
-          ),
-
-          box_70,
-
-          //suggestions frame
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 28),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: FutureBuilder(
+        future: getServicesList(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: black,
+              ),
+            );
+          } else {
+            return Column(
               children: [
-                //suggestions
-                Text(
-                  'Suggestions',
-                  style: TextStyle(
-                    fontSize: screenWidth / 15,
+                box_60,
+
+                //search frame
+                SearchWidget(
+                  servicesList: snapshot.data,
+                ),
+
+                box_70,
+
+                //suggestions frame
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 28),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      //suggestions
+                      Text(
+                        'Suggestions',
+                        style: TextStyle(
+                          fontSize: screenWidth / 15,
+                        ),
+                      ),
+                      //see all
+                      GestureDetector(
+                        onTap: () {
+                          widget.onLinkPressed(1);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            top: 4,
+                          ),
+                          child: Text(
+                            'See All',
+                            style: underlineStyle.copyWith(
+                              fontSize: screenWidth / 23,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                //see all
-                GestureDetector(
-                  onTap: () {
-                    widget.onLinkPressed(1);
-                  },
+
+                const SizedBox(
+                  height: 18,
+                ),
+
+                //services frame
+                Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 4,
-                    ),
-                    child: Text(
-                      'See All',
-                      style: underlineStyle.copyWith(
-                        fontSize: screenWidth / 23,
-                      ),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: ListView.builder(
+                      itemExtent: (MediaQuery.of(context).size.width - 20) / 4,
+                      scrollDirection: Axis.horizontal,
+                      itemCount:
+                          snapshot.data.length >= 4 ? 4 : snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return HomeWidget(obj: snapshot.data[index]);
+                      },
                     ),
                   ),
                 ),
               ],
-            ),
-          ),
-
-          const SizedBox(
-            height: 18,
-          ),
-
-          //services frame
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView.builder(
-                itemExtent: (MediaQuery.of(context).size.width - 20) / 4,
-                scrollDirection: Axis.horizontal,
-                itemCount: servicesList.length >= 4 ? 4 : servicesList.length,
-                itemBuilder: (context, index) {
-                  return HomeWidget(obj: servicesList[index]);
-                },
-              ),
-            ),
-          ),
-        ],
+            );
+          }
+        },
       ),
     );
   }
