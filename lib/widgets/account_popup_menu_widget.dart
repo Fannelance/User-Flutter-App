@@ -1,6 +1,6 @@
 import 'package:fannelance/core/constants.dart';
+import 'package:fannelance/views/change_password_view.dart';
 import 'package:fannelance/views/phone_number_view.dart';
-import 'package:fannelance/views/reset_password_view.dart';
 import 'package:fannelance/widgets/account_popup_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -36,32 +36,36 @@ class PopupMenuAccountWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return const ResetPasswoedView();
+                return const ChangePasswordview();
               },
             ),
           ),
         ),
         PopupMenuItem(
-            height: 40,
-            child: const PopupItemAccountWidget(
-              title: 'Support',
-            ),
-            onTap: () async => {
-                  url = Uri(scheme: 'tel', path: '01025042013'),
-                  await launchUrl(url),
-                }),
+          height: 40,
+          child: const PopupItemAccountWidget(
+            title: 'Support',
+          ),
+          onTap: () async {
+            url = Uri(scheme: 'tel', path: '01025042013');
+            await launchUrl(url);
+          },
+        ),
         PopupMenuItem(
-            height: 40,
-            child: const PopupItemAccountWidget(
-              title: 'Logout',
-            ),
-            onTap: () => {
-                  secureStorage.delete(key: 'token'),
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) {
-                    return const PhoneNumberView();
-                  }))
-                }),
+          height: 40,
+          child: const PopupItemAccountWidget(
+            title: 'Logout',
+          ),
+          onTap: () {
+            secureStorage.delete(key: 'token');
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return const PhoneNumberView();
+              }),
+            );
+          },
+        ),
         PopupMenuItem(
           height: 40,
           onTap: onTap,

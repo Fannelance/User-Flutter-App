@@ -1,10 +1,11 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/widgets/authentication_textfield_widget.dart';
+import 'package:fannelance/views/change_password_view.dart';
 import 'package:fannelance/widgets/authentication_button_widget.dart';
+import 'package:fannelance/widgets/password_textfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticationBodyWidget extends StatefulWidget {
-  final Widget? userNameTextField;
+  final Widget? registrationData;
   final Widget? noteText;
   final Widget? helperTextWidget;
   final Widget? suggestionText;
@@ -20,7 +21,7 @@ class AuthenticationBodyWidget extends StatefulWidget {
     this.suggestionText,
     required this.title,
     required this.buttonOnPressed,
-    this.userNameTextField,
+    this.registrationData,
     required this.helperText,
     this.helperTextWidget,
   });
@@ -31,16 +32,6 @@ class AuthenticationBodyWidget extends StatefulWidget {
 }
 
 class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
-  static TextEditingController passwordController = TextEditingController();
-
-  static bool obscureText = true;
-
-  @override
-  void initState() {
-    super.initState();
-    obscureText = true;
-  }
-
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -59,47 +50,28 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
               fontFamily: bold,
             ),
           ),
+          box_5,
 
           // Helper text
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              box_15,
-              Text(widget.helperText,
-                  maxLines: 3,
-                  style: TextStyle(
-                    color: grey7,
-                    height: 1.4,
-                    fontSize: screenWidth / 21,
-                  )),
-              if (widget.helperTextWidget != null) widget.helperTextWidget!,
-            ],
+          Text(
+            widget.helperText,
+            maxLines: 3,
+            style: TextStyle(
+              color: grey7,
+              height: 1.4,
+              fontSize: screenWidth / 21,
+            ),
           ),
+
           box_30,
 
-          // Username
-          if (widget.userNameTextField != null) widget.userNameTextField!,
+          // Username + Email
+          if (widget.registrationData != null) widget.registrationData!,
 
           // Password
-          AuthenticationTextFieldWidget(
+          PasswordTextFieldWidget(
             hint: 'Password',
-            obscureText: obscureText,
-            autocorrect: false,
-            visibilityIcon: IconButton(
-              padding: const EdgeInsets.only(
-                right: 20,
-              ),
-              icon: Icon(
-                color: grey7,
-                obscureText ? Icons.visibility_off : Icons.visibility,
-              ),
-              onPressed: () {
-                setState(() {
-                  obscureText = !obscureText;
-                });
-              },
-            ),
-            input: passwordController,
+            controller: ChangePasswordviewState.passwordController,
           ),
 
           // Note
@@ -111,8 +83,9 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
             buttonText: widget.buttonText,
             buttonOnPressed: widget.buttonOnPressed,
           ),
-
-          // Suggestion
+          box_20,
+          
+          // Forgot password
           if (widget.suggestionText != null) widget.suggestionText!
         ],
       ),

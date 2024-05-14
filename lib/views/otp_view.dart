@@ -112,7 +112,6 @@ class OTPViewState extends State<OTPView> {
                 'Verify your phone number',
                 style: TextStyle(
                   fontSize: screenWidth / 11,
-                  // fontWeight: FontWeight.bold,
                   height: 1.1,
                   fontFamily: bold,
                 ),

@@ -7,7 +7,7 @@ class AuthenticationTextFieldWidget extends StatelessWidget {
   final TextInputType? inputType;
   final bool obscureText;
   final bool autocorrect;
-  final TextEditingController input;
+  final TextEditingController controller;
 
   const AuthenticationTextFieldWidget({
     super.key,
@@ -16,24 +16,24 @@ class AuthenticationTextFieldWidget extends StatelessWidget {
     this.obscureText = false,
     this.autocorrect = true,
     this.visibilityIcon,
-    required this.input,
+    required this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
+    
+
     return SizedBox(
       width: screenWidth - 45,
       child: TextFormField(
-        controller: input,
+        controller: controller,
         obscureText: obscureText,
         enableSuggestions: autocorrect,
         autocorrect: autocorrect,
         keyboardType: inputType,
         cursorColor: black,
-        mouseCursor: MouseCursor.uncontrolled,
-        autofocus: true,
         decoration: InputDecoration(
           suffixIcon: visibilityIcon,
           hintText: hint,
@@ -43,10 +43,8 @@ class AuthenticationTextFieldWidget extends StatelessWidget {
           ),
           enabledBorder: authenticationBorder,
           focusedBorder: authenticationBorder.copyWith(
-              borderSide: const BorderSide(
-            color: black,
-          )),
-          focusColor: black,
+            borderSide: const BorderSide(color: black),
+          ),
         ),
         onTapOutside: (pointer) {
           FocusManager.instance.primaryFocus?.unfocus();
