@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
+import 'package:fannelance/views/change_password_view.dart';
 import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/authentication_body_widget.dart';
 import 'package:fannelance/widgets/authentication_textfield_widget.dart';
+import 'package:fannelance/widgets/drop_down_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -19,6 +21,7 @@ class SignupView extends StatefulWidget {
 class SignupViewState extends State<SignupView> {
   static TextEditingController firstNameController = TextEditingController();
   static TextEditingController lastNameController = TextEditingController();
+  static TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class SignupViewState extends State<SignupView> {
         Map<String, dynamic> data = {
           'firstname': firstNameController.text,
           'lastname': lastNameController.text,
-          'password': AuthenticationBodyWidgetState.passwordController.text,
+          'password': ChangePasswordviewState.passwordController.text,
         };
 
         String jsonData = jsonEncode(data);
@@ -69,24 +72,33 @@ class SignupViewState extends State<SignupView> {
     }
 
     final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: const SubAppBarWidget(),
       body: AuthenticationBodyWidget(
         // Title
         title: 'Create Account',
-        userNameTextField: Column(
+        helperText: 'Go ahead and sign up',
+        registrationData: Column(
           children: [
             // First name
             AuthenticationTextFieldWidget(
               hint: 'First Name',
-              input: firstNameController,
+              controller: firstNameController,
             ),
             box_20,
             // Last name
             AuthenticationTextFieldWidget(
               hint: 'Last Name',
-              input: lastNameController,
+              controller: lastNameController,
             ),
+            box_20,
+            AuthenticationTextFieldWidget(
+              hint: 'Email',
+              controller: emailController,
+            ),
+            box_20,
+            const DropDownMenuWidget(),
             box_20,
           ],
         ),
@@ -113,7 +125,6 @@ class SignupViewState extends State<SignupView> {
         ),
         buttonText: 'Sign up',
         buttonOnPressed: registerRequest,
-        helperText: 'Go ahead and sign up',
       ),
     );
   }

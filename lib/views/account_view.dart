@@ -3,6 +3,7 @@ import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/custom_icons.dart';
 import 'package:fannelance/widgets/account_alertdialog_widget.dart';
 import 'package:fannelance/widgets/account_listtile_widget.dart';
+import 'package:fannelance/widgets/drop_down_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -65,11 +66,15 @@ class _AccountViewState extends State<AccountView> {
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(
-              child: CircularProgressIndicator(color: black,),
+              child: CircularProgressIndicator(
+                color: black,
+              ),
             );
           } else {
             final userData = snapshot.data?['data'];
             print(userData);
+            var userName = toBeginningOfSentenceCase('${userData!['firstname']} ') +
+                        toBeginningOfSentenceCase('${userData!['lastname']}');
             return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 25,
@@ -85,14 +90,17 @@ class _AccountViewState extends State<AccountView> {
                   ),
                   CircleAvatar(
                     radius: screenWidth / 9,
-                    backgroundImage: const AssetImage(
-                      'assets/icons/female.png',
-                    ),
+                    backgroundImage: DropDownMenuWidgetState.gender == 'Female'
+                        ? const AssetImage(
+                            'assets/icons/female.png',
+                          )
+                        : const AssetImage(
+                            'assets/icons/ male.png',
+                          ),
                   ),
                   box_10,
                   Text(
-                    toBeginningOfSentenceCase('${userData!['firstname']} ') +
-                        toBeginningOfSentenceCase('${userData!['lastname']}'),
+                    userName,
                     style: TextStyle(
                       fontSize: screenWidth / 18,
                       fontFamily: bold,
@@ -101,7 +109,7 @@ class _AccountViewState extends State<AccountView> {
                   box_50,
                   ListTileAccountWidget(
                     title: 'Username',
-                    subTitle: userData!['firstname'],
+                    subTitle: userName,
                     icon: FontAwesome.user,
                   ),
                   ListTileAccountWidget(

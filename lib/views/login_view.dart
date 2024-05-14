@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
+import 'package:fannelance/views/change_password_view.dart';
+import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/authentication_body_widget.dart';
+import 'package:fannelance/widgets/forgot_password_widget.dart';
 import 'package:fannelance/widgets/nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -24,7 +27,7 @@ class LoginView extends StatelessWidget {
         Dio dio = Dio();
         String url = '$serverURL/user/login';
         Map<String, dynamic> data = {
-          'password': AuthenticationBodyWidgetState.passwordController.text,
+          'password': ChangePasswordviewState.passwordController.text,
         };
         String jsonData = jsonEncode(data);
 
@@ -78,33 +81,18 @@ class LoginView extends StatelessWidget {
       body: AuthenticationBodyWidget(
         title: 'Log in',
         helperTextWidget: Text(
-          // '+${PhoneNumberViewState.countryDialCode + PhoneNumberViewState.phoneNumberController.text}',
-          '+20102502013',
+          '+${PhoneNumberViewState.countryDialCode + PhoneNumberViewState.phoneNumberController.text}',
           maxLines: 3,
-          style: helperTextStyle.copyWith(color: grey3, letterSpacing: 1.2),
+          style: helperTextStyle.copyWith(
+            color: grey3,
+            letterSpacing: 1.2,
+          ),
         ),
-        suggestionText: Column(
-          children: [
-            box_20,
-            GestureDetector(
-              onTap: () {},
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text('Forgot Password?',
-                      style: helperTextStyle.copyWith(
-                        color: grey5,
-                        fontSize: screenWidth / 22,
-                      )),
-                ],
-              ),
-            ),
-          ],
-        ),
+        suggestionText: const ForgotPasswordWidget(),
         buttonText: 'Log in',
         buttonOnPressed: () async {
           await loginRequest();
-          AuthenticationBodyWidgetState.passwordController.text = "";
+          ChangePasswordviewState.passwordController.text = "";
         },
         helperText: 'Login to your account ',
       ),

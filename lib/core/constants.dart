@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const grey3 = Color(0xff333333);
 const grey5 = Color(0xff555555);
+const grey6 = Color(0xff666666);
 const grey7 = Color(0xff777777);
 const grey9 = Color(0xff999999);
 const black = Color(0xff000000);
@@ -33,6 +34,7 @@ const phoneBorder = OutlineInputBorder(
   borderRadius: border16,
   borderSide: BorderSide(color: grey8),
 );
+
 const authenticationBorder = OutlineInputBorder(
   borderRadius: border16,
   borderSide: BorderSide(color: greyC8),
@@ -61,7 +63,12 @@ const border12 = BorderRadius.all(
 const String bold = 'Gilroy-Bold';
 
 const underlineStyle = TextStyle(
-  shadows: [Shadow(offset: Offset(0, -4),color: grey5,)],
+  shadows: [
+    Shadow(
+      offset: Offset(0, -4),
+      color: grey5,
+    )
+  ],
   color: Colors.transparent,
   decoration: TextDecoration.underline,
   decorationColor: grey5,
