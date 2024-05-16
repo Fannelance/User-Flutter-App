@@ -1,8 +1,7 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/signup_view.dart';
+import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,8 +9,10 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPView extends StatefulWidget {
+  final Widget nextPage;
   const OTPView({
     Key? key,
+    required this.nextPage,
   }) : super(key: key);
 
   @override
@@ -84,9 +85,7 @@ class OTPViewState extends State<OTPView> {
           if (context.mounted) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) {
-                return const SignupView();
-              }),
+              MaterialPageRoute(builder: (context) => widget.nextPage),
             );
           }
         } else {
@@ -107,7 +106,7 @@ class OTPViewState extends State<OTPView> {
             box_20,
             //title
             SizedBox(
-              width: screenWidth/1.6,
+              width: screenWidth / 1.6,
               child: Text(
                 'Verify your phone number',
                 style: TextStyle(
@@ -123,8 +122,7 @@ class OTPViewState extends State<OTPView> {
               children: [
                 Flexible(
                   child: Text(
-                    // 'We sent an SMS with a 5-digit code to XXX XXXX X${PhoneNumberViewState.phoneNumberController.text.substring(7)}',
-                    'We sent an SMS with a 5-digit code to XXX XXXX X${'1025042013'.substring(7)}',
+                    'We sent an SMS with a 5-digit code to XXX XXXX X${PhoneNumberViewState.phone.substring(10)}',
                     maxLines: 3,
                     style: TextStyle(
                       color: grey7,
@@ -158,7 +156,6 @@ class OTPViewState extends State<OTPView> {
                     onCompleted: (pin) {
                       setState(() => pinController = pin);
                       otpRequest();
-
                     },
                     cursor: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -199,9 +196,7 @@ class OTPViewState extends State<OTPView> {
                   child: Text(
                     'Resend',
                     style: TextStyle(
-                      fontSize: screenWidth / 22,
-                      color:focusedBorderColor
-                    ),
+                        fontSize: screenWidth / 22, color: focusedBorderColor),
                   ),
                 ),
               ],
