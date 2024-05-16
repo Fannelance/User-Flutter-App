@@ -10,6 +10,8 @@ import 'package:fannelance/widgets/drop_down_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:geolocator/geolocator.dart';
+
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -22,6 +24,27 @@ class SignupViewState extends State<SignupView> {
   static TextEditingController firstNameController = TextEditingController();
   static TextEditingController lastNameController = TextEditingController();
   static TextEditingController emailController = TextEditingController();
+
+ Future getCurrentLocationApp()async{
+    // bool serviceEnabled;
+    // LocationPermission permission;
+    // serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    // if (serviceEnabled == false){
+    //   print("please turnon location service");
+    // }
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+    Position position = await Geolocator.getCurrentPosition();
+    print(position);
+  }
+  @override
+  void initState(){
+    getCurrentLocationApp();
+    super.initState();
+  }
+
+  
+  
 
   @override
   Widget build(BuildContext context) {
