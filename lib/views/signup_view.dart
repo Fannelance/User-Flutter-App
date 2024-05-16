@@ -38,7 +38,9 @@ class SignupViewState extends State<SignupView> {
         Map<String, dynamic> data = {
           'firstname': firstNameController.text,
           'lastname': lastNameController.text,
+          'email': emailController.text,
           'password': ChangePasswordviewState.passwordController.text,
+          'gender': DropDownMenuWidgetState.gender,
         };
 
         String jsonData = jsonEncode(data);
@@ -49,6 +51,9 @@ class SignupViewState extends State<SignupView> {
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer $token',
+            },
+            validateStatus: (status) {
+              return true;
             },
           ),
         );
@@ -64,7 +69,8 @@ class SignupViewState extends State<SignupView> {
             );
           }
         } else {
-          print('Failed with status: ${response.statusCode}');
+          print(
+              'Failed with status: ${response.statusCode} ${response.data['error']}');
         }
       } catch (e) {
         print('Error: $e');
@@ -78,7 +84,7 @@ class SignupViewState extends State<SignupView> {
       body: AuthenticationBodyWidget(
         // Title
         title: 'Create Account',
-        helperText: 'Go ahead and sign up',
+        helperText: 'Get ready to relax while we take care of your home.',
         registrationData: Column(
           children: [
             // First name
