@@ -74,7 +74,7 @@ class _AccountViewState extends State<AccountView> {
             final userData = snapshot.data?['data'];
             print(userData);
             var userName = toBeginningOfSentenceCase('${userData!['firstname']} ') +
-                        toBeginningOfSentenceCase('${userData!['lastname']}');
+                    toBeginningOfSentenceCase('${userData!['lastname']}');
             return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 25,
@@ -95,7 +95,7 @@ class _AccountViewState extends State<AccountView> {
                             'assets/icons/female.png',
                           )
                         : const AssetImage(
-                            'assets/icons/ male.png',
+                            'assets/icons/male.png',
                           ),
                   ),
                   box_10,

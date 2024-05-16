@@ -29,6 +29,7 @@ class HomeWidget extends StatelessWidget {
           Text(
             obj.serviceName,
             style: TextStyle(fontSize: screenWidth / 26),
+            textAlign: TextAlign.center,
           )
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/views/login_view.dart';
 import 'package:fannelance/views/otp_view.dart';
+import 'package:fannelance/views/signup_view.dart';
 import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class PhoneNumberView extends StatefulWidget {
   const PhoneNumberView({
@@ -23,6 +25,7 @@ class PhoneNumberView extends StatefulWidget {
 class PhoneNumberViewState extends State<PhoneNumberView> {
   static TextEditingController phoneNumberController = TextEditingController();
   static String countryDialCode = "";
+  static String phone = "";
 
   @override
   void initState() {
@@ -63,6 +66,12 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
             key: 'token',
             value: response.data['token'],
           );
+
+          String? token = await secureStorage.read(key: 'token');
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token!);
+          phone =
+              decodedToken.containsKey('phone') ? decodedToken['phone'] : '';
+
           phoneNumberController.clear();
           return response;
         }
@@ -81,13 +90,12 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
               },
             ),
           );
-          print(response);
 
           return response;
         }
 
         Response response = await phoneRequest('$serverURL/user/check-phone');
-        print(response);
+
         void phoneIsVerified() async {
           if (context.mounted) {
             Navigator.push(
@@ -100,12 +108,14 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
         }
 
         void phoneIsNotVerified() async {
-          response = await otpRequest('$serverURL/send-otp');
+          await otpRequest('$serverURL/send-otp');
           if (context.mounted) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {
-                return const OTPView();
+                return const OTPView(
+                  nextPage: SignupView(),
+                );
               }),
             );
           }
@@ -172,7 +182,6 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
               textInputAction: TextInputAction.next,
               invalidNumberMessage: null,
               initialCountryCode: 'EG',
-              flagsButtonMargin: const EdgeInsets.only(left: 20),
               dropdownTextStyle: const TextStyle(fontSize: 18),
               showCountryFlag: false,
               dropdownIconPosition: IconPosition.trailing,
@@ -181,9 +190,29 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
               ),
               cursorColor: black,
               dropdownDecoration: const BoxDecoration(
-                borderRadius: border19,
+                border: Border(
+                 right: BorderSide(
+                   color: Colors.grey,
+                 ) 
+                ),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(19),
+                    bottomLeft: Radius.circular(19)),
               ),
+              flagsButtonPadding: const EdgeInsets.fromLTRB(20, 16, 0, 16),
               decoration: InputDecoration(
+                prefix: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                  VerticalDivider(
+                    thickness: 1,
+                    indent: 20,
+                    color: Colors.grey,
+                  )
+                ]),
+                labelStyle: const TextStyle(
+                  fontSize: 32,
+                ),
                 counterText: '',
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 20,

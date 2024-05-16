@@ -81,7 +81,7 @@ class LoginView extends StatelessWidget {
       body: AuthenticationBodyWidget(
         title: 'Log in',
         helperTextWidget: Text(
-          '+${PhoneNumberViewState.countryDialCode + PhoneNumberViewState.phoneNumberController.text}',
+          PhoneNumberViewState.phone.substring(2),
           maxLines: 3,
           style: helperTextStyle.copyWith(
             color: grey3,
@@ -94,7 +94,7 @@ class LoginView extends StatelessWidget {
           await loginRequest();
           ChangePasswordviewState.passwordController.text = "";
         },
-        helperText: 'Login to your account ',
+        helperText: 'Enter the password for your account',
       ),
     );
   }
