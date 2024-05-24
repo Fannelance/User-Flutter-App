@@ -1,6 +1,5 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
-import 'package:fannelance/views/workers_view.dart';
 import 'package:flutter/material.dart';
 
 class ServiceSearchWidget extends StatelessWidget {
@@ -19,9 +18,9 @@ class ServiceSearchWidget extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(builder: (context) => const WorkersView()),
+          kWorkersRoute,
         );
         addToSearchHistoryList(obj);
       },
@@ -74,7 +73,6 @@ class EmptySearchWidget extends StatelessWidget {
   }
 }
 
-
 /*------------ CardServiceWidget ------------*/
 
 class CardServiceWidget extends StatelessWidget {
@@ -113,4 +111,3 @@ class CardServiceWidget extends StatelessWidget {
     );
   }
 }
-

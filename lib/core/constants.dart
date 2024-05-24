@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/* ************************* Colors ************************* */
+
 const grey3 = Color(0xff333333);
 const grey5 = Color(0xff555555);
 const grey6 = Color(0xff666666);
@@ -17,7 +19,8 @@ const focusedBorderColor = Color(0xff17AB90);
 const redAccent = Color(0xffFF5252);
 const redEc = Color(0xffEC2632);
 
-//borders
+/* ************************* Borders ************************* */
+
 const accountBorder = UnderlineInputBorder(
   borderSide: BorderSide(color: grey8),
 );
@@ -59,7 +62,21 @@ const border12 = BorderRadius.all(
   Radius.circular(12),
 );
 
-//fonts
+/* ************************* Routes ************************* */
+
+const kNavbarRoute = 'Navbar Widget';
+const kServicesRoute = 'Services View';
+const kWorkersRoute = 'Workers View';
+const kChangePasswordRoute = 'Change Password View';
+const kForgotPasswordRoute = 'Forgot Password View';
+const kPhoneNumberRoute = 'Phone Number View';
+const kOtpSignUpRoute = 'OTP Signup View';
+const kOtpForgotPasswordRoute = 'OTP Forgot Password View';
+const kLoginRoute = 'Login View';
+const kSignupRoute = 'Signup View';
+
+/* ************************* Fonts ************************* */
+
 const String bold = 'Gilroy-Bold';
 
 const underlineStyle = TextStyle(
@@ -76,46 +93,19 @@ const underlineStyle = TextStyle(
   fontSize: 20,
 );
 
-//sized boxes
-const box_5 = SizedBox(
-  height: 5,
-);
-const box_10 = SizedBox(
-  height: 10,
-);
-const box_15 = SizedBox(
-  height: 15,
-);
-const box_20 = SizedBox(
-  height: 20,
-);
-const box_25 = SizedBox(
-  height: 25,
-);
-const box_30 = SizedBox(
-  height: 30,
-);
-const box_35 = SizedBox(
-  height: 35,
-);
-const box_40 = SizedBox(
-  height: 40,
-);
-const box_50 = SizedBox(
-  height: 50,
-);
-const box_100 = SizedBox(
-  height: 100,
-);
-const box_80 = SizedBox(
-  height: 80,
-);
-const box_70 = SizedBox(
-  height: 70,
-);
-const box_60 = SizedBox(
-  height: 60,
-);
-const box_95 = SizedBox(
-  height: 95,
-);
+/* ************************* Sized Boxes ************************* */
+
+const box_5 = SizedBox(height: 5);
+const box_10 = SizedBox(height: 10);
+const box_15 = SizedBox(height: 15);
+const box_20 = SizedBox(height: 20);
+const box_25 = SizedBox(height: 25);
+const box_30 = SizedBox(height: 30);
+const box_35 = SizedBox(height: 35);
+const box_40 = SizedBox(height: 40);
+const box_50 = SizedBox(height: 50);
+const box_100 = SizedBox(height: 100);
+const box_80 = SizedBox(height: 80);
+const box_70 = SizedBox(height: 70);
+const box_60 = SizedBox(height: 60);
+const box_95 = SizedBox(height: 95);

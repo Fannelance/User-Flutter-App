@@ -23,18 +23,16 @@ class AuthenticationButtonWidget extends StatelessWidget {
 
     return ElevatedButton(
       onPressed: buttonOnPressed,
-      style: ButtonStyle(
-        fixedSize: MaterialStateProperty.all(
-          Size(
-            screenWidth-50,
-            screenWidth/7.3,
-          ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: buttonColor,
+        fixedSize: Size(
+          screenWidth - 50,
+          screenWidth / 7.3,
         ),
-        backgroundColor: MaterialStateProperty.all(buttonColor),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: border16,
-            side: BorderSide(color: borderColor!),
+        shape: RoundedRectangleBorder(
+          borderRadius: border16,
+          side: BorderSide(
+            color: borderColor!,
           ),
         ),
       ),

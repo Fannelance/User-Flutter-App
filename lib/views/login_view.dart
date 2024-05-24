@@ -6,7 +6,6 @@ import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/authentication_body_widget.dart';
 import 'package:fannelance/widgets/forgot_password_widget.dart';
-import 'package:fannelance/widgets/nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -56,11 +55,9 @@ class LoginView extends StatelessWidget {
           );
           if (context.mounted) {
             Navigator.of(context).pop();
-            Navigator.pushReplacement(
+            Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) {
-                return const NavBarWidget();
-              }),
+              kNavbarRoute,
             );
           }
         } else {

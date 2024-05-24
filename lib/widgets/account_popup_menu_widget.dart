@@ -1,6 +1,4 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/change_password_view.dart';
-import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/account_popup_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -32,13 +30,9 @@ class PopupMenuAccountWidget extends StatelessWidget {
           child: const PopupItemAccountWidget(
             title: 'Reset Password',
           ),
-          onTap: () => Navigator.push(
+          onTap: () => Navigator.pushNamed(
             context,
-            MaterialPageRoute(
-              builder: (context) {
-                return const ChangePasswordview();
-              },
-            ),
+            kChangePasswordRoute,
           ),
         ),
         PopupMenuItem(
@@ -58,11 +52,9 @@ class PopupMenuAccountWidget extends StatelessWidget {
           ),
           onTap: () {
             secureStorage.delete(key: 'token');
-            Navigator.pushReplacement(
+            Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) {
-                return const PhoneNumberView();
-              }),
+              kPhoneNumberRoute,
             );
           },
         ),

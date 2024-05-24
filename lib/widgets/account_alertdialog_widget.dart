@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/account_button_widget.dart';
 import 'package:fannelance/widgets/account_popup_menu_widget.dart';
 import 'package:flutter/material.dart';
@@ -45,11 +44,9 @@ class _AlertDialogAccountWidgetState extends State<AlertDialogAccountWidget> {
         print('Deletion Success!');
         secureStorage.delete(key: 'token');
         if (context.mounted) {
-          Navigator.pushReplacement(
+          Navigator.pushReplacementNamed(
             context,
-            MaterialPageRoute(builder: (context) {
-              return const PhoneNumberView();
-            }),
+            kPhoneNumberRoute,
           );
         }
       } else {

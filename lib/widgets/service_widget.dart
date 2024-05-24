@@ -1,6 +1,5 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
-import 'package:fannelance/views/workers_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -15,9 +14,10 @@ class ServicesWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const WorkersView();
-        }));
+        Navigator.pushNamed(
+          context,
+          kWorkersRoute,
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),

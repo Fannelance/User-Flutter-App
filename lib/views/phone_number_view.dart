@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/login_view.dart';
-import 'package:fannelance/views/otp_view.dart';
-import 'package:fannelance/views/signup_view.dart';
 import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -98,11 +95,9 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
 
         void phoneIsVerified() async {
           if (context.mounted) {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) {
-                return const LoginView();
-              }),
+              kLoginRoute,
             );
           }
         }
@@ -110,13 +105,9 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
         void phoneIsNotVerified() async {
           await otpRequest('$serverURL/send-otp');
           if (context.mounted) {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) {
-                return const OTPView(
-                  nextPage: SignupView(),
-                );
-              }),
+              kOtpSignUpRoute,
             );
           }
         }

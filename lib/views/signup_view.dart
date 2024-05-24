@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/views/change_password_view.dart';
-import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/authentication_body_widget.dart';
 import 'package:fannelance/widgets/authentication_textfield_widget.dart';
@@ -81,11 +80,9 @@ class SignupViewState extends State<SignupView> {
         if (response.statusCode == 200) {
           print('Success!');
           if (context.mounted) {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) {
-                return const PhoneNumberView();
-              }),
+              kPhoneNumberRoute,
             );
           }
         } else {
