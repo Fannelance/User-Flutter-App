@@ -1,7 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/forgot_password_view.dart';
-import 'package:fannelance/views/otp_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -43,11 +41,9 @@ class ForgotPasswordWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         otpRequest();
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(builder: (context) {
-            return const OTPView(nextPage: ForgotPasswordView(),);
-          }),
+          kOtpForgotPasswordRoute,
         );
       },
       child: Row(

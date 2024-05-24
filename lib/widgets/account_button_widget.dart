@@ -26,23 +26,17 @@ class ButtonAccountWidget extends StatelessWidget {
         onPressed!();
         Navigator.pop(context);
       },
-      style: ButtonStyle(
-        surfaceTintColor: const MaterialStatePropertyAll(white),
-        fixedSize: MaterialStateProperty.all(
-          Size(
-            screenWidth / 3.5,
-            screenWidth / 14,
-          ),
+      style: ElevatedButton.styleFrom(
+        surfaceTintColor: white,
+        backgroundColor: backgroundColor,
+        fixedSize: Size(
+          screenWidth / 3.5,
+          screenWidth / 14,
         ),
-        backgroundColor: MaterialStateProperty.all(
-          backgroundColor,
-        ),
-        shape: MaterialStateProperty.all(
-          RoundedRectangleBorder(
-            borderRadius: border16,
-            side: BorderSide(
-              color: borderColor,
-            ),
+        shape: RoundedRectangleBorder(
+          borderRadius: border16,
+          side: BorderSide(
+            color: borderColor,
           ),
         ),
       ),

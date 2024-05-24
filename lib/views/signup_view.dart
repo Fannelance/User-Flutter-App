@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/views/change_password_view.dart';
-import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/authentication_body_widget.dart';
 import 'package:fannelance/widgets/authentication_textfield_widget.dart';
@@ -11,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:geolocator/geolocator.dart';
-
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
@@ -25,7 +23,7 @@ class SignupViewState extends State<SignupView> {
   static TextEditingController lastNameController = TextEditingController();
   static TextEditingController emailController = TextEditingController();
 
- Future getCurrentLocationApp()async{
+  Future getCurrentLocationApp() async {
     // bool serviceEnabled;
     // LocationPermission permission;
     // serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -37,14 +35,12 @@ class SignupViewState extends State<SignupView> {
     Position position = await Geolocator.getCurrentPosition();
     print(position);
   }
+
   @override
-  void initState(){
+  void initState() {
     getCurrentLocationApp();
     super.initState();
   }
-
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +80,9 @@ class SignupViewState extends State<SignupView> {
         if (response.statusCode == 200) {
           print('Success!');
           if (context.mounted) {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) {
-                return const PhoneNumberView();
-              }),
+              kPhoneNumberRoute,
             );
           }
         } else {

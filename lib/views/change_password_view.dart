@@ -5,7 +5,6 @@ import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:fannelance/widgets/forgot_password_widget.dart';
-import 'package:fannelance/widgets/nav_bar_widget.dart';
 import 'package:fannelance/widgets/password_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -57,9 +56,9 @@ class ChangePasswordviewState extends State<ChangePasswordview> {
       if (response.statusCode == 200) {
         print('Success!');
         if (context.mounted) {
-          Navigator.pushReplacement(
+          Navigator.pushReplacementNamed(
             context,
-            MaterialPageRoute(builder: (context) => const NavBarWidget()),
+            kNavbarRoute,
           );
         }
       } else {

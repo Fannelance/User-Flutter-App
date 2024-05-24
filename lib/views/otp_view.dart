@@ -9,7 +9,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPView extends StatefulWidget {
-  final Widget nextPage;
+  final String nextPage;
   const OTPView({
     Key? key,
     required this.nextPage,
@@ -83,9 +83,9 @@ class OTPViewState extends State<OTPView> {
 
         if (response.statusCode == 200) {
           if (context.mounted) {
-            Navigator.pushReplacement(
+            Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) => widget.nextPage),
+              widget.nextPage,
             );
           }
         } else {

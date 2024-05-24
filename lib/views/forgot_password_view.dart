@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/login_view.dart';
 import 'package:fannelance/widgets/app_bar_widget.dart';
 import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:fannelance/widgets/password_textfield_widget.dart';
@@ -59,9 +58,9 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
         if (response.statusCode == 200) {
           print('Success!');
            if (context.mounted) {
-            Navigator.pushReplacement(
+            Navigator.pushReplacementNamed(
               context,
-              MaterialPageRoute(builder: (context) => const LoginView()),
+              kLoginRoute,
             );
           }
         } else {
