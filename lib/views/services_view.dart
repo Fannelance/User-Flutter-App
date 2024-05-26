@@ -11,34 +11,41 @@ class ServicesView extends StatefulWidget {
 }
 
 class ServicesViewState extends State<ServicesView> {
-  List<ServicesModel> servicesList = [];
-
   @override
   void initState() {
     super.initState();
-    getServicesList();
   }
 
-  void getServicesList() async {
-    List<ServicesModel>? loadedServices = await ServicesModel.loadAndParseJson();
-    setState(() {
-      servicesList = loadedServices;
-    });
-    }
+  Future getServicesList() async {
+    List<ServicesModel>? loadedServices =
+        await ServicesModel.loadAndParseJson();
+    return loadedServices;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppbarWidget(title: 'Services'),
-      body: ListView.builder(
-        padding: const EdgeInsets.only(top: 5,bottom: 15),
-        itemCount: servicesList.length,
-        itemBuilder: (context, index) {
-          return ServicesWidget(
-            obj: servicesList[index],
-          );
-        },
-      ),
-    );
+        appBar: const AppbarWidget(title: 'Services'),
+        body: FutureBuilder(
+            future: getServicesList(),
+            builder: ((context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                );
+              }
+
+              return ListView.builder(
+                padding: const EdgeInsets.only(top: 5, bottom: 15),
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) {
+                  return ServicesWidget(
+                    obj: snapshot.data[index],
+                  );
+                },
+              );
+            })));
   }
 }
