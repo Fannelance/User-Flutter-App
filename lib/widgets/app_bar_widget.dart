@@ -17,7 +17,7 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         title,
         style: TextStyle(
-          fontSize: screenWidth / 9.7,
+          fontSize: screenWidth / 11,
           fontFamily: bold,
         ),
       ),

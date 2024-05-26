@@ -25,28 +25,25 @@ class ServiceSearchWidget extends StatelessWidget {
         );
         addToSearchHistoryList(obj);
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
-        child: Row(
-          children: [
-            CardServiceWidget(
-              border: 10,
-              height: screenWidth / 7.5,
-              width: screenWidth / 7.5,
-              image: obj.serviceIcon,
-              padding: screenWidth / 60,
+      child: Row(
+        children: [
+          CardServiceWidget(
+            border: 2,
+            height: screenWidth / 7.5,
+            width: screenWidth / 7.5,
+            image: obj.serviceIcon,
+            padding: screenWidth / 60,
+          ),
+          const SizedBox(
+            width: 15,
+          ),
+          Text(
+            obj.serviceName,
+            style: TextStyle(
+              fontSize: screenWidth / 24,
             ),
-            const SizedBox(
-              width: 15,
-            ),
-            Text(
-              obj.serviceName,
-              style: TextStyle(
-                fontSize: screenWidth / 20,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -68,7 +65,8 @@ class EmptySearchWidget extends StatelessWidget {
         child: Text(
           'No recent searches',
           style: TextStyle(
-            fontSize: screenWidth / 20,
+            color: grey5,
+            fontSize: screenWidth / 24,
           ),
         ),
       ),

@@ -121,10 +121,10 @@ class SearchWidgetState extends State<SearchWidget> {
           //search field
           onSearchTextChanged: _onSearchTextChanged,
           hint: 'Search Services',
-          searchStyle: TextStyle(fontSize: screenWidth / 20),
+          searchStyle: TextStyle(fontSize: screenWidth / 24),
           searchInputDecoration: InputDecoration(
             hintStyle: TextStyle(
-              fontSize: screenWidth / 22,
+              fontSize: screenWidth / 24,
               color: grey9,
             ),
             fillColor: greyE8,

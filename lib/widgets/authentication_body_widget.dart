@@ -63,6 +63,7 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
             ),
           ),
 
+          widget.helperTextWidget ?? Container(),    
           box_30,
 
           // Username + Email

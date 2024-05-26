@@ -83,15 +83,22 @@ class ChangePasswordviewState extends State<ChangePasswordview> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            box_20,
             // Title
             Text(
-              'Change password',
+              'Reset password',
               style: TextStyle(
                 fontSize: screenWidth / 11,
                 fontFamily: bold,
               ),
             ),
+            box_5,
+            Text('Password must be equal to or more than 6 characters.',
+                maxLines: 3,
+                style: TextStyle(
+                  color: grey7,
+                  height: 1.4,
+                  fontSize: screenWidth / 21,
+                )),
             box_20,
             PasswordTextFieldWidget(
               hint: 'Current password',
@@ -109,8 +116,7 @@ class ChangePasswordviewState extends State<ChangePasswordview> {
             ),
             box_20,
             AuthenticationButtonWidget(
-                buttonOnPressed: changePasswordRequest,
-                buttonText: 'Change password'),
+                buttonOnPressed: changePasswordRequest, buttonText: 'Confirm'),
             box_20,
             const ForgotPasswordWidget(),
           ],

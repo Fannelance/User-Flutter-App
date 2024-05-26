@@ -37,9 +37,7 @@ class HomeViewState extends State<HomeView> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: const AppbarWidget(
-        title: 'Fannelance',
-      ),
+      appBar: const AppbarWidget(title: 'Fannelance'),
       body: FutureBuilder(
         future: getServicesList(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -52,15 +50,12 @@ class HomeViewState extends State<HomeView> {
           } else {
             return Column(
               children: [
-                box_60,
-
+                box_10,
                 //search frame
                 SearchWidget(
                   servicesList: snapshot.data,
                 ),
-
-                box_70,
-
+                box_20,
                 //suggestions frame
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 28),
@@ -71,10 +66,9 @@ class HomeViewState extends State<HomeView> {
                       Text(
                         'Suggestions',
                         style: TextStyle(
-                          fontSize: screenWidth / 15,
+                          fontSize: screenWidth / 18,
                         ),
                       ),
-                      //see all
                       GestureDetector(
                         onTap: () {
                           widget.onLinkPressed(1);
@@ -86,7 +80,7 @@ class HomeViewState extends State<HomeView> {
                           child: Text(
                             'See All',
                             style: underlineStyle.copyWith(
-                              fontSize: screenWidth / 23,
+                              fontSize: screenWidth / 32,
                             ),
                           ),
                         ),
@@ -94,26 +88,26 @@ class HomeViewState extends State<HomeView> {
                     ],
                   ),
                 ),
-
-                const SizedBox(
-                  height: 18,
-                ),
-
+                box_10,
                 //services frame
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: ListView.builder(
-                      itemExtent: (MediaQuery.of(context).size.width - 20) / 4,
-                      scrollDirection: Axis.horizontal,
-                      itemCount:
-                          snapshot.data.length >= 4 ? 4 : snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        return HomeWidget(obj: snapshot.data[index]);
-                      },
+                    child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(
+                        snapshot.data.length >= 5 ? 5 : snapshot.data.length,
+                        (index) {
+                          return SizedBox(
+                            width: screenWidth / 5.5,
+                            child: HomeWidget(obj: snapshot.data[index]),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                ),
+                )),
               ],
             );
           }

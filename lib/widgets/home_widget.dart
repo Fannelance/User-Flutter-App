@@ -21,14 +21,16 @@ class HomeWidget extends StatelessWidget {
         children: [
           CardServiceWidget(
             border: 20,
-            height: screenWidth / 4.4,
-            width: screenWidth / 4.4,
+            height: screenWidth / 5.5,
+            width: screenWidth / 5.5,
             image: obj.serviceIcon,
-            padding: 20,
+            padding: 16,
           ),
           Text(
-            obj.serviceName,
-            style: TextStyle(fontSize: screenWidth / 26),
+            obj.serviceName.split(' ').length > 1
+                ? obj.serviceName.split(' ')[1]
+                : obj.serviceName,
+            style: TextStyle(fontSize: screenWidth / 32),
             textAlign: TextAlign.center,
           )
         ],
