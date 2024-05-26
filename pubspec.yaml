@@ -29,6 +29,7 @@ dependencies:
   geolocator: ^12.0.0
   input_history_text_field: ^0.2.0
   flutter_svg:
+  geocoding: ^3.0.0
   
 
 dev_dependencies:

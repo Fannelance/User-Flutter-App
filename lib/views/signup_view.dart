@@ -12,7 +12,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:geolocator/geolocator.dart';
 
-
 class SignupView extends StatefulWidget {
   const SignupView({super.key});
 
@@ -25,26 +24,18 @@ class SignupViewState extends State<SignupView> {
   static TextEditingController lastNameController = TextEditingController();
   static TextEditingController emailController = TextEditingController();
 
- Future getCurrentLocationApp()async{
-    // bool serviceEnabled;
-    // LocationPermission permission;
-    // serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    // if (serviceEnabled == false){
-    //   print("please turnon location service");
-    // }
+  Future getCurrentLocationApp() async {
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
     Position position = await Geolocator.getCurrentPosition();
-    print(position);
+    return position;
   }
+
   @override
-  void initState(){
+  void initState() {
     getCurrentLocationApp();
     super.initState();
   }
-
-  
-  
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +47,8 @@ class SignupViewState extends State<SignupView> {
         const secureStorage = FlutterSecureStorage();
         String? token = await secureStorage.read(key: 'token');
 
+        Position position = await getCurrentLocationApp();
+
         Dio dio = Dio();
         String url = '$serverURL/user/register';
         Map<String, dynamic> data = {
@@ -64,6 +57,10 @@ class SignupViewState extends State<SignupView> {
           'email': emailController.text,
           'password': ChangePasswordviewState.passwordController.text,
           'gender': DropDownMenuWidgetState.gender,
+          'location': {
+            'type': 'point',
+            'coordinates': [position.latitude, position.longitude]
+          }
         };
 
         String jsonData = jsonEncode(data);

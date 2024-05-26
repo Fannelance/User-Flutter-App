@@ -1,20 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/models/custom_icons.dart';
 import 'package:fannelance/widgets/account_alertdialog_widget.dart';
 import 'package:fannelance/widgets/account_listtile_widget.dart';
-import 'package:fannelance/widgets/drop_down_menu_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttericon/font_awesome_icons.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class AccountView extends StatefulWidget {
-  const AccountView({
-    super.key,
-  });
+  const AccountView({super.key});
 
   @override
   State<AccountView> createState() => _AccountViewState();
@@ -56,6 +53,15 @@ class _AccountViewState extends State<AccountView> {
     }
   }
 
+  Future<String> getCurrentLocation(double lat, double long) async {
+    List<Placemark> location = await placemarkFromCoordinates(lat, long);
+    Placemark place = location[0];
+    
+    return "${place.locality}, ${place.subAdministrativeArea}";
+  }
+
+  String? locationString;
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -72,9 +78,21 @@ class _AccountViewState extends State<AccountView> {
             );
           } else {
             final userData = snapshot.data?['data'];
-            print(userData);
-            var userName = toBeginningOfSentenceCase('${userData!['firstname']} ') +
+            final latitude = userData['location']['coordinates'][0];
+            final longitude = userData['location']['coordinates'][1];
+
+            if (locationString == null) {
+              getCurrentLocation(latitude, longitude).then((location) {
+                setState(() {
+                  locationString = location;
+                });
+              });
+            }
+
+            var userName =
+                toBeginningOfSentenceCase('${userData!['firstname']} ') +
                     toBeginningOfSentenceCase('${userData!['lastname']}');
+
             return Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 25,
@@ -90,7 +108,7 @@ class _AccountViewState extends State<AccountView> {
                   ),
                   CircleAvatar(
                     radius: screenWidth / 9,
-                    backgroundImage: DropDownMenuWidgetState.gender == 'Female'
+                    backgroundImage: userData!['gender'] == 'female'
                         ? const AssetImage(
                             'assets/icons/female.png',
                           )
@@ -124,8 +142,8 @@ class _AccountViewState extends State<AccountView> {
                   ),
                   ListTileAccountWidget(
                     title: 'Location',
-                    subTitle: userData!['location'],
-                    icon: CustomIcons.location,
+                    subTitle: locationString ?? 'Loading...',
+                    icon: Icons.location_on,
                   ),
                 ],
               ),

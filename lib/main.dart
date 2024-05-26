@@ -1,10 +1,5 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/change_password_view.dart';
-import 'package:fannelance/views/forgot_password_view.dart';
-import 'package:fannelance/views/login_view.dart';
-import 'package:fannelance/views/otp_view.dart';
 import 'package:fannelance/views/phone_number_view.dart';
-import 'package:fannelance/views/signup_view.dart';
 import 'package:fannelance/widgets/nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -36,14 +31,6 @@ class Fannelance extends StatelessWidget {
       home: (token == "" || JwtDecoder.isExpired(token!) || !isAuthorized)
           ? const PhoneNumberView()
           : const NavBarWidget(),
-      // home: LoginView(),
-      // home: SignupView(),
-      // home: OTPView(),
-      // home: NavBarWidget(),
-      // home: CountryStateCityScreen(),
-      // home: ChangePasswordview(),
-      // home: ForgotPasswordView(),
-      // home: PhoneNumberView(),
       theme: ThemeData(
         scaffoldBackgroundColor: white,
         canvasColor: white,
