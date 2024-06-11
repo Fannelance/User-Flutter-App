@@ -256,6 +256,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.1"
+<<<<<<< HEAD
   geocoding:
     dependency: "direct main"
     description:
@@ -288,6 +289,8 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+=======
+>>>>>>> b9bd95f8f1b7cf2c2101c5349590a327a005f463
   geolocator:
     dependency: "direct main"
     description:
