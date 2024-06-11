@@ -1,5 +1,5 @@
 import 'package:fannelance/widgets/activity_widget.dart';
-import 'package:fannelance/widgets/app_bar_widget.dart';
+import 'package:fannelance/widgets/app_bar_main_widget.dart';
 import 'package:flutter/material.dart';
 
 class ActivityView extends StatelessWidget {
@@ -8,7 +8,7 @@ class ActivityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppbarWidget(title: 'Activity'),
+      appBar: const AppBarMainWidget(title: 'Activity'),
       body: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {

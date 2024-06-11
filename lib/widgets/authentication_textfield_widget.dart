@@ -23,8 +23,6 @@ class AuthenticationTextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    
-
     return SizedBox(
       width: screenWidth - 45,
       child: TextFormField(
@@ -33,7 +31,7 @@ class AuthenticationTextFieldWidget extends StatelessWidget {
         enableSuggestions: autocorrect,
         autocorrect: autocorrect,
         keyboardType: inputType,
-        cursorColor: black,
+        cursorColor: kBlack,
         decoration: InputDecoration(
           suffixIcon: visibilityIcon,
           hintText: hint,
@@ -43,7 +41,7 @@ class AuthenticationTextFieldWidget extends StatelessWidget {
           ),
           enabledBorder: authenticationBorder,
           focusedBorder: authenticationBorder.copyWith(
-            borderSide: const BorderSide(color: black),
+            borderSide: const BorderSide(color: kBlack),
           ),
         ),
         onTapOutside: (pointer) {

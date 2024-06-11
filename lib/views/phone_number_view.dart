@@ -1,14 +1,10 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
+import 'package:fannelance/services/check_phone_number_service.dart';
 import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 
 class PhoneNumberView extends StatefulWidget {
   const PhoneNumberView({
@@ -21,8 +17,7 @@ class PhoneNumberView extends StatefulWidget {
 
 class PhoneNumberViewState extends State<PhoneNumberView> {
   static TextEditingController phoneNumberController = TextEditingController();
-  static String countryDialCode = "";
-  static String phone = "";
+  static String countryDialCode = '';
 
   @override
   void initState() {
@@ -32,96 +27,6 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
 
   @override
   Widget build(BuildContext context) {
-    const secureStorage = FlutterSecureStorage();
-
-    Future<void> sendPhoneNumber() async {
-      try {
-        await dotenv.load(fileName: '.env');
-        final String? serverURL = dotenv.env['serverURL'];
-
-        Dio dio = Dio();
-
-        Future<Response> phoneRequest(String url) async {
-          Map<String, dynamic> data = {
-            'phone':
-                '+$countryDialCode${phoneNumberController.text.substring(1)}',
-          };
-          String jsonData = jsonEncode(data);
-          Response response = await dio.post(
-            url,
-            data: jsonData,
-            options: Options(
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              validateStatus: (status) {
-                return true;
-              },
-            ),
-          );
-          await secureStorage.write(
-            key: 'token',
-            value: response.data['token'],
-          );
-
-          String? token = await secureStorage.read(key: 'token');
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token!);
-          phone =
-              decodedToken.containsKey('phone') ? decodedToken['phone'] : '';
-
-          phoneNumberController.clear();
-          return response;
-        }
-
-        Future<Response> otpRequest(String url) async {
-          String? token = await secureStorage.read(key: 'token');
-          Response response = await dio.post(
-            url,
-            options: Options(
-              headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer $token',
-              },
-              validateStatus: (status) {
-                return true;
-              },
-            ),
-          );
-
-          return response;
-        }
-
-        Response response = await phoneRequest('$serverURL/user/check-phone');
-
-        void phoneIsVerified() async {
-          if (context.mounted) {
-            Navigator.pushNamed(
-              context,
-              kLoginRoute,
-            );
-          }
-        }
-
-        void phoneIsNotVerified() async {
-          await otpRequest('$serverURL/send-otp');
-          if (context.mounted) {
-            Navigator.pushNamed(
-              context,
-              kOtpSignUpRoute,
-            );
-          }
-        }
-
-        if (response.statusCode == 200) {
-          phoneIsVerified();
-        } else {
-          phoneIsNotVerified();
-        }
-      } catch (e) {
-        print('Error: $e');
-      }
-    }
-
     return Scaffold(
         body: SingleChildScrollView(
       child: Padding(
@@ -164,10 +69,15 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
               ],
               disableLengthCheck: true,
               onCountryChanged: (value) {
-                setState(() => countryDialCode = value.dialCode);
+                setState(
+                  () => countryDialCode = value.dialCode,
+                );
               },
-              onSubmitted: (value) {
-                sendPhoneNumber();
+              onSubmitted: (value) async {
+                await CheckPhoneNumberService().checkPhoneNumberRequest(
+                  context: context,
+                );
+                phoneNumberController.clear();
               },
               controller: phoneNumberController,
               textInputAction: TextInputAction.next,
@@ -177,24 +87,21 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
               showCountryFlag: false,
               dropdownIconPosition: IconPosition.trailing,
               pickerDialogStyle: PickerDialogStyle(
-                backgroundColor: white,
+                backgroundColor: kWhite,
               ),
-              cursorColor: black,
+              cursorColor: kBlack,
               dropdownDecoration: const BoxDecoration(
                 border: Border(
-                 right: BorderSide(
-                   color: Colors.grey,
-                 ) 
-                ),
+                    right: BorderSide(
+                  color: Colors.grey,
+                )),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(19),
                     bottomLeft: Radius.circular(19)),
               ),
               flagsButtonPadding: const EdgeInsets.fromLTRB(20, 16, 0, 16),
               decoration: InputDecoration(
-                prefix: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
+                prefix: const Row(mainAxisSize: MainAxisSize.min, children: [
                   VerticalDivider(
                     thickness: 1,
                     indent: 20,
@@ -213,7 +120,7 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
                 border: phoneBorder,
                 focusedBorder: phoneBorder.copyWith(
                   borderSide: const BorderSide(
-                    color: black,
+                    color: kBlack,
                   ),
                 ),
               ),
@@ -222,7 +129,12 @@ class PhoneNumberViewState extends State<PhoneNumberView> {
             //button
             AuthenticationButtonWidget(
               buttonText: 'Continue',
-              buttonOnPressed: sendPhoneNumber,
+              buttonOnPressed: () async {
+                await CheckPhoneNumberService().checkPhoneNumberRequest(
+                  context: context,
+                );
+                phoneNumberController.clear();
+              },
             ),
           ],
         ),

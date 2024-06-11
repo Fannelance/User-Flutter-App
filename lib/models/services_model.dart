@@ -18,7 +18,7 @@ class ServicesModel {
 
       const secureStorage = FlutterSecureStorage();
       String? token = await secureStorage.read(key: 'token');
-      
+
       Dio dio = Dio();
       final String url = '$serverURL/services-list';
 

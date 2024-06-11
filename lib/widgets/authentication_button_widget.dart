@@ -12,9 +12,9 @@ class AuthenticationButtonWidget extends StatelessWidget {
     super.key,
     required this.buttonText,
     this.buttonOnPressed,
-    this.textColor = white,
-    this.buttonColor = black,
-    this.borderColor = black,
+    this.textColor = kWhite,
+    this.buttonColor = kBlack,
+    this.borderColor = kBlack,
   });
 
   @override
@@ -30,7 +30,7 @@ class AuthenticationButtonWidget extends StatelessWidget {
           screenWidth / 7.3,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: border16,
+          borderRadius: kBorder16,
           side: BorderSide(
             color: borderColor!,
           ),

@@ -10,14 +10,12 @@ import 'package:fannelance/views/workers_view.dart';
 import 'package:fannelance/widgets/nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 void main() async {
   await dotenv.load(fileName: '.env');
-  const secureStorage = FlutterSecureStorage();
-  final String token = await secureStorage.read(key: 'token') ?? "";
+  final String token = await kSecureStorage.read(key: 'token') ?? "";
   Stripe.publishableKey = dotenv.env['publishableKey']!;
   runApp(Fannelance(token: token));
 }
@@ -58,15 +56,17 @@ class Fannelance extends StatelessWidget {
         }
       },
 
-      home: (token == "" || JwtDecoder.isExpired(token!) || !isAuthorized)
-          ? const PhoneNumberView()
-          : const NavBarWidget(),
+      initialRoute:
+          (token == "" || JwtDecoder.isExpired(token!) || !isAuthorized)
+              ? kPhoneNumberRoute
+              : kNavbarRoute,
+
       theme: ThemeData(
-        scaffoldBackgroundColor: white,
-        canvasColor: white,
+        scaffoldBackgroundColor: kWhite,
+        canvasColor: kWhite,
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
-            color: black,
+            color: kBlack,
             fontFamily: 'Gilroy-SemiBold',
           ),
         ),

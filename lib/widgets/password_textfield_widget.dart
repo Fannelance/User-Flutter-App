@@ -39,7 +39,7 @@ class PasswordTextFieldWidgetState extends State<PasswordTextFieldWidget> {
         ),
         icon: Icon(
           size: 22,
-          color: grey7,
+          color: kGrey7,
           obscureText ? Icons.visibility_off : Icons.visibility,
         ),
         onPressed: () {

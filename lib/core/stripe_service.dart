@@ -39,7 +39,7 @@ abstract class StripeService {
           primaryButton: PaymentSheetPrimaryButtonAppearance(
             colors: PaymentSheetPrimaryButtonTheme(
               light: PaymentSheetPrimaryButtonThemeColors(
-                background: black,
+                background: kBlack,
               ),
             ),
           ),

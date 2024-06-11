@@ -1,6 +1,6 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
-import 'package:fannelance/widgets/app_bar_widget.dart';
+import 'package:fannelance/widgets/app_bar_main_widget.dart';
 import 'package:fannelance/widgets/home_widget.dart';
 import 'package:fannelance/widgets/search_widget.dart';
 import 'package:flutter/material.dart';
@@ -37,14 +37,14 @@ class HomeViewState extends State<HomeView> {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: const AppbarWidget(title: 'Fannelance'),
+      appBar: const AppBarMainWidget(title: 'Fannelance'),
       body: FutureBuilder(
         future: getServicesList(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (!snapshot.hasData) {
             return const Center(
               child: CircularProgressIndicator(
-                color: black,
+                color: kBlack,
               ),
             );
           } else {
@@ -91,23 +91,24 @@ class HomeViewState extends State<HomeView> {
                 box_10,
                 //services frame
                 Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(
-                        snapshot.data.length >= 5 ? 5 : snapshot.data.length,
-                        (index) {
-                          return SizedBox(
-                            width: screenWidth / 5.5,
-                            child: HomeWidget(obj: snapshot.data[index]),
-                          );
-                        },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          snapshot.data.length >= 5 ? 5 : snapshot.data.length,
+                          (index) {
+                            return SizedBox(
+                              width: screenWidth / 5.5,
+                              child: HomeWidget(obj: snapshot.data[index]),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
-                )),
+                ),
               ],
             );
           }

@@ -1,68 +1,75 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/widgets/account_popup_item_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PopupMenuAccountWidget extends StatelessWidget {
-  final void Function()? onTap;
+  final void Function()? onTapDelete;
+  final void Function()? onTapLogout;
 
   const PopupMenuAccountWidget({
     super.key,
-    this.onTap,
+    this.onTapDelete,
+    this.onTapLogout,
   });
 
   get secureStorage => null;
 
   @override
   Widget build(BuildContext context) {
-    const secureStorage = FlutterSecureStorage();
+    final double screenWidth = MediaQuery.of(context).size.width;
+    TextStyle textStyle = TextStyle(
+      fontSize: screenWidth / 25,
+    );
+
     Uri url;
 
     return PopupMenuButton(
       position: PopupMenuPosition.over,
       padding: const EdgeInsets.all(0),
-      surfaceTintColor: white,
-      color: white,
+      surfaceTintColor: kWhite,
+      color: kWhite,
       itemBuilder: (context) => [
         PopupMenuItem(
           height: 40,
-          child: const PopupItemAccountWidget(
-            title: 'Reset Password',
-          ),
-          onTap: () => Navigator.pushNamed(
-            context,
-            kChangePasswordRoute,
-          ),
-        ),
-        PopupMenuItem(
-          height: 40,
-          child: const PopupItemAccountWidget(
-            title: 'Support',
-          ),
-          onTap: () async {
-            url = Uri(scheme: 'tel', path: '01025042013');
-            await launchUrl(url);
-          },
-        ),
-        PopupMenuItem(
-          height: 40,
-          child: const PopupItemAccountWidget(
-            title: 'Logout',
+          child: Text(
+            'Reset Password',
+            style: textStyle,
           ),
           onTap: () {
-            secureStorage.delete(key: 'token');
-            Navigator.pushReplacementNamed(
+            Navigator.pushNamed(
               context,
-              kPhoneNumberRoute,
+              kChangePasswordRoute,
             );
           },
         ),
         PopupMenuItem(
           height: 40,
-          onTap: onTap,
-          child: const PopupItemAccountWidget(
-            title: 'Delete Account',
+          child: Text(
+            'Support',
+            style: textStyle,
+          ),
+          onTap: () async {
+            url = Uri(
+              scheme: 'tel',
+              path: '01025042013',
+            );
+            await launchUrl(url);
+          },
+        ),
+        PopupMenuItem(
+          height: 40,
+          onTap: onTapLogout,
+          child: Text(
+            'Logout',
+            style: textStyle,
+          ),
+        ),
+        PopupMenuItem(
+          height: 40,
+          onTap: onTapDelete,
+          child: Text(
+            'Delete Account',
+            style: textStyle,
           ),
         ),
       ],

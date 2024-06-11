@@ -12,9 +12,9 @@ class ButtonAccountWidget extends StatelessWidget {
     super.key,
     this.onPressed,
     this.text = 'Cancel',
-    this.backgroundColor = black,
-    this.textColor = white,
-    this.borderColor = black,
+    this.backgroundColor = kBlack,
+    this.textColor = kWhite,
+    this.borderColor = kBlack,
   });
 
   @override
@@ -27,14 +27,14 @@ class ButtonAccountWidget extends StatelessWidget {
         Navigator.pop(context);
       },
       style: ElevatedButton.styleFrom(
-        surfaceTintColor: white,
+        surfaceTintColor: kWhite,
         backgroundColor: backgroundColor,
         fixedSize: Size(
           screenWidth / 3.5,
           screenWidth / 14,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: border16,
+          borderRadius: kBorder16,
           side: BorderSide(
             color: borderColor,
           ),

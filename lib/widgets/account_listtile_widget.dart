@@ -1,4 +1,3 @@
-
 import 'package:fannelance/core/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -21,19 +20,19 @@ class ListTileAccountWidget extends StatelessWidget {
         ListTile(
           leading: Icon(
             icon,
-            color: grey9,
+            color: kGrey9,
           ),
           title: Text(
             title ?? "",
             style: TextStyle(
-              color: grey7,
+              color: kGrey7,
               fontSize: screenWidth / 24,
             ),
           ),
           subtitle: Text(
             subTitle ?? "",
             style: TextStyle(
-              color: black,
+              color: kBlack,
               fontSize: screenWidth / 26,
             ),
           ),
@@ -42,7 +41,7 @@ class ListTileAccountWidget extends StatelessWidget {
           indent: 55,
           endIndent: 20,
           thickness: 0.2,
-          color: grey7,
+          color: kGrey7,
           height: 0,
         ),
       ],

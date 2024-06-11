@@ -1,6 +1,5 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
-import 'package:fannelance/widgets/service_search_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -20,12 +19,21 @@ class HomeWidget extends StatelessWidget {
       },
       child: Column(
         children: [
-          CardServiceWidget(
-            border: 20,
+          SizedBox(
             height: screenWidth / 5.5,
             width: screenWidth / 5.5,
-            image: obj.serviceIcon,
-            padding: 16,
+            child: Card(
+              shape: const RoundedRectangleBorder(
+                borderRadius: kBorder20,
+              ),
+              color: kGreyE8,
+              shadowColor: kGrey9,
+              elevation: 0.5,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Image.asset(obj.serviceIcon),
+              ),
+            ),
           ),
           Text(
             obj.serviceName.split(' ').length > 1
