@@ -20,14 +20,14 @@ class SearchFieldWidget extends StatelessWidget {
     return SizedBox(
       height: screenWidth / 7,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 8),
         child: SearchField(
           //suggestions list
           suggestions: getSearchHistoryList,
           itemHeight: screenWidth / 5.5,
           maxSuggestionsInViewPort: 4,
           suggestionsDecoration: SuggestionDecoration(
-            border: Border.all(color: kGrey9, width: 0.8),
+            border: Border.all(color: kGrey9, width: 0.4),
             borderRadius: kBorder10,
           ),
 
@@ -40,7 +40,7 @@ class SearchFieldWidget extends StatelessWidget {
               fontSize: screenWidth / 24,
               color: kGrey9,
             ),
-            fillColor: kGreyE8,
+            fillColor: kWhite,
             filled: true,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 12,

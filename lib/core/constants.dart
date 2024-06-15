@@ -31,7 +31,7 @@ const searchFieldBorder = OutlineInputBorder(
   borderRadius: kBorder16,
   borderSide: BorderSide(
     color: kGrey9,
-    width: 0.2,
+    width: 0.3,
   ),
 );
 
