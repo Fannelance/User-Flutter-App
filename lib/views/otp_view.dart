@@ -1,15 +1,12 @@
-import 'dart:convert';
-import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/phone_number_view.dart';
-import 'package:fannelance/widgets/app_bar_widget.dart';
+import 'package:fannelance/services/check_phone_number_service.dart';
+import 'package:fannelance/services/verify_otp_service.dart';
+import 'package:fannelance/widgets/app_bar_sub_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPView extends StatefulWidget {
-  final Widget nextPage;
+  final String nextPage;
   const OTPView({
     Key? key,
     required this.nextPage,
@@ -32,7 +29,6 @@ class OTPViewState extends State<OTPView> {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    const secureStorage = FlutterSecureStorage();
 
     final defaultPinTheme = PinTheme(
       width: screenWidth / 7,
@@ -41,63 +37,17 @@ class OTPViewState extends State<OTPView> {
         fontSize: 22,
       ),
       decoration: BoxDecoration(
-        borderRadius: border19,
-        border: Border.all(color: grey8),
+        borderRadius: kBorder19,
+        border: Border.all(color: kGrey8),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyBorderWith(
-      border: Border.all(color: focusedBorderColor),
+      border: Border.all(color: kFocusedBorderColor),
     );
 
-    // final errorPinTheme = defaultPinTheme.copyBorderWith(
-    //   border: Border.all(color: redAccent),
-    // );
-
-    Future<void> otpRequest() async {
-      try {
-        await dotenv.load(fileName: '.env');
-        final String? serverURL = dotenv.env['serverURL'];
-
-        Dio dio = Dio();
-        String url = '$serverURL/verify-otp';
-        Map<String, dynamic> data = {
-          'code': pinController,
-        };
-        String jsonData = jsonEncode(data);
-        String? token = await secureStorage.read(key: 'token');
-
-        Response response = await dio.post(
-          url,
-          data: jsonData,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token',
-            },
-            validateStatus: (status) {
-              return true;
-            },
-          ),
-        );
-
-        if (response.statusCode == 200) {
-          if (context.mounted) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => widget.nextPage),
-            );
-          }
-        } else {
-          print('Failed with status: ${response.statusCode}');
-        }
-      } catch (e) {
-        print('Error: $e');
-      }
-    }
-
     return Scaffold(
-      appBar: const SubAppBarWidget(),
+      appBar: const AppBarSubWidget(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
@@ -122,10 +72,11 @@ class OTPViewState extends State<OTPView> {
               children: [
                 Flexible(
                   child: Text(
-                    'We sent an SMS with a 5-digit code to XXX XXXX X${PhoneNumberViewState.phone.substring(10)}',
+                    'We sent an SMS with a 5-digit code to XXX XXXX X'
+                    '${CheckPhoneNumberService.phoneNumber.substring(7)}',
                     maxLines: 3,
                     style: TextStyle(
-                      color: grey7,
+                      color: kGrey7,
                       height: 1.4,
                       fontSize: screenWidth / 21,
                     ),
@@ -154,8 +105,14 @@ class OTPViewState extends State<OTPView> {
                     listenForMultipleSmsOnAndroid: true,
                     hapticFeedbackType: HapticFeedbackType.lightImpact,
                     onCompleted: (pin) {
-                      setState(() => pinController = pin);
-                      otpRequest();
+                      setState(
+                        () => pinController = pin,
+                      );
+                      VerifyOtpService().verifyOtpRequest(
+                        pinController: pinController,
+                        context: context,
+                        nextPage: widget.nextPage,
+                      );
                     },
                     cursor: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -166,14 +123,13 @@ class OTPViewState extends State<OTPView> {
                           ),
                           width: 22,
                           height: 1,
-                          color: black,
+                          color: kBlack,
                         ),
                       ],
                     ),
                     defaultPinTheme: defaultPinTheme,
                     focusedPinTheme: focusedPinTheme,
                     submittedPinTheme: focusedPinTheme,
-                    // errorPinTheme: errorPinTheme,
                   ),
                 ),
               ],
@@ -187,7 +143,7 @@ class OTPViewState extends State<OTPView> {
                 Text(
                   "Didn't recieve a code? ",
                   style: TextStyle(
-                    color: grey5,
+                    color: kGrey5,
                     fontSize: screenWidth / 22,
                   ),
                 ),
@@ -196,7 +152,9 @@ class OTPViewState extends State<OTPView> {
                   child: Text(
                     'Resend',
                     style: TextStyle(
-                        fontSize: screenWidth / 22, color: focusedBorderColor),
+                      fontSize: screenWidth / 22,
+                      color: kFocusedBorderColor,
+                    ),
                   ),
                 ),
               ],

@@ -1,6 +1,5 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
-import 'package:fannelance/views/workers_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -15,9 +14,10 @@ class ServicesWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const WorkersView();
-        }));
+        Navigator.pushNamed(
+          context,
+          kWorkersRoute,
+        );
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -25,14 +25,15 @@ class ServicesWidget extends StatelessWidget {
         width: double.infinity,
         height: screenHeight / 15,
         decoration: const BoxDecoration(
-            color: white,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-            boxShadow: [
-              BoxShadow(
-                color: grey8,
-                blurRadius: 1,
-              ),
-            ]),
+          color: kWhite,
+          borderRadius: kBorder10,
+          boxShadow: [
+            BoxShadow(
+              color: kGrey8,
+              blurRadius: 1,
+            ),
+          ],
+        ),
         child: Row(
           children: [
             Image.asset(

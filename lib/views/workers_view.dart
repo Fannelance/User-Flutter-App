@@ -6,8 +6,8 @@ class WorkersView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-      backgroundColor: green,
+    return const Scaffold(
+      backgroundColor: kGreen,
     );
   }
 }

@@ -57,7 +57,7 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
             widget.helperText,
             maxLines: 3,
             style: TextStyle(
-              color: grey7,
+              color: kGrey7,
               height: 1.4,
               fontSize: screenWidth / 21,
             ),
@@ -85,7 +85,7 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
             buttonOnPressed: widget.buttonOnPressed,
           ),
           box_20,
-          
+
           // Forgot password
           if (widget.suggestionText != null) widget.suggestionText!
         ],

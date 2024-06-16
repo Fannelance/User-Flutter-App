@@ -1,23 +1,24 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:flutter/material.dart';
 
-class DropDownMenuWidget extends StatefulWidget {
-  const DropDownMenuWidget({
+class AuthenticationDropdownWidget extends StatefulWidget {
+  const AuthenticationDropdownWidget({
     super.key,
   });
 
   @override
-  State<DropDownMenuWidget> createState() => DropDownMenuWidgetState();
+  State<AuthenticationDropdownWidget> createState() =>
+      AuthenticationDropdownWidgetState();
 }
 
-class DropDownMenuWidgetState extends State<DropDownMenuWidget> {
+class AuthenticationDropdownWidgetState
+    extends State<AuthenticationDropdownWidget> {
   static String gender = '';
-
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    const materialStatePropertyAll = MaterialStatePropertyAll(white);
+    const widgetStatePropertyAll = WidgetStatePropertyAll(kWhite);
     return DropdownMenu(
       onSelected: (value) {
         if (value != null) {
@@ -25,19 +26,19 @@ class DropDownMenuWidgetState extends State<DropDownMenuWidget> {
         }
       },
       menuStyle: const MenuStyle(
-        backgroundColor: materialStatePropertyAll,
-        surfaceTintColor: materialStatePropertyAll,
+        backgroundColor: widgetStatePropertyAll,
+        surfaceTintColor: widgetStatePropertyAll,
       ),
       trailingIcon: const Icon(
         Icons.arrow_drop_down,
         size: 30,
-        color: grey7,
+        color: kGrey7,
       ),
       hintText: 'Gender',
       width: screenWidth - 50,
       inputDecorationTheme: const InputDecorationTheme(
         hintStyle: TextStyle(
-          color: grey6,
+          color: kGrey6,
           fontWeight: FontWeight.w500,
         ),
         contentPadding: EdgeInsets.symmetric(

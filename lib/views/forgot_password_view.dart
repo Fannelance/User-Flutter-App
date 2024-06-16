@@ -1,14 +1,9 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/views/login_view.dart';
-import 'package:fannelance/widgets/app_bar_widget.dart';
+import 'package:fannelance/services/forgot_password_service.dart';
 import 'package:fannelance/widgets/authentication_button_widget.dart';
 import 'package:fannelance/widgets/password_textfield_widget.dart';
+import 'package:fannelance/widgets/app_bar_sub_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ForgotPasswordView extends StatefulWidget {
   const ForgotPasswordView({super.key});
@@ -25,56 +20,8 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    Future<void> resetPasswordRequest() async {
-      try {
-        await dotenv.load(fileName: '.env');
-        final String? serverURL = dotenv.env['serverURL'];
-
-        const secureStorage = FlutterSecureStorage();
-        String? token = await secureStorage.read(key: 'token');
-        Dio dio = Dio();
-
-        String url = '$serverURL/user/reset-password';
-
-        Map<String, dynamic> data = {
-          'newpassword': newPasswordController.text,
-          'repeatedpassword': repeatedNewPasswordController.text,
-        };
-
-        String jsonData = jsonEncode(data);
-        Response response = await dio.put(
-          url,
-          data: jsonData,
-          options: Options(
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token',
-            },
-            validateStatus: (status) {
-              return true;
-            },
-          ),
-        );
-
-        if (response.statusCode == 200) {
-          print('Success!');
-           if (context.mounted) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginView()),
-            );
-          }
-        } else {
-          print(
-              'Failed with status: ${response.statusCode} ${response.data['error']}');
-        }
-      } catch (e) {
-        print('Error: $e');
-      }
-    }
-
     return Scaffold(
-      appBar: const SubAppBarWidget(),
+      appBar: const AppBarSubWidget(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 25),
         child: Column(
@@ -102,7 +49,9 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
             ),
             box_20,
             AuthenticationButtonWidget(
-              buttonOnPressed: resetPasswordRequest,
+              buttonOnPressed: () async {
+                await ForgotPasswordService().forgotPasswordRequest(context);
+              },
               buttonText: 'Confirm',
             )
           ],
