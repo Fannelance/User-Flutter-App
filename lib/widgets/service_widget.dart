@@ -1,4 +1,5 @@
 import 'package:fannelance/core/constants.dart';
+import 'package:fannelance/core/routes.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
@@ -13,12 +14,10 @@ class ServicesWidget extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          kWorkersRoute,
-        );
-      },
+      onTap: () => Navigator.pushNamed(
+        context,
+        kRequestRoute,
+      ),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         margin: const EdgeInsets.only(left: 25, right: 25, top: 13),

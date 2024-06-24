@@ -1,4 +1,5 @@
 import 'package:fannelance/core/constants.dart';
+import 'package:fannelance/core/routes.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class ServiceSearchWidget extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          kWorkersRoute,
+          kRequestRoute,
         );
         addToSearchHistoryList(obj);
       },
