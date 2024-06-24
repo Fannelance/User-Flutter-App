@@ -33,7 +33,7 @@ class ForgotPasswordViewState extends State<ForgotPasswordView> {
               'Create a new password',
               style: TextStyle(
                 fontSize: screenWidth / 11,
-                fontFamily: bold,
+                fontFamily: kBold,
                 height: 1.1,
               ),
             ),

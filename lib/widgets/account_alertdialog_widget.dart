@@ -1,5 +1,5 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/widgets/account_button_widget.dart';
+import 'package:fannelance/widgets/account_buttondialog_widget.dart';
 import 'package:flutter/material.dart';
 
 class DialogAccountWidget extends StatelessWidget {
@@ -56,10 +56,9 @@ class DialogAccountWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ButtonAccountWidget(
+            ButtonDialogAccountWidget(
               // Delete
               onPressed: () {
-                print('alertdialogOnPressed');
                 onPressed!();
               },
               text: buttonText,
@@ -69,7 +68,7 @@ class DialogAccountWidget extends StatelessWidget {
             ),
             const SizedBox(width: 6),
             // Cancel
-            ButtonAccountWidget(
+            ButtonDialogAccountWidget(
               onPressed: () {},
             ),
           ],

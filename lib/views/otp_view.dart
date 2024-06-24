@@ -62,7 +62,7 @@ class OTPViewState extends State<OTPView> {
                 style: TextStyle(
                   fontSize: screenWidth / 11,
                   height: 1.1,
-                  fontFamily: bold,
+                  fontFamily: kBold,
                 ),
               ),
             ),

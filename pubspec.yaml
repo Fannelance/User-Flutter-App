@@ -23,7 +23,6 @@ dependencies:
   geocoding: ^3.0.0
   geolocator: ^12.0.0
   iconsax: ^0.0.8
-  input_history_text_field: ^0.2.0
   intl: ^0.19.0
   intl_phone_field: ^3.2.0
   jwt_decoder: ^2.0.1

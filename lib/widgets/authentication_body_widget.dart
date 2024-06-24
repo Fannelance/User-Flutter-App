@@ -47,7 +47,7 @@ class AuthenticationBodyWidgetState extends State<AuthenticationBodyWidget> {
             widget.title,
             style: TextStyle(
               fontSize: screenWidth / 11,
-              fontFamily: bold,
+              fontFamily: kBold,
             ),
           ),
           box_5,

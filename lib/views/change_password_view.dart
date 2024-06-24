@@ -34,7 +34,7 @@ class ChangePasswordviewState extends State<ChangePasswordview> {
               'Reset password',
               style: TextStyle(
                 fontSize: screenWidth / 11,
-                fontFamily: bold,
+                fontFamily: kBold,
               ),
             ),
             box_5,
