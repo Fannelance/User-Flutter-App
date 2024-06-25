@@ -42,12 +42,28 @@ abstract class StripeService {
         customerId: customerId,
         customerEphemeralKeySecret: ephemeralKeySecret,
         merchantDisplayName: "Fannelance",
-        appearance: const PaymentSheetAppearance(
-          primaryButton: PaymentSheetPrimaryButtonAppearance(
+        googlePay: const PaymentSheetGooglePay(merchantCountryCode: 'EG'),
+        appearance: PaymentSheetAppearance(
+          colors: PaymentSheetAppearanceColors(
+            background: Colors.white,
+            primary: Colors.black,
+            componentBackground: Colors.grey[200]!,
+            componentBorder: Colors.grey[300]!,
+            componentText: Colors.black,
+            primaryText: Colors.black,
+            secondaryText: Colors.black,
+            placeholderText: Colors.black38,
+            icon: Colors.black,
+            error: Colors.red,
+            componentDivider: Colors.grey[400]!,
+          ),
+          primaryButton: const PaymentSheetPrimaryButtonAppearance(
             colors: PaymentSheetPrimaryButtonTheme(
               light: PaymentSheetPrimaryButtonThemeColors(
                 background: kBlack,
               ),
+              dark: PaymentSheetPrimaryButtonThemeColors(
+                  background: kBlack, text: kWhite),
             ),
           ),
         ),
@@ -134,7 +150,6 @@ abstract class StripeService {
             backgroundColor: Colors.green,
           ),
         );
-       
       }
     } catch (error) {
       if (context.mounted) {
