@@ -1,6 +1,6 @@
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/core/routes.dart';
 import 'package:fannelance/models/services_model.dart';
+import 'package:fannelance/views/request_view.dart';
 import 'package:flutter/material.dart';
 
 class ServiceHomeWidget extends StatelessWidget {
@@ -12,12 +12,7 @@ class ServiceHomeWidget extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final serviceName = servicesModel.serviceName;
     return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(
-          context,
-          kRequestRoute,
-        );
-      },
+      onTap: () => RequestView.showDraggableBottomSheet(context),
       child: Column(
         children: [
           Container(

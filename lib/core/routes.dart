@@ -6,15 +6,14 @@ import 'package:fannelance/views/otp_view.dart';
 import 'package:fannelance/views/phone_number_view.dart';
 import 'package:fannelance/views/services_view.dart';
 import 'package:fannelance/views/signup_view.dart';
-import 'package:fannelance/views/request_view.dart';
 import 'package:fannelance/widgets/nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
+  final myKey = GlobalKey<NavBarState>();
   Map<String, Widget Function(BuildContext)> routes = {
     kNavbarRoute: (context) => const NavBarWidget(),
     kServicesRoute: (context) => const ServicesView(),
-    kRequestRoute: (context) => const RequestView(),
     kActivityRoute: (context) => const ActivityView(),
     kChangePasswordRoute: (context) => const ChangePasswordview(),
     kForgotPasswordRoute: (context) => const ForgotPasswordView(),
@@ -37,7 +36,6 @@ class Routes {
 const kNavbarRoute = 'Navbar Widget';
 const kServicesRoute = 'Services View';
 const kActivityRoute = 'Activity View';
-const kRequestRoute = 'Request View';
 const kChangePasswordRoute = 'Change Password View';
 const kForgotPasswordRoute = 'Forgot Password View';
 const kPhoneNumberRoute = 'Phone Number View';

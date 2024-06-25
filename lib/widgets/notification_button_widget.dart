@@ -15,14 +15,15 @@ class NotificationButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
 
     return MaterialButton(
       color: color,
       elevation: 0,
-      minWidth: screenWidth / 2.3,
-      height: 44,
-      shape: const RoundedRectangleBorder(
-        borderRadius: kBorder16,
+      minWidth: screenWidth,
+      height: screenHeight / 24,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(5),
       ),
       onPressed: onPressed,
       child: Text(
