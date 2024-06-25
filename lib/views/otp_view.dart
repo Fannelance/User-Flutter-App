@@ -56,7 +56,7 @@ class OTPViewState extends State<OTPView> {
             box_20,
             //title
             SizedBox(
-              width: screenWidth / 1.6,
+              width: screenWidth / 1.4,
               child: Text(
                 'Verify your phone number',
                 style: TextStyle(
@@ -73,7 +73,7 @@ class OTPViewState extends State<OTPView> {
                 Flexible(
                   child: Text(
                     'We sent an SMS with a 5-digit code to XXX XXXX X'
-                    '${CheckPhoneNumberService.phoneNumber.substring(7)}',
+                    '${CheckPhoneNumberService.phoneNumber.substring(10)}',
                     maxLines: 3,
                     style: TextStyle(
                       color: kGrey7,
