@@ -11,11 +11,11 @@ class NotificationListViewWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _NotificationListViewWidgetState createState() =>
-      _NotificationListViewWidgetState();
+  NotificationListViewWidgetState createState() =>
+      NotificationListViewWidgetState();
 }
 
-class _NotificationListViewWidgetState
+class NotificationListViewWidgetState
     extends State<NotificationListViewWidget> {
   late Future<dynamic> _workersFuture;
 
@@ -89,8 +89,20 @@ class _NotificationListViewWidgetState
                     : ListView.separated(
                         itemCount: snapshot.data['data']!.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return NotificationWidget(
-                            workerData: snapshot.data['data'][index],
+                          final workerData = snapshot.data['data'];
+                          return FutureBuilder(
+                            future: Future.delayed(
+                                const Duration(seconds: 2) * index),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return NotificationWidget(
+                                  workerData: workerData[index],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) {
