@@ -18,7 +18,7 @@ class AppBarMainWidget extends StatelessWidget implements PreferredSizeWidget {
         title,
         style: TextStyle(
           fontSize: screenWidth / 11,
-          fontFamily: bold,
+          fontFamily: kBold,
         ),
       ),
     );

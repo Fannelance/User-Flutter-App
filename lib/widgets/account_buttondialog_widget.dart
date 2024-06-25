@@ -1,14 +1,14 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:flutter/material.dart';
 
-class ButtonAccountWidget extends StatelessWidget {
+class ButtonDialogAccountWidget extends StatelessWidget {
   final void Function()? onPressed;
   final String text;
   final Color backgroundColor;
   final Color textColor;
   final Color borderColor;
 
-  const ButtonAccountWidget({
+  const ButtonDialogAccountWidget({
     super.key,
     this.onPressed,
     this.text = 'Cancel',
@@ -24,7 +24,6 @@ class ButtonAccountWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         onPressed!();
-        Navigator.pop(context);
       },
       style: ElevatedButton.styleFrom(
         surfaceTintColor: kWhite,
@@ -45,6 +44,7 @@ class ButtonAccountWidget extends StatelessWidget {
         style: TextStyle(
           color: textColor,
           fontSize: screenWidth / 25,
+          fontFamily: kSemiBold,
         ),
       ),
     );

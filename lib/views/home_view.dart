@@ -1,6 +1,7 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/widgets/app_bar_main_widget.dart';
+import 'package:fannelance/widgets/circular_indicator_widget.dart';
 import 'package:fannelance/widgets/home_stores_grid_widget.dart';
 import 'package:fannelance/widgets/home_stores_list_widget.dart';
 import 'package:fannelance/widgets/search_widget.dart';
@@ -46,11 +47,7 @@ class HomeViewState extends State<HomeView> {
         future: getServicesList(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: kBlack,
-              ),
-            );
+            return const CircularIndicatorWidget();
           } else {
             var snapshotData = snapshot.data;
             var subTitleStyle = TextStyle(

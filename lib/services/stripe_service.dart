@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/payment_intent_input_model.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 abstract class StripeService {
-  //create payment intent
-  static Future createPaymentIntent({
+  // Create payment intent
+  static Future<dynamic> createPaymentIntent({
     required PaymentIntentInputModel paymentIntentInputModel,
   }) async {
     Dio dio = Dio();
@@ -20,10 +21,16 @@ abstract class StripeService {
       ),
       data: paymentIntentInputModel.toJson(),
     );
-    return response.data;
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      print(
+        'Failed with status: ${response.statusCode} ${response.data['error']}',
+      );
+    }
   }
 
-  //initialize the payment sheet
+  // Initialize the payment sheet
   static Future<void> initializePaymentSheet({
     required String clientSecret,
     required String customerId,
@@ -48,13 +55,13 @@ abstract class StripeService {
     );
   }
 
-  //present payment sheet
+  // Present payment sheet
   static Future presentPaymentSheet() async {
     await Stripe.instance.presentPaymentSheet();
   }
 
-  //create Ephemeral Key
-  static Future createEphemeralKey({
+  // Create Ephemeral Key
+  static Future<dynamic> createEphemeralKey({
     required String customer,
   }) async {
     Dio dio = Dio();
@@ -69,10 +76,16 @@ abstract class StripeService {
         },
       ),
     );
-    return response.data;
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      print(
+        'Failed with status: ${response.statusCode} ${response.data['error']}',
+      );
+    }
   }
 
-  //call the 4 methods
+  // Call the 4 methods
   static Future<void> makePayment({
     required PaymentIntentInputModel paymentIntentInputModel,
   }) async {
@@ -93,6 +106,50 @@ abstract class StripeService {
       throw Exception(
         error.toString(),
       );
+    }
+  }
+
+  // Handle the payment process
+  static Future<void> handlePayment(BuildContext context) async {
+    try {
+      PaymentIntentInputModel inputModel = PaymentIntentInputModel(
+        amount: 100,
+        currency: 'EGP',
+        customerId: 'cus_PbfjLHEmbwUdrx',
+      );
+
+      await StripeService.makePayment(
+        paymentIntentInputModel: inputModel,
+      );
+
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Your request is completed successfully",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.green,
+          ),
+        );
+       
+      }
+    } catch (error) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Your request Failed",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+            backgroundColor: Colors.redAccent,
+          ),
+        );
+      }
     }
   }
 }

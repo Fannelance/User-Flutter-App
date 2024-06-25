@@ -55,20 +55,12 @@ const kBorderV10 = BorderRadius.vertical(bottom: Radius.circular(10));
 
 /* ************************* Routes ************************* */
 
-const kNavbarRoute = 'Navbar Widget';
-const kServicesRoute = 'Services View';
-const kWorkersRoute = 'Workers View';
-const kChangePasswordRoute = 'Change Password View';
-const kForgotPasswordRoute = 'Forgot Password View';
-const kPhoneNumberRoute = 'Phone Number View';
-const kOtpSignUpRoute = 'OTP Signup View';
-const kOtpForgotPasswordRoute = 'OTP Forgot Password View';
-const kLoginRoute = 'Login View';
-const kSignupRoute = 'Signup View';
+
 
 /* ************************* Fonts ************************* */
 
-const String bold = 'Gilroy-Bold';
+const String kBold = 'Gilroy-Bold';
+const String kSemiBold = 'Gilroy-SemiBold';
 
 const underlineStyle = TextStyle(
   shadows: [

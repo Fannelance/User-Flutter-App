@@ -46,7 +46,7 @@ class _BodyAccountWidgetState extends State<BodyAccountWidget> {
         });
       });
     }
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 25,
@@ -75,7 +75,7 @@ class _BodyAccountWidgetState extends State<BodyAccountWidget> {
             userName,
             style: TextStyle(
               fontSize: screenWidth / 18,
-              fontFamily: bold,
+              fontFamily: kBold,
             ),
           ),
           box_50,

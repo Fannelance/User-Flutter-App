@@ -1,5 +1,6 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
+import 'package:fannelance/views/request_view.dart';
 import 'package:flutter/material.dart';
 
 class ServiceSearchWidget extends StatelessWidget {
@@ -18,10 +19,7 @@ class ServiceSearchWidget extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          kWorkersRoute,
-        );
+        RequestView.showDraggableBottomSheet(context);
         addToSearchHistoryList(obj);
       },
       child: Padding(
@@ -31,7 +29,6 @@ class ServiceSearchWidget extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Service Icon
             SizedBox(
               height: screenWidth / 7.5,
               width: screenWidth / 7.5,
@@ -51,7 +48,6 @@ class ServiceSearchWidget extends StatelessWidget {
             const SizedBox(
               width: 15,
             ),
-            // Service Name
             Text(
               obj.serviceName,
               style: TextStyle(

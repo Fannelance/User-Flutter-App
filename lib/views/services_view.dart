@@ -1,5 +1,6 @@
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/widgets/app_bar_main_widget.dart';
+import 'package:fannelance/widgets/circular_indicator_widget.dart';
 import 'package:fannelance/widgets/service_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -30,11 +31,7 @@ class ServicesViewState extends State<ServicesView> {
         future: getServicesList(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.black,
-              ),
-            );
+            return const CircularIndicatorWidget();
           }
 
           return ListView.builder(
