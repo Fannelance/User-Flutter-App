@@ -10,11 +10,12 @@ class CheckPhoneNumberService {
   static String phoneNumber = '';
 
   Future<void> checkPhoneNumberRequest({required BuildContext context}) async {
+    phoneNumber = '+${PhoneNumberViewState.countryDialCode}'
+        '${PhoneNumberViewState.phoneNumberController.text.substring(1)}';
     await ApiRequest().post(
       url: 'user/check-phone',
       data: {
-        'phone': '+${PhoneNumberViewState.countryDialCode}'
-            '${PhoneNumberViewState.phoneNumberController.text.substring(1)}',
+        'phone': phoneNumber,
       },
       onPressedSuccess: () {
         Navigator.pushNamed(
@@ -33,10 +34,5 @@ class CheckPhoneNumberService {
       },
       writeToken: true,
     );
-
-    String? token = await kSecureStorage.read(key: 'token');
-    Map<String, dynamic> decodedToken = JwtDecoder.decode(token!);
-    phoneNumber =
-        decodedToken.containsKey('phone') ? decodedToken['phone'] : '';
   }
 }

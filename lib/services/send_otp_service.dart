@@ -6,7 +6,7 @@ class SendOtpService {
   Future<dynamic> sendOtpRequest() async {
     print('sms must be sent');
     await ApiRequest().post(
-      url: 'send-otp',
+      url: 'user/send-otp',
       token: await kSecureStorage.read(key: 'token'),
     );
   }
