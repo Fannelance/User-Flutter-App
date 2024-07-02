@@ -31,7 +31,7 @@ class ServicesViewState extends State<ServicesView> {
         future: getServicesList(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const CircularIndicatorWidget();
+            return  const CircularIndicatorWidget();
           }
 
           return ListView.builder(

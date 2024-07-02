@@ -14,7 +14,14 @@ class ServicesWidget extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return GestureDetector(
-      onTap: () => RequestView.showDraggableBottomSheet(context),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RequestView(jobTitle: 'plumber'),
+          ),
+        );
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         margin: const EdgeInsets.only(left: 25, right: 25, top: 13),

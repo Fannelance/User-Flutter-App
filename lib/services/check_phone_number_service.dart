@@ -1,11 +1,8 @@
-import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/core/routes.dart';
 import 'package:fannelance/helpers/api_request.dart';
 import 'package:fannelance/services/send_otp_service.dart';
 import 'package:fannelance/views/phone_number_view.dart';
 import 'package:flutter/material.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-
 class CheckPhoneNumberService {
   static String phoneNumber = '';
 

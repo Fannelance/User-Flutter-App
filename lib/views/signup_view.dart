@@ -11,6 +11,8 @@ class SignupView extends StatefulWidget {
 
   @override
   State<SignupView> createState() => SignupViewState();
+
+  static getCurrentLocationApp() {}
 }
 
 class SignupViewState extends State<SignupView> {

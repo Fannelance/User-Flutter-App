@@ -12,7 +12,12 @@ class ServiceHomeWidget extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
     final serviceName = servicesModel.serviceName;
     return GestureDetector(
-      onTap: () => RequestView.showDraggableBottomSheet(context),
+      onTap: () => {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const RequestView(jobTitle: 'plumber')))
+      },
       child: Column(
         children: [
           Container(

@@ -18,10 +18,10 @@ class _AccountViewState extends State<AccountView> {
         future: UserDataService().userDataRequest(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return const CircularIndicatorWidget();
+            return CircularIndicatorWidget();
           } else {
             var userData = snapshot.data?['data'];
-            
+
             return BodyAccountWidget(userData: userData);
           }
         },
@@ -29,4 +29,3 @@ class _AccountViewState extends State<AccountView> {
     );
   }
 }
-

@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class TimerBar extends StatefulWidget {
   final Duration duration;
   final Color color;
+  final VoidCallback? onCompleted;
 
   const TimerBar({
     Key? key,
     required this.duration,
     this.color = Colors.blue,
+    required this.onCompleted,
   }) : super(key: key);
 
   @override
@@ -28,11 +30,23 @@ class TimerBarState extends State<TimerBar>
 
     _controller.addListener(() {
       setState(() {});
+      _checkAnimationStatus();
     });
+  }
+
+  void _checkAnimationStatus() {
+    if (_controller.status == AnimationStatus.completed) {
+      if (mounted) {
+        Navigator.of(context).pop();
+        widget.onCompleted!();
+      }
+    }
   }
 
   @override
   void dispose() {
+    _controller.removeListener(
+        _checkAnimationStatus); // Remove the listener on dispose
     _controller.dispose();
     super.dispose();
   }

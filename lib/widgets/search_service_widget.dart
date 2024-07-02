@@ -19,7 +19,12 @@ class ServiceSearchWidget extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        RequestView.showDraggableBottomSheet(context);
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const RequestView(
+                      jobTitle: 'plumber',
+                    )));
         addToSearchHistoryList(obj);
       },
       child: Padding(
