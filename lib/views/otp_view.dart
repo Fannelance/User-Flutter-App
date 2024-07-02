@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/services/check_phone_number_service.dart';
 import 'package:fannelance/services/verify_otp_service.dart';
@@ -19,11 +21,40 @@ class OTPView extends StatefulWidget {
 class OTPViewState extends State<OTPView> {
   final focusNode = FocusNode();
   String pinController = '';
+  Timer? _timer;
+  int _start = 3;
+  bool _canResend = false;
 
   @override
   void initState() {
     super.initState();
     pinController = '';
+    startTimer();
+  }
+
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+    _timer = Timer.periodic(
+      oneSec,
+      (Timer timer) {
+        if (_start == 0) {
+          setState(() {
+            timer.cancel();
+            _canResend = true;
+          });
+        } else {
+          setState(() {
+            _start--;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -147,16 +178,29 @@ class OTPViewState extends State<OTPView> {
                     fontSize: screenWidth / 22,
                   ),
                 ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Text(
-                    'Resend',
-                    style: TextStyle(
-                      fontSize: screenWidth / 22,
-                      color: kFocusedBorderColor,
-                    ),
-                  ),
-                ),
+                _canResend
+                    ? GestureDetector(
+                        onTap: () async {
+                          // Reset the timer if "Resend" is tapped
+                          setState(() {
+                            _start = 3;
+                            _canResend = false;
+                            startTimer();
+                          });
+                          await VerifyOtpService().resendPhoneNumberRequest(
+                            context: context,
+                          );
+                        },
+                        child: Text(
+                          'Resend',
+                          style: TextStyle(
+                            fontSize: screenWidth / 24,
+                            color:
+                                kFocusedBorderColor, // Use your desired color
+                          ),
+                        ),
+                      )
+                    : Text("$_start s"),
               ],
             ),
           ],
