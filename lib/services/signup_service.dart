@@ -17,7 +17,7 @@ class SignupService {
 
   Future<void> signupRequest(BuildContext context) async {
     Position position = await getCurrentLocationApp();
-    
+
     try {
       await ApiRequest().post(
         url: 'user/register',

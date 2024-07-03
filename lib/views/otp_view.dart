@@ -22,7 +22,7 @@ class OTPViewState extends State<OTPView> {
   final focusNode = FocusNode();
   String pinController = '';
   Timer? _timer;
-  int _start = 3;
+  int _start = 60;
   bool _canResend = false;
 
   @override
@@ -183,7 +183,7 @@ class OTPViewState extends State<OTPView> {
                         onTap: () async {
                           // Reset the timer if "Resend" is tapped
                           setState(() {
-                            _start = 3;
+                            _start = 60;
                             _canResend = false;
                             startTimer();
                           });
@@ -200,7 +200,12 @@ class OTPViewState extends State<OTPView> {
                           ),
                         ),
                       )
-                    : Text("$_start s"),
+                    : Text(
+                        "$_start s",
+                        style: TextStyle(
+                          fontSize: screenWidth / 24,
+                        ),
+                      ),
               ],
             ),
           ],

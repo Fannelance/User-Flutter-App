@@ -1,140 +1,180 @@
+import 'dart:async';
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/widgets/notification_listview_widget.dart';
+import 'package:fannelance/services/socket_service.dart';
+import 'package:fannelance/widgets/app_bar_sub_widget.dart';
+import 'package:fannelance/widgets/circular_indicator_widget.dart';
+import 'package:fannelance/widgets/notification_widget.dart';
 import 'package:flutter/material.dart';
 
-abstract class RequestView extends StatelessWidget {
-  const RequestView({super.key});
+class RequestView extends StatefulWidget {
+  final String jobTitle;
+  const RequestView({super.key, required this.jobTitle});
 
-  static void showDraggableBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
-      ),
-      builder: (BuildContext context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.5, // Starts at 50% of screen height
-          minChildSize: 0.25, // Minimum height of 25%
-          maxChildSize: 0.75, // Maximum height of 75%
-          expand: false,
-          builder: (BuildContext context, ScrollController scrollController) {
-            return Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(10),
-                ),
-              ),
-              padding: const EdgeInsets.only(top: 16.0, bottom: 16.0),
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 16.0),
-                    height: 4.0,
-                    width: 50.0,
-                    decoration: BoxDecoration(
-                      color: kGrey9,
-                      borderRadius: BorderRadius.circular(2.0),
-                    ),
-                  ),
-                  const Expanded(
-                    child: NotificationListViewWidget(),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
-      },
-    );
-  }
-
+  @override
+  RequestViewState createState() => RequestViewState();
 }
 
-// import 'package:fannelance/widgets/app_bar_sub_widget.dart';
-// import 'package:fannelance/widgets/notification_listview_widget.dart';
-// import 'package:flutter/material.dart';
+class RequestViewState extends State<RequestView> {
+  final List<dynamic> _workers = [];
+  bool _isDisposed = false;
+  static late SocketService socketService;
+  final StreamController<List<dynamic>> _workersStreamController =
+      StreamController<List<dynamic>>();
 
-// class RequestView extends StatelessWidget {
-//   const RequestView({super.key});
+  @override
+  void initState() {
+    super.initState();
+    _initializeSocketService();
+    _getAvailableWorkers();
+  }
 
-//   static void showBottomSheet(BuildContext context) {
-//     showModalBottomSheet(
-//       context: context,
-//       isScrollControlled: true,
-//       shape: const RoundedRectangleBorder(
-//         borderRadius: BorderRadius.vertical(
-//           top: Radius.circular(20),
-//         ),
-//       ),
-//       builder: (BuildContext context) {
-//         return const RequestView();
-//       },
-//     );
-//   }
+  void _initializeSocketService() async {
+    socketService = SocketService();
+    await socketService.connect();
+  }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Padding(
-//       padding: const EdgeInsets.all(16.0),
-//       child: Column(
-//         mainAxisSize:
-//             MainAxisSize.min, // Ensures the bottom sheet takes minimal height
-//         children: [
-//           Container(
-//             margin: const EdgeInsets.only(bottom: 16.0),
-//             height: 4.0,
-//             width: 50.0,
-//             decoration: BoxDecoration(
-//               color: Colors.grey[400],
-//               borderRadius: BorderRadius.circular(2.0),
-//             ),
-//           ),
-//           const Expanded(
-//             child: NotificationListViewWidget(),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+  _getAvailableWorkers() {
+    socketService.listenToAvailableWorkers(widget.jobTitle,
+        (List<dynamic> workers) {
+      if (!_isDisposed) {
+        setState(() {
+          for (var worker in workers) {
+            if (!_workers.contains(worker)) _workers.add(worker);
+          }
 
+          _workersStreamController.add(_workers);
+        });
+      }
+      _listenToChosenWorker();
+    });
+  }
 
-  //   return Scaffold(
-  //     body: !snapshot.hasData
-  //         ? const Column(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               CircularIndicatorWidget(),
-  //               Text(
-  //                 'Searching for a technician near you, please wait.',
-  //               ),
-  //             ],
-  //           )
-  //         : isAvailable
-  //             ? const NotificationDetailsListViewWidget()
-  //             : Column(
-  //                 mainAxisAlignment: MainAxisAlignment.center,
-  //                 children: [
-  //                   const Center(
-  //                     child: Text(
-  //                       'Sorry, there are no available workers. Please try later.',
-  //                     ),
-  //                   ),
-  //                   MaterialButton(
-  //                     color: kWhite,
-  //                     onPressed: () {
-  //                       setState(() {
-  //                         isAvailable = !isAvailable;
-  //                       });
-  //                     },
-  //                     child: const Text('Retry'),
-  //                   ),
-  //                 ],
-  //               ),
-  //   );
-  // }
+  _listenToChosenWorker() {
+    socketService.listenToChosenWorker((dynamic workerId) {
+      print('Worker has been chosen: $workerId');
+      deleteWorkerById(workerId);
+    });
+  }
 
+  void deleteWorkerById(String id) {
+    setState(() {
+      _workers.removeWhere((worker) => worker['_id'] == id);
+      print('Removed worker: $id');
+      _workersStreamController.add(_workers);
+    });
+  }
+
+  @override
+  void dispose() {
+    _workers.clear();
+    _isDisposed = true;
+    _workersStreamController.close();
+    socketService.disconnect();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return PopScope(
+      canPop: true,
+      onPopInvoked: (bool value) {
+        print('Back button pressed');
+      },
+      child: Scaffold(
+        appBar: const AppBarSubWidget(),
+        body: Container(
+          decoration: const BoxDecoration(
+            color: kWhite,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+                child: Text(
+                  'Here are some of our best workers near you!',
+                  style: TextStyle(
+                    height: 1.2,
+                    fontSize: screenWidth / 17,
+                    fontFamily: kBold,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: StreamBuilder<List<dynamic>>(
+                  stream: _workersStreamController.stream,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<dynamic>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: screenWidth / 1.5,
+                            child: const Text(
+                              'The Perfect Workers Are Here for You!',
+                              style: TextStyle(fontSize: 18, fontFamily: kBold),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(height: 15),
+                          const Center(child: CircularIndicatorWidget()),
+                        ],
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: screenWidth / 1.5,
+                              child: Text(
+                                'We’re sorry, all workers are busy.',
+                                style: TextStyle(
+                                    fontSize: screenWidth / 24,
+                                    fontFamily: kBold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.refresh),
+                              onPressed: () async {
+                                _getAvailableWorkers();
+                              },
+                              color: Colors.black,
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return ListView.separated(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return NotificationWidget(
+                            workerData: snapshot.data?[index],
+                            selectedWorker: deleteWorkerById,
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const Divider(thickness: 0.5),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

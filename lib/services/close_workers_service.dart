@@ -1,5 +1,4 @@
 import 'package:fannelance/helpers/api_request.dart';
-
 class CloseWorkersService {
   Future<dynamic> closeWorkersRequest() async {
     try {

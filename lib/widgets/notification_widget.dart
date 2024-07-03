@@ -1,15 +1,14 @@
 import 'dart:async';
-
 import 'package:fannelance/core/constants.dart';
-import 'package:fannelance/services/stripe_service.dart';
-import 'package:fannelance/widgets/notification_button_widget.dart';
-import 'package:fannelance/widgets/timer_bar_widget.dart';
+import 'package:fannelance/widgets/worker_notificationdialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class NotificationWidget extends StatefulWidget {
   final dynamic workerData;
-  const NotificationWidget({super.key, required this.workerData});
+  void Function(String) selectedWorker;
+  NotificationWidget(
+      {super.key, required this.workerData, required this.selectedWorker});
 
   @override
   NotificationWidgetState createState() => NotificationWidgetState();
@@ -24,7 +23,7 @@ class NotificationWidgetState extends State<NotificationWidget> {
     super.initState();
     _timer = Timer(const Duration(seconds: 10), () {
       setState(() {
-        isVisible = false;
+        isVisible = true;
       });
     });
   }
@@ -45,90 +44,93 @@ class NotificationWidgetState extends State<NotificationWidget> {
         (widget.workerData!['distance'] / 1000).toStringAsFixed(2);
     String rate = widget.workerData!['rate'].toStringAsFixed(1);
 
-    return isVisible
-        ? Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const TimerBar(
-                duration: Duration(seconds: 10), // Duration for the timer
-                color: kBlack, // Color of the timer bar
-              ),
-              box_5,
-              Material(
-                child: ListTile(
-                  leading: const CircleAvatar(
-                    radius: 28,
-                    backgroundColor: kBlack,
-                    child: CircleAvatar(
-                      radius: 27,
-                      backgroundColor: kWhite,
-                      child: CircleAvatar(
-                        radius: 24,
-                        backgroundImage: AssetImage(
-                          'assets/icons/worker_male.png',
-                        ),
-                      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Material(
+          // The Material widget is needed to show the ink effect when using InkWell
+          color: Colors
+              .transparent, // Use a transparent color to keep the background unchanged
+          child: InkWell(
+            onTap: () {
+              print('ListTile tapped!');
+              widget.selectedWorker(widget.workerData!['_id']);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => WorkerNotificationDialog(
+                    workerData: widget.workerData,
+                  ),
+                ),
+              );
+            },
+            splashColor: Colors.grey
+                .withOpacity(0.3), // Optional: Customize the splash color
+            highlightColor: Colors.grey
+                .withOpacity(0.1), // Optional: Customize the highlight color
+            borderRadius: BorderRadius.circular(
+                8), // Optional: Add rounded corners to the tap effect
+            child: ListTile(
+              leading: const CircleAvatar(
+                radius: 28,
+                backgroundColor: kBlack,
+                child: CircleAvatar(
+                  radius: 27,
+                  backgroundColor: kWhite,
+                  child: CircleAvatar(
+                    radius: 24,
+                    backgroundImage: AssetImage(
+                      'assets/icons/worker_male.png',
                     ),
                   ),
-                  title: Text(
-                    userName,
+                ),
+              ),
+              title: Text(
+                userName,
+                style: TextStyle(
+                  fontSize: screenWidth / 22,
+                  fontFamily: kBold,
+                ),
+              ),
+              subtitle: Row(
+                children: [
+                  const Icon(
+                    size: 16,
+                    Icons.location_on,
+                    color: kGrey3,
+                  ),
+                  Text(
+                    '$distance km',
                     style: TextStyle(
-                      fontSize: screenWidth / 22,
+                      fontSize: screenWidth / 32,
+                      fontFamily: kBold,
+                      color: kGrey3,
+                    ),
+                  ),
+                ],
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    rate,
+                    style: TextStyle(
+                      fontSize: screenWidth / 30,
                       fontFamily: kBold,
                     ),
                   ),
-                  subtitle: Row(
-                    children: [
-                      const Icon(
-                        size: 16,
-                        Icons.location_on,
-                        color: kGrey3,
-                      ),
-                      Text(
-                        '$distance km',
-                        style: TextStyle(
-                          fontSize: screenWidth / 32,
-                          fontFamily: kBold,
-                          color: kGrey3,
-                        ),
-                      ),
-                    ],
+                  const Icon(
+                    size: 16,
+                    Icons.star,
+                    color: Colors.amber,
                   ),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        rate,
-                        style: TextStyle(
-                          fontSize: screenWidth / 30,
-                          fontFamily: kBold,
-                        ),
-                      ),
-                      const Icon(
-                        size: 16,
-                        Icons.star,
-                        color: Colors.amber,
-                      ),
-                    ],
-                  ),
-                ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
-                child: NotificationButtonWidget(
-                    text: 'Confirm',
-                    color: kBlack,
-                    onPressed: () async {
-                      // Navigator.pop(context);
-                      print("Confirm");
-                      await StripeService.handlePayment(context);
-                    }),
-              ),
-            ],
-          )
-        : const SizedBox();
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
