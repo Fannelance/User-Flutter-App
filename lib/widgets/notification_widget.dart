@@ -6,8 +6,8 @@ import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class NotificationWidget extends StatefulWidget {
   final dynamic workerData;
-  void Function(String) selectedWorker;
-  NotificationWidget(
+  final void Function(String) selectedWorker;
+  const NotificationWidget(
       {super.key, required this.workerData, required this.selectedWorker});
 
   @override
@@ -28,7 +28,7 @@ class NotificationWidgetState extends State<NotificationWidget> {
     });
   }
 
-  @override
+    @override
   void dispose() {
     _timer?.cancel();
     super.dispose();
@@ -48,9 +48,7 @@ class NotificationWidgetState extends State<NotificationWidget> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Material(
-          // The Material widget is needed to show the ink effect when using InkWell
-          color: Colors
-              .transparent, // Use a transparent color to keep the background unchanged
+          color: Colors.transparent,
           child: InkWell(
             onTap: () {
               print('ListTile tapped!');
@@ -68,8 +66,7 @@ class NotificationWidgetState extends State<NotificationWidget> {
                 .withOpacity(0.3), // Optional: Customize the splash color
             highlightColor: Colors.grey
                 .withOpacity(0.1), // Optional: Customize the highlight color
-            borderRadius: BorderRadius.circular(
-                8), // Optional: Add rounded corners to the tap effect
+            borderRadius: BorderRadius.circular(8),
             child: ListTile(
               leading: const CircleAvatar(
                 radius: 28,

@@ -18,7 +18,7 @@ class ServicesWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RequestView(jobTitle: 'plumber'),
+            builder: (context) => RequestView(jobTitle: obj.jobTitle),
           ),
         );
       },
