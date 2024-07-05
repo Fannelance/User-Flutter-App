@@ -22,8 +22,8 @@ class ServiceSearchWidget extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => const RequestView(
-                      jobTitle: 'plumber',
+                builder: (context) => RequestView(
+                      jobTitle: obj.jobTitle,
                     )));
         addToSearchHistoryList(obj);
       },

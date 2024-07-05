@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class ServicesListHomeWidget extends StatelessWidget {
   final dynamic snapshotData;
   const ServicesListHomeWidget({
-    super.key, this.snapshotData,
+    super.key,
+    this.snapshotData,
   });
 
   @override

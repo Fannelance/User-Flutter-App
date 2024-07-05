@@ -5,10 +5,12 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class ServicesModel {
   final String serviceIcon;
   final String serviceName;
+  final String jobTitle;
 
   ServicesModel({
     required this.serviceIcon,
     required this.serviceName,
+    required this.jobTitle,
   });
 
   static Future<List<ServicesModel>> loadAndParseJson() async {
@@ -44,7 +46,6 @@ class ServicesModel {
           List<ServicesModel> servicesList = services
               .map((serviceJson) => ServicesModel.fromJson(serviceJson))
               .toList();
-          print("Loaded ${servicesList.length} services from server");
           return servicesList;
         } else {
           print("No data field found in the response or data is not an array");
@@ -64,6 +65,7 @@ class ServicesModel {
     return ServicesModel(
       serviceIcon: json['serviceIcon'] ?? "",
       serviceName: json['serviceName'] ?? "",
+      jobTitle: json['jobTitle'] ?? "",
     );
   }
 }
