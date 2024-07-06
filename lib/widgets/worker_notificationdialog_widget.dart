@@ -1,30 +1,61 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:fannelance/core/constants.dart'; // Contains kBlack, kGrey3, kWhite, kBold
+import 'package:fannelance/core/routes.dart';
 import 'package:fannelance/views/request_view.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class WorkerNotificationDialog extends StatelessWidget {
+class WorkerNotificationDialog extends StatefulWidget {
   final dynamic workerData;
 
   const WorkerNotificationDialog({Key? key, required this.workerData})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final AudioPlayer audioPlayer = AudioPlayer();
+  WorkerNotificationDialogState createState() =>
+      WorkerNotificationDialogState();
+}
 
-    String userName = toBeginningOfSentenceCase('${workerData['firstname']} ') +
-        toBeginningOfSentenceCase('${workerData['lastname']}');
-    String workerId = workerData['_id'];
+class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
+  late AudioPlayer audioPlayer;
+  late String workerId;
+  late String userName;
+
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer = AudioPlayer();
 
     // Play notification sound
     audioPlayer.play(AssetSource('sounds/notification.mp3'));
 
     // Send request via socket service
+
+    workerId = widget.workerData['_id'];
+    userName = toBeginningOfSentenceCase('${widget.workerData['firstname']} ') +
+        toBeginningOfSentenceCase('${widget.workerData['lastname']}');
+
     RequestViewState.socketService.sendRequest(workerId);
+    _listenToAcceptedRequest();
+  }
+
+  void _listenToAcceptedRequest() {
+    RequestViewState.socketService.listenToAcceptedRequest((dynamic requestId) {
+      print('Worker has accepted the request: $requestId');
+      Navigator.popUntil(context, ModalRoute.withName(kNavbarRoute));
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    audioPlayer.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
 
     return PopScope(
       canPop: true,
@@ -45,7 +76,7 @@ class WorkerNotificationDialog extends StatelessWidget {
                 strokeWidth: 1,
                 ringColor: kBlack,
                 onComplete: () {
-                  RequestViewState.socketService.sendTimeout(workerId);
+                  RequestViewState.socketService.sendTimeout(this.workerId);
                   Navigator.pop(context);
                 },
               ),

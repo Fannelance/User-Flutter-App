@@ -57,11 +57,13 @@ class RequestViewState extends State<RequestView> {
   }
 
   void deleteWorkerById(String id) {
-    setState(() {
-      _workers.removeWhere((worker) => worker['_id'] == id);
-      print('Removed worker: $id');
-      _workersStreamController.add(_workers);
-    });
+    if (!_isDisposed) {
+      setState(() {
+        _workers.removeWhere((worker) => worker['_id'] == id);
+        print('Removed worker: $id');
+        _workersStreamController.add(_workers);
+      });
+    }
   }
 
   @override
