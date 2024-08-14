@@ -8,8 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
 class SignupService {
-  Future<void> signupRequest(BuildContext context) async {
+  Future getCurrentLocationApp() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
     Position position = await Geolocator.getCurrentPosition();
+    return position;
+  }
+
+  Future<void> signupRequest(BuildContext context) async {
+    Position position = await getCurrentLocationApp();
 
     try {
       await ApiRequest().post(

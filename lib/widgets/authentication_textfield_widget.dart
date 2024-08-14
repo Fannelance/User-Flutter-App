@@ -31,6 +31,7 @@ class AuthenticationTextFieldWidget extends StatelessWidget {
         enableSuggestions: autocorrect,
         autocorrect: autocorrect,
         keyboardType: inputType,
+        textInputAction: TextInputAction.next,
         cursorColor: kBlack,
         decoration: InputDecoration(
           suffixIcon: visibilityIcon,

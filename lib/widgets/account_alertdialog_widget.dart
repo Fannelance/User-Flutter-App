@@ -70,7 +70,9 @@ class DialogAccountWidget extends StatelessWidget {
             const SizedBox(width: 6),
             // Cancel
             ButtonDialogAccountWidget(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
           ],
         ),

@@ -5,11 +5,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class VerifyOtpService {
-  Future getCurrentLocationApp() async {
-    await Geolocator.checkPermission();
-    await Geolocator.requestPermission();
-  }
-
   Future<void> verifyOtpRequest({
     required String pinController,
     required BuildContext context,
@@ -21,12 +16,11 @@ class VerifyOtpService {
         'code': pinController,
       },
       token: await kSecureStorage.read(key: 'token'),
-      onPressedSuccess: () async {
+      onPressedSuccess: () {
         Navigator.pushReplacementNamed(
           context,
           nextPage,
         );
-        getCurrentLocationApp();
       },
     );
   }

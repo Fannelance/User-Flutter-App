@@ -3,6 +3,7 @@ import 'package:fannelance/helpers/api_request.dart';
 import 'package:fannelance/services/send_otp_service.dart';
 import 'package:fannelance/views/phone_number_view.dart';
 import 'package:flutter/material.dart';
+
 class CheckPhoneNumberService {
   static String phoneNumber = '';
 
@@ -25,7 +26,7 @@ class CheckPhoneNumberService {
         if (context.mounted) {
           Navigator.pushNamed(
             context,
-            kOtpSignUpRoute,
+            kSignupRoute,
           );
         }
       },
