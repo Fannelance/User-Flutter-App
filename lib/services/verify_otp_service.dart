@@ -1,9 +1,15 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/helpers/api_request.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class VerifyOtpService {
+  Future getCurrentLocationApp() async {
+    await Geolocator.checkPermission();
+    await Geolocator.requestPermission();
+  }
+
   Future<void> verifyOtpRequest({
     required String pinController,
     required BuildContext context,
@@ -15,11 +21,12 @@ class VerifyOtpService {
         'code': pinController,
       },
       token: await kSecureStorage.read(key: 'token'),
-      onPressedSuccess: () {
+      onPressedSuccess: () async {
         Navigator.pushReplacementNamed(
           context,
           nextPage,
         );
+        getCurrentLocationApp();
       },
     );
   }
@@ -29,7 +36,7 @@ class VerifyOtpService {
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token!);
     String phoneNumber =
         decodedToken.containsKey('phone') ? decodedToken['phone'] : '';
-        
+
     await ApiRequest().post(
       url: 'user/check-phone',
       data: {

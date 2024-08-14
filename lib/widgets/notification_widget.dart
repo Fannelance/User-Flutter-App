@@ -28,7 +28,7 @@ class NotificationWidgetState extends State<NotificationWidget> {
     });
   }
 
-    @override
+  @override
   void dispose() {
     _timer?.cancel();
     super.dispose();
@@ -43,6 +43,8 @@ class NotificationWidgetState extends State<NotificationWidget> {
     String distance =
         (widget.workerData!['distance'] / 1000).toStringAsFixed(2);
     String rate = widget.workerData!['rate'].toStringAsFixed(1);
+    String price = widget.workerData!['price'].toStringAsFixed(1);
+    print(price);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -89,15 +91,28 @@ class NotificationWidgetState extends State<NotificationWidget> {
                   fontFamily: kBold,
                 ),
               ),
-              subtitle: Row(
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Icon(
-                    size: 16,
-                    Icons.location_on,
-                    color: kGrey3,
+                  Row(
+                    children: [
+                      const Icon(
+                        size: 16,
+                        Icons.location_on,
+                        color: kGrey3,
+                      ),
+                      Text(
+                        '$distance km',
+                        style: TextStyle(
+                          fontSize: screenWidth / 32,
+                          fontFamily: kBold,
+                          color: kGrey3,
+                        ),
+                      ),
+                    ],
                   ),
                   Text(
-                    '$distance km',
+                    '$price EGP/Hour',
                     style: TextStyle(
                       fontSize: screenWidth / 32,
                       fontFamily: kBold,

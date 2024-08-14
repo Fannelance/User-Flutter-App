@@ -1,5 +1,6 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/services/signup_service.dart';
+import 'package:fannelance/views/change_password_view.dart';
 import 'package:fannelance/widgets/authentication_body_widget.dart';
 import 'package:fannelance/widgets/authentication_textfield_widget.dart';
 import 'package:fannelance/widgets/authentication_dropdown_widget.dart';
@@ -73,6 +74,10 @@ class SignupViewState extends State<SignupView> {
         buttonText: 'Sign up',
         buttonOnPressed: () async {
           await SignupService().signupRequest(context);
+          firstNameController.clear();
+          lastNameController.clear();
+          emailController.clear();
+          ChangePasswordviewState.passwordController.clear();
         },
       ),
     );
