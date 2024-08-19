@@ -1,16 +1,22 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:fannelance/core/constants.dart'; // Contains kBlack, kGrey3, kWhite, kBold
+import 'package:fannelance/core/constants.dart'; 
 import 'package:fannelance/core/routes.dart';
 import 'package:fannelance/views/request_view.dart';
+import 'package:fannelance/widgets/notification_accepted_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class WorkerNotificationDialog extends StatefulWidget {
+  final Function(int) onNavigate;
+
   final dynamic workerData;
 
-  const WorkerNotificationDialog({Key? key, required this.workerData})
-      : super(key: key);
+  const WorkerNotificationDialog({
+    Key? key,
+    required this.workerData,
+    required this.onNavigate,
+  }) : super(key: key);
 
   @override
   WorkerNotificationDialogState createState() =>
@@ -27,11 +33,7 @@ class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
     super.initState();
     audioPlayer = AudioPlayer();
 
-    // Play notification sound
     audioPlayer.play(AssetSource('sounds/notification.mp3'));
-
-    // Send request via socket service
-
     workerId = widget.workerData['_id'];
     userName = toBeginningOfSentenceCase('${widget.workerData['firstname']} ') +
         toBeginningOfSentenceCase('${widget.workerData['lastname']}');
@@ -41,10 +43,14 @@ class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
   }
 
   void _listenToAcceptedRequest() {
-    RequestViewState.socketService.listenToAcceptedRequest((dynamic requestId) {
-      print('Worker has accepted the request: $requestId');
-      Navigator.popUntil(context, ModalRoute.withName(kNavbarRoute));
-    });
+    RequestViewState.socketService.listenToAcceptedRequest(
+      (dynamic requestId) {
+        print('Worker has accepted the request: $requestId');
+        Navigator.popUntil(context, ModalRoute.withName(kNavbarRoute));
+        widget.onNavigate(2);
+        NotificationAcceptedWidget().showNotification(context);
+      },
+    );
   }
 
   @override
@@ -76,8 +82,7 @@ class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
                 strokeWidth: 1,
                 ringColor: kBlack,
                 onComplete: () {
-                  RequestViewState.socketService.sendTimeout(this.workerId);
-                  Navigator.pop(context);
+                  RequestViewState.socketService.sendTimeout(workerId);
                 },
               ),
               box_50,
@@ -115,16 +120,4 @@ class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
       ),
     );
   }
-}
-
-// Function to show the WorkerNotificationDialog
-void showWorkerNotificationDialog(BuildContext context, dynamic workerData) {
-  showDialog(
-    context: context,
-    barrierDismissible:
-        false, // Prevents dismissing the dialog by tapping outside
-    builder: (BuildContext context) {
-      return WorkerNotificationDialog(workerData: workerData);
-    },
-  );
 }

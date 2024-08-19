@@ -6,11 +6,14 @@ import 'package:fannelance/models/services_model.dart';
 import 'package:searchfield/searchfield.dart';
 
 class SearchWidget extends StatefulWidget {
+  final Function(int) onNavigate;
+
   final List<ServicesModel> servicesList;
 
   const SearchWidget({
     Key? key,
     required this.servicesList,
+    required this.onNavigate,
   }) : super(key: key);
 
   @override
@@ -59,6 +62,7 @@ class SearchWidgetState extends State<SearchWidget> {
                     child: ServiceSearchWidget(
                       obj: e,
                       addToSearchHistoryList: addToSearchHistoryList,
+                      onNavigate: widget.onNavigate,
                     ),
                   ),
                   IconButton(
@@ -95,6 +99,7 @@ class SearchWidgetState extends State<SearchWidget> {
                 child: ServiceSearchWidget(
                   obj: e,
                   addToSearchHistoryList: addToSearchHistoryList,
+                  onNavigate: widget.onNavigate,
                 ),
               ))
           .toList();

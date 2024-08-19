@@ -27,8 +27,15 @@ class NavBarState extends State<NavBarWidget> {
         onLinkPressed: (int index) {
           _onItemTapped(index);
         },
+        onNavigate: (int index) {
+          _onItemTapped(index);
+        },
       ),
-      const ServicesView(),
+      ServicesView(
+        onNavigate: (int index) {
+          _onItemTapped(index);
+        },
+      ),
       const ActivityView(),
       const AccountView(),
     ];

@@ -4,6 +4,8 @@ import 'package:fannelance/views/request_view.dart';
 import 'package:flutter/material.dart';
 
 class ServiceSearchWidget extends StatelessWidget {
+  final Function(int) onNavigate;
+
   final ServicesModel obj;
   final Function addToSearchHistoryList;
 
@@ -11,6 +13,7 @@ class ServiceSearchWidget extends StatelessWidget {
     super.key,
     required this.obj,
     required this.addToSearchHistoryList,
+    required this.onNavigate,
   });
 
   @override
@@ -24,6 +27,7 @@ class ServiceSearchWidget extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => RequestView(
                       jobTitle: obj.jobTitle,
+                      onNavigate: onNavigate,
                     )));
         addToSearchHistoryList(obj);
       },

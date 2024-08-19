@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/models/services_model.dart';
 import 'package:fannelance/widgets/app_bar_main_widget.dart';
@@ -9,11 +10,14 @@ import 'package:fannelance/widgets/home_services_list_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
+  final Function(int) onNavigate;
+
   final Function(int) onLinkPressed;
 
   const HomeView({
     Key? key,
     required this.onLinkPressed,
+    required this.onNavigate,
   }) : super(key: key);
 
   @override
@@ -65,6 +69,7 @@ class HomeViewState extends State<HomeView> {
                     // Search Frame
                     SearchWidget(
                       servicesList: snapshot.data,
+                      onNavigate: widget.onNavigate,
                     ),
                     box_20,
 
@@ -98,6 +103,7 @@ class HomeViewState extends State<HomeView> {
                     box_10,
                     ServicesListHomeWidget(
                       snapshotData: snapshotData,
+                      onNavigate: widget.onNavigate,
                     ),
                     box_30,
 
@@ -132,3 +138,4 @@ class HomeViewState extends State<HomeView> {
     );
   }
 }
+

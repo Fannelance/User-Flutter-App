@@ -1,14 +1,21 @@
 import 'dart:async';
+import 'package:fannelance/core/assets.dart';
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/widgets/worker_notificationdialog_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class NotificationWidget extends StatefulWidget {
+  final Function(int) onNavigate;
+
   final dynamic workerData;
   final void Function(String) selectedWorker;
-  const NotificationWidget(
-      {super.key, required this.workerData, required this.selectedWorker});
+  const NotificationWidget({
+    super.key,
+    required this.workerData,
+    required this.selectedWorker,
+    required this.onNavigate,
+  });
 
   @override
   NotificationWidgetState createState() => NotificationWidgetState();
@@ -60,17 +67,16 @@ class NotificationWidgetState extends State<NotificationWidget> {
                 MaterialPageRoute(
                   builder: (context) => WorkerNotificationDialog(
                     workerData: widget.workerData,
+                    onNavigate: widget.onNavigate,
                   ),
                 ),
               );
             },
-            splashColor: Colors.grey
-                .withOpacity(0.3), // Optional: Customize the splash color
-            highlightColor: Colors.grey
-                .withOpacity(0.1), // Optional: Customize the highlight color
+            splashColor: Colors.grey.withOpacity(0.3),
+            highlightColor: Colors.grey.withOpacity(0.1),
             borderRadius: BorderRadius.circular(8),
             child: ListTile(
-              leading: const CircleAvatar(
+              leading: CircleAvatar(
                 radius: 28,
                 backgroundColor: kBlack,
                 child: CircleAvatar(
@@ -78,9 +84,9 @@ class NotificationWidgetState extends State<NotificationWidget> {
                   backgroundColor: kWhite,
                   child: CircleAvatar(
                     radius: 24,
-                    backgroundImage: AssetImage(
-                      'assets/icons/worker_male.png',
-                    ),
+                    backgroundImage: widget.workerData!['gender'] == 'female'
+                        ? AssetsData.workerFemale
+                        : AssetsData.workerMale,
                   ),
                 ),
               ),

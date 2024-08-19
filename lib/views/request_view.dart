@@ -7,8 +7,13 @@ import 'package:fannelance/widgets/notification_widget.dart';
 import 'package:flutter/material.dart';
 
 class RequestView extends StatefulWidget {
+  final Function(int) onNavigate;
   final String jobTitle;
-  const RequestView({super.key, required this.jobTitle});
+  const RequestView({
+    super.key,
+    required this.jobTitle,
+    required this.onNavigate,
+  });
 
   @override
   RequestViewState createState() => RequestViewState();
@@ -34,19 +39,21 @@ class RequestViewState extends State<RequestView> {
   }
 
   _getAvailableWorkers() {
-    socketService.listenToAvailableWorkers(widget.jobTitle,
-        (List<dynamic> workers) {
-      if (!_isDisposed) {
-        setState(() {
-          for (var worker in workers) {
-            if (!_workers.contains(worker)) _workers.add(worker);
-          }
+    socketService.listenToAvailableWorkers(
+      widget.jobTitle,
+      (List<dynamic> workers) {
+        if (!_isDisposed) {
+          setState(() {
+            for (var worker in workers) {
+              if (!_workers.contains(worker)) _workers.add(worker);
+            }
 
-          _workersStreamController.add(_workers);
-        });
-      }
-      _listenToChosenWorker();
-    });
+            _workersStreamController.add(_workers);
+          });
+        }
+        _listenToChosenWorker();
+      },
+    );
   }
 
   _listenToChosenWorker() {
@@ -164,6 +171,7 @@ class RequestViewState extends State<RequestView> {
                           return NotificationWidget(
                             workerData: snapshot.data?[index],
                             selectedWorker: deleteWorkerById,
+                            onNavigate: widget.onNavigate,
                           );
                         },
                         separatorBuilder: (BuildContext context, int index) =>

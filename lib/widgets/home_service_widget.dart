@@ -4,7 +4,13 @@ import 'package:fannelance/views/request_view.dart';
 import 'package:flutter/material.dart';
 
 class ServiceHomeWidget extends StatelessWidget {
-  const ServiceHomeWidget({super.key, required this.servicesModel});
+  final Function(int) onNavigate;
+
+  const ServiceHomeWidget({
+    super.key,
+    required this.servicesModel,
+    required this.onNavigate,
+  });
   final ServicesModel servicesModel;
 
   @override
@@ -17,7 +23,10 @@ class ServiceHomeWidget extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => RequestView(jobTitle: jobTitle)))
+                builder: (context) => RequestView(
+                      jobTitle: jobTitle,
+                      onNavigate: onNavigate,
+                    )))
       },
       child: Column(
         children: [

@@ -5,7 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class ServicesWidget extends StatelessWidget {
-  const ServicesWidget({super.key, required this.obj});
+  final Function(int) onNavigate;
+
+  const ServicesWidget({
+    super.key,
+    required this.obj,
+    required this.onNavigate,
+  });
   final ServicesModel obj;
 
   @override
@@ -18,7 +24,10 @@ class ServicesWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RequestView(jobTitle: obj.jobTitle),
+            builder: (context) => RequestView(
+              jobTitle: obj.jobTitle,
+              onNavigate: onNavigate,
+            ),
           ),
         );
       },

@@ -5,7 +5,8 @@ import 'package:fannelance/widgets/service_widget.dart';
 import 'package:flutter/material.dart';
 
 class ServicesView extends StatefulWidget {
-  const ServicesView({Key? key}) : super(key: key);
+  final Function(int) onNavigate;
+  const ServicesView({Key? key, required this.onNavigate}) : super(key: key);
 
   @override
   ServicesViewState createState() => ServicesViewState();
@@ -31,7 +32,7 @@ class ServicesViewState extends State<ServicesView> {
         future: getServicesList(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return  const CircularIndicatorWidget();
+            return const CircularIndicatorWidget();
           }
 
           return ListView.builder(
@@ -40,6 +41,7 @@ class ServicesViewState extends State<ServicesView> {
             itemBuilder: (context, index) {
               return ServicesWidget(
                 obj: snapshot.data[index],
+                onNavigate: widget.onNavigate,
               );
             },
           );
