@@ -9,12 +9,15 @@ Welcome to the Fannelance App! This app is designed to help you quickly find and
 
 ## Running App
 
-<section id="screens">
-  <img src="screens/screen01.gif" alt="screen 01" width=150 height="300"/>
-  <img src="screens/screen02.gif" alt="screen 02" width=150 height="300"/>
-  <img src="screens/screen03.gif" alt="screen 03" width=150 height="300"/>
-  <img src="screens/screen04.gif" alt="screen 04" width=150 height="300"/>
-  <img src="screens/screen06.gif" alt="screen 06" width=150 height="300"/>
+<section>
+  <img src="https://github.com/user-attachments/assets/cbdb67f8-2336-4148-8ba3-4c252db000d2" width=180 height="360"/>
+  <img src="https://github.com/user-attachments/assets/d3b5efbc-1d21-412c-a63f-43c028831d87" width=180 height="360"/>
+  <img src="https://github.com/user-attachments/assets/6c1d5ee1-8a37-4690-9fb2-bb621b0318bc" width=180 height="360"/>
+</section>
+<section>
+  <img src="https://github.com/user-attachments/assets/9e8fca6c-358a-48d7-bc87-955a86b016b8" width=180 height="360"/>
+  <img src="https://github.com/user-attachments/assets/6fa1e6ea-1c79-4e47-8c39-ecb05b3a2c60" width=180 height="360"/>
+  <img src="https://github.com/user-attachments/assets/064b6bff-3665-4cfc-9ad8-45b7cccbff23" width=180 height="360"/>
 </section>
 
 ## Features
