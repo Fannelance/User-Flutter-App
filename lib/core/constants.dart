@@ -17,9 +17,11 @@ const kGreyE8 = Color(0xffE8E8E8);
 const kGreyC8 = Color(0xffC8C8C8);
 const kBlack = Colors.black;
 const kWhite = Colors.white;
-const kGreen = Colors.green;
-const kFocusedBorderColor = Color(0xff17AB90);
+const kGreen = Color(0xff5ABA93);
+const kPrimaryColor = Color(0xff1498B7);
 const kRedEc = Color(0xffEC2632);
+const kAmber = Colors.amber;
+
 
 /* ************************* Borders ************************* */
 
@@ -52,10 +54,6 @@ const kBorder16 = BorderRadius.all(Radius.circular(16));
 const kBorder12 = BorderRadius.all(Radius.circular(12));
 const kBorder10 = BorderRadius.all(Radius.circular(10));
 const kBorderV10 = BorderRadius.vertical(bottom: Radius.circular(10));
-
-/* ************************* Routes ************************* */
-
-
 
 /* ************************* Fonts ************************* */
 

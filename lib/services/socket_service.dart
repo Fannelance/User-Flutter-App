@@ -1,17 +1,17 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart' as io;
 
 class SocketService {
-  IO.Socket? socket;
+  io.Socket? socket;
   List<dynamic> availableWorkers = [];
 
   Future<void> connect() async {
     await dotenv.load(fileName: '.env');
     final String? serverURL = dotenv.env['serverURL'];
 
-    socket = IO.io(serverURL, <String, dynamic>{
+    socket = io.io(serverURL, <String, dynamic>{
       'transports': ['websocket'],
       'autoConnect': false,
     });
@@ -38,13 +38,17 @@ class SocketService {
   }
 
   Future<void> listenToAcceptedRequest(
-      Function(dynamic) onRequestAccepted) async {
+    Function(dynamic) onRequestAccepted,
+  ) async {
     String? token = await kSecureStorage.read(key: 'token');
     String userId = JwtDecoder.decode(token!)['_id'];
 
-    socket!.on('request-$userId', (requestId) {
-      onRequestAccepted(requestId);
-    });
+    socket!.on(
+      'request-$userId',
+      (requestId) {
+        onRequestAccepted(requestId);
+      },
+    );
   }
 
   void listenToChosenWorker(Function(dynamic) onWorkerChosen) {

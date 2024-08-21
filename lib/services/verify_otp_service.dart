@@ -1,7 +1,6 @@
 import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/helpers/api_request.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 class VerifyOtpService {

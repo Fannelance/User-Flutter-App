@@ -74,7 +74,7 @@ class OTPViewState extends State<OTPView> {
     );
 
     final focusedPinTheme = defaultPinTheme.copyBorderWith(
-      border: Border.all(color: kFocusedBorderColor),
+      border: Border.all(color: kPrimaryColor),
     );
 
     return Scaffold(
@@ -196,7 +196,7 @@ class OTPViewState extends State<OTPView> {
                           style: TextStyle(
                             fontSize: screenWidth / 24,
                             color:
-                                kFocusedBorderColor, // Use your desired color
+                                kPrimaryColor, 
                           ),
                         ),
                       )

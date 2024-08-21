@@ -24,8 +24,11 @@ class ShowDialogAccountWidgetState extends State<ShowDialogAccountWidget> {
       context: context,
       builder: (dialogContext) {
         return DialogAccountWidget(
-          icon: Image.asset('assets/icons/warn.png',
-              width: screenWidth / 4, height: screenWidth / 4),
+          icon: Icon(
+            Icons.warning_rounded,
+            color: kRedEc,
+            size: screenWidth / 7,
+          ),
           title: 'Are you sure you want to delete your account?',
           subTitle: 'Press "Delete" to remove it,'
               ' or "Cancel" if you want to keep your benefits.',
@@ -46,10 +49,10 @@ class ShowDialogAccountWidgetState extends State<ShowDialogAccountWidget> {
       context: context,
       builder: (context) {
         return DialogAccountWidget(
-          icon: Image.asset(
-            'assets/icons/bell.png',
-            width: screenWidth / 4,
-            height: screenWidth / 4,
+          icon: Icon(
+            Icons.warning_rounded,
+            color: kAmber,
+            size: screenWidth / 7,
           ),
           title: 'Are you sure you want to logout?',
           subTitle: 'Press "Logout" to logout,'

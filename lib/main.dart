@@ -32,7 +32,6 @@ class FannelanceUser extends StatelessWidget {
           (token == "" || JwtDecoder.isExpired(token!) || !isAuthorized)
               ? kPhoneNumberRoute
               : kNavbarRoute,
-      // initialRoute: kWaitingRoute,
 
       theme: ThemeData(
         scaffoldBackgroundColor: kWhite,

@@ -7,8 +7,7 @@ import 'package:fannelance/widgets/authentication_dropdown_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
-class SignupService {
-  Future getCurrentLocationApp() async {
+class SignupService {Future getCurrentLocationApp() async {
     await Geolocator.checkPermission();
     await Geolocator.requestPermission();
     Position position = await Geolocator.getCurrentPosition();

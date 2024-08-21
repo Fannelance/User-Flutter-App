@@ -3,14 +3,15 @@ import 'package:fannelance/widgets/account_buttondialog_widget.dart';
 import 'package:flutter/material.dart';
 
 class DialogAccountWidget extends StatelessWidget {
-  const DialogAccountWidget(
-      {super.key,
-      required this.title,
-      required this.subTitle,
-      required this.buttonText,
-      this.onPressed,
-      this.icon,
-      this.image});
+  const DialogAccountWidget({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.buttonText,
+    this.onPressed,
+    this.icon,
+    this.image,
+  });
   final Widget? icon;
   final Widget? image;
   final String title;
@@ -27,7 +28,7 @@ class DialogAccountWidget extends StatelessWidget {
       surfaceTintColor: kWhite,
       actionsOverflowButtonSpacing: 10,
       insetPadding: const EdgeInsets.symmetric(horizontal: 55),
-      iconPadding: const EdgeInsets.symmetric(vertical: 0),
+      iconPadding: const EdgeInsets.only(top: 12, bottom: 8),
       contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
 
       // Icon
