@@ -1,3 +1,4 @@
+import 'package:fannelance/core/assets.dart';
 import 'package:fannelance/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,8 +20,13 @@ class ActivityWidget extends StatelessWidget {
     DateTime localDate = createdAt.toLocal();
     String formattedDate = DateFormat('dd MMM HH:mm').format(localDate);
 
+    var textStyle = TextStyle(
+      fontSize: screenWidth / 26,
+      fontFamily: kSemiBold,
+      color: kGrey6,
+    );
     return ListTile(
-      leading: const CircleAvatar(
+      leading: CircleAvatar(
         radius: 28,
         backgroundColor: kBlack,
         child: CircleAvatar(
@@ -28,9 +34,9 @@ class ActivityWidget extends StatelessWidget {
           backgroundColor: kWhite,
           child: CircleAvatar(
             radius: 24,
-            backgroundImage: AssetImage(
-              'assets/icons/worker_male.png',
-            ),
+            backgroundImage: userData!['gender'] == 'female'
+                ? AssetsData.workerFemale
+                : AssetsData.workerMale,
           ),
         ),
       ),
@@ -42,9 +48,9 @@ class ActivityWidget extends StatelessWidget {
             children: [
               Text(
                 userName,
-                style: TextStyle(
-                  fontSize: screenWidth / 22,
-                  fontFamily: kBold,
+                style: textStyle.copyWith(
+                  color: kBlack,
+                  fontSize: screenWidth / 24,
                 ),
               ),
               Row(
@@ -59,32 +65,14 @@ class ActivityWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 2, top: 2),
                     child: Text(
                       rate,
-                      style: TextStyle(
-                        fontSize: screenWidth / 24,
-                        fontFamily: kBold,
-                        color: kGrey5,
-                      ),
+                      style: textStyle,
                     ),
                   ),
                 ],
               ),
-              // RatingBarIndicator(
-              //   rating: 3.5,
-              //   itemBuilder: (context, index) => const Icon(
-              //     Icons.star,
-              //     color: kAmber,
-              //   ),
-              //   itemCount: 1,
-              //   itemSize: screenWidth / 20,
-              //   direction: Axis.horizontal,
-              // ),
               Text(
                 jobTitle,
-                style: TextStyle(
-                  fontSize: screenWidth / 24,
-                  fontFamily: kBold,
-                  color: kGrey5,
-                ),
+                style: textStyle,
               ),
             ],
           ),
@@ -117,11 +105,7 @@ class ActivityWidget extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   formattedDate,
-                  style: TextStyle(
-                    fontSize: screenWidth / 24,
-                    fontFamily: kBold,
-                    color: kGrey5,
-                  ),
+                  style: textStyle,
                 ),
               ),
             ],

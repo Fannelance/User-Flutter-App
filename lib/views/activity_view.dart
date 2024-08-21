@@ -1,4 +1,5 @@
 import 'package:fannelance/services/activity_service.dart';
+import 'package:fannelance/widgets/activity_empty_widget.dart';
 import 'package:fannelance/widgets/activity_widget.dart';
 import 'package:fannelance/widgets/app_bar_main_widget.dart';
 import 'package:fannelance/widgets/circular_indicator_widget.dart';
@@ -11,19 +12,24 @@ class ActivityView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarMainWidget(title: 'Activity'),
-      body:FutureBuilder(
+      body: FutureBuilder(
         future: ActivityService().activityRequest(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) {
+          var snapData = snapshot.data?['data'];
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              snapshot.hasError) {
             return const CircularIndicatorWidget();
+          } else if (!snapshot.hasData ||
+              (snapData as List).isEmpty ||
+              snapshot.data == null) {
+            return const ActivityEmptyWidget();
           } else {
-            var activityData = snapshot.data?['data'];
+            final reversedRequests = snapData.reversed.toList();
             return ListView.separated(
-              itemCount: activityData.length,
+              itemCount: snapData.length,
               itemBuilder: (context, index) {
-                final dynamic user = activityData[index];
                 return ActivityWidget(
-                  userData: user,
+                  userData: reversedRequests[index],
                 );
               },
               separatorBuilder: (BuildContext context, int index) {
@@ -32,7 +38,7 @@ class ActivityView extends StatelessWidget {
             );
           }
         },
-      ), 
+      ),
     );
   }
 }
