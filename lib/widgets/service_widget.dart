@@ -6,13 +6,13 @@ import 'package:iconsax/iconsax.dart';
 
 class ServicesWidget extends StatelessWidget {
   final Function(int) onNavigate;
+  final ServicesModel obj;
 
   const ServicesWidget({
     super.key,
     required this.obj,
     required this.onNavigate,
   });
-  final ServicesModel obj;
 
   @override
   Widget build(BuildContext context) {

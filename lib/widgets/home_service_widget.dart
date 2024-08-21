@@ -5,28 +5,30 @@ import 'package:flutter/material.dart';
 
 class ServiceHomeWidget extends StatelessWidget {
   final Function(int) onNavigate;
+  final ServicesModel servicesModel;
 
   const ServiceHomeWidget({
     super.key,
     required this.servicesModel,
     required this.onNavigate,
   });
-  final ServicesModel servicesModel;
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final serviceName = servicesModel.serviceName;
-    final jobTitle = servicesModel.jobTitle;
+    
     return GestureDetector(
       onTap: () => {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => RequestView(
-                      jobTitle: jobTitle,
-                      onNavigate: onNavigate,
-                    )))
+          context,
+          MaterialPageRoute(
+            builder: (context) => RequestView(
+              jobTitle: servicesModel.jobTitle,
+              onNavigate: onNavigate,
+            ),
+          ),
+        ),
       },
       child: Column(
         children: [

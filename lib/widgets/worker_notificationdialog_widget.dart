@@ -1,6 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:fannelance/core/constants.dart'; 
+import 'package:fannelance/core/constants.dart';
 import 'package:fannelance/core/routes.dart';
 import 'package:fannelance/views/request_view.dart';
 import 'package:fannelance/widgets/notification_accepted_widget.dart';
@@ -9,14 +9,13 @@ import 'package:intl/intl.dart';
 
 class WorkerNotificationDialog extends StatefulWidget {
   final Function(int) onNavigate;
-
   final dynamic workerData;
 
   const WorkerNotificationDialog({
-    Key? key,
+    super.key,
     required this.workerData,
     required this.onNavigate,
-  }) : super(key: key);
+  });
 
   @override
   WorkerNotificationDialogState createState() =>
@@ -39,10 +38,14 @@ class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
         toBeginningOfSentenceCase('${widget.workerData['lastname']}');
 
     RequestViewState.socketService.sendRequest(workerId);
-    _listenToAcceptedRequest();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _listenToAcceptedRequest(context);
+      },
+    );
   }
 
-  void _listenToAcceptedRequest() {
+  void _listenToAcceptedRequest(BuildContext context) {
     RequestViewState.socketService.listenToAcceptedRequest(
       (dynamic requestId) {
         print('Worker has accepted the request: $requestId');
@@ -109,11 +112,8 @@ class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
                   ],
                 ),
               ),
-              const SizedBox(
-                  height:
-                      16.0), // Add some space between the image and the timer
-              const SizedBox(
-                  height: 16.0), // Add some space before the action button
+              const SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
             ],
           ),
         ),

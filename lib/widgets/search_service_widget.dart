@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class ServiceSearchWidget extends StatelessWidget {
   final Function(int) onNavigate;
-
   final ServicesModel obj;
   final Function addToSearchHistoryList;
 
@@ -23,12 +22,14 @@ class ServiceSearchWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => RequestView(
-                      jobTitle: obj.jobTitle,
-                      onNavigate: onNavigate,
-                    )));
+          context,
+          MaterialPageRoute(
+            builder: (context) => RequestView(
+              jobTitle: obj.jobTitle,
+              onNavigate: onNavigate,
+            ),
+          ),
+        );
         addToSearchHistoryList(obj);
       },
       child: Padding(

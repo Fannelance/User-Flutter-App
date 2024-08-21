@@ -7,7 +7,6 @@ import 'package:intl/intl.dart' show toBeginningOfSentenceCase;
 
 class NotificationWidget extends StatefulWidget {
   final Function(int) onNavigate;
-
   final dynamic workerData;
   final void Function(String) selectedWorker;
   const NotificationWidget({
@@ -51,7 +50,6 @@ class NotificationWidgetState extends State<NotificationWidget> {
         (widget.workerData!['distance'] / 1000).toStringAsFixed(2);
     String rate = widget.workerData!['rate'].toStringAsFixed(1);
     String price = widget.workerData!['price'].toStringAsFixed(1);
-    print(price);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -60,17 +58,7 @@ class NotificationWidgetState extends State<NotificationWidget> {
           color: Colors.transparent,
           child: InkWell(
             onTap: () {
-              print('ListTile tapped!');
-              widget.selectedWorker(widget.workerData!['_id']);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => WorkerNotificationDialog(
-                    workerData: widget.workerData,
-                    onNavigate: widget.onNavigate,
-                  ),
-                ),
-              );
+              onRequest(context);
             },
             splashColor: Colors.grey.withOpacity(0.3),
             highlightColor: Colors.grey.withOpacity(0.1),
@@ -149,6 +137,20 @@ class NotificationWidgetState extends State<NotificationWidget> {
           ),
         ),
       ],
+    );
+  }
+
+  void onRequest(BuildContext context) {
+    print('ListTile tapped!');
+    widget.selectedWorker(widget.workerData!['_id']);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WorkerNotificationDialog(
+          workerData: widget.workerData,
+          onNavigate: widget.onNavigate,
+        ),
+      ),
     );
   }
 }
