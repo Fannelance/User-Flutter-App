@@ -39,6 +39,8 @@ Welcome to the Fannelance App! This app is designed to help you quickly find and
 - Ensure you have [Flutter]("https://docs.flutter.dev/get-started/install") installed on your device.
 - A compatible Android device or emulator to run the app.
 
+### Setup .env
+
 ### Installation
 
 1. Clone the repository:
@@ -54,7 +56,15 @@ Welcome to the Fannelance App! This app is designed to help you quickly find and
   flutter pub get
 ```
 
-3. Run the app on your perferred device:
+3. Set up environment variables. Create a .env file in the root directory and add the following:
+
+```bash
+  secretKey = your_stripe_secret_key;
+  publishableKey = your_stripe_public_key;
+  serverURL = 'http://your_server_ip_address:3000';
+```
+
+4. Run the app on your perferred device:
 
 ```bash
   flutter run
