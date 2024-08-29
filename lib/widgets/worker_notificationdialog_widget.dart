@@ -44,6 +44,15 @@ class WorkerNotificationDialogState extends State<WorkerNotificationDialog> {
     RequestViewState.socketService.listenToAcceptedRequest((dynamic requestId) {
       print('Worker has accepted the request: $requestId');
       Navigator.popUntil(context, ModalRoute.withName(kNavbarRoute));
+      Future.delayed(const Duration(milliseconds: 100), () {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: kGreen,
+            content: Text('Request accepted successfully!'),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      });
     });
   }
 

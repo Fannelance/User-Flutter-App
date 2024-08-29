@@ -37,56 +37,58 @@ class ActivityWidget extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                userName,
-                style: TextStyle(
-                  fontSize: screenWidth / 22,
-                  fontFamily: kBold,
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                    size: screenWidth / 20,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userName,
+                  style: TextStyle(
+                    fontSize: screenWidth / 22,
+                    fontFamily: kBold,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 2, top: 2),
-                    child: Text(
-                      rate,
-                      style: TextStyle(
-                        fontSize: screenWidth / 24,
-                        fontFamily: kBold,
-                        color: kGrey5,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                      size: screenWidth / 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 2, top: 2),
+                      child: Text(
+                        rate,
+                        style: TextStyle(
+                          fontSize: screenWidth / 24,
+                          fontFamily: kBold,
+                          color: kGrey5,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              // RatingBarIndicator(
-              //   rating: 3.5,
-              //   itemBuilder: (context, index) => const Icon(
-              //     Icons.star,
-              //     color: kAmber,
-              //   ),
-              //   itemCount: 1,
-              //   itemSize: screenWidth / 20,
-              //   direction: Axis.horizontal,
-              // ),
-              Text(
-                jobTitle,
-                style: TextStyle(
-                  fontSize: screenWidth / 24,
-                  fontFamily: kBold,
-                  color: kGrey5,
+                  ],
                 ),
-              ),
-            ],
+                // RatingBarIndicator(
+                //   rating: 3.5,
+                //   itemBuilder: (context, index) => const Icon(
+                //     Icons.star,
+                //     color: kAmber,
+                //   ),
+                //   itemCount: 1,
+                //   itemSize: screenWidth / 20,
+                //   direction: Axis.horizontal,
+                // ),
+                Text(
+                  jobTitle,
+                  style: TextStyle(
+                    fontSize: screenWidth / 24,
+                    fontFamily: kBold,
+                    color: kGrey5,
+                  ),
+                ),
+              ],
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,

@@ -14,7 +14,9 @@ Welcome to the Fannelance App! This app is designed to help you quickly find and
   <img src="screens/screen02.gif" alt="screen 02" width=150 height="300"/>
   <img src="screens/screen03.gif" alt="screen 03" width=150 height="300"/>
   <img src="screens/screen04.gif" alt="screen 04" width=150 height="300"/>
+  <img src="screens/screen05.gif" alt="screen 05" width=150 height="300"/>
   <img src="screens/screen06.gif" alt="screen 06" width=150 height="300"/>
+  <img src="screens/screen07.gif" alt="screen 07" width=150 height="300"/>
 </section>
 
 ## Features
