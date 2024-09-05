@@ -39,8 +39,6 @@ Welcome to the Fannelance App! This app is designed to help you quickly find and
 - Ensure you have [Flutter]("https://docs.flutter.dev/get-started/install") installed on your device.
 - A compatible Android device or emulator to run the app.
 
-### Setup .env
-
 ### Installation
 
 1. Clone the repository:
